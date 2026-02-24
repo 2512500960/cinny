@@ -1,4 +1,5 @@
 import React, { forwardRef, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Dialog, Header, config, Box, Text, Button, Spinner, color } from 'folds';
 import { AsyncStatus, useAsyncCallback } from '../hooks/useAsyncCallback';
 import { logoutClient } from '../../client/initMatrix';
@@ -32,6 +33,8 @@ export const LogoutDialog = forwardRef<HTMLDivElement, LogoutDialogProps>(
 
     const ongoingLogout = logoutState.status === AsyncStatus.Loading;
 
+    const { t } = useTranslation();
+
     return (
       <Dialog variant="Surface" ref={ref}>
         <Header
@@ -43,7 +46,7 @@ export const LogoutDialog = forwardRef<HTMLDivElement, LogoutDialogProps>(
           size="500"
         >
           <Box grow="Yes">
-            <Text size="H4">Logout</Text>
+            <Text size="H4">{t('Pages.LogoutDialog.title')}</Text>
           </Box>
         </Header>
         <Box style={{ padding: config.space.S400 }} direction="Column" gap="400">
@@ -52,21 +55,21 @@ export const LogoutDialog = forwardRef<HTMLDivElement, LogoutDialogProps>(
               verificationStatus === VerificationStatus.Unverified && (
                 <InfoCard
                   variant="Critical"
-                  title="Unverified Device"
-                  description="Verify your device before logging out to save your encrypted messages."
+                  title={t('Pages.LogoutDialog.unverified_device_title')}
+                  description={t('Pages.LogoutDialog.unverified_device_desc')}
                 />
               )
             ) : (
               <InfoCard
                 variant="Critical"
-                title="Alert"
-                description="Enable device verification or export your encrypted data from settings to avoid losing access to your messages."
+                title={t('Pages.LogoutDialog.alert_title')}
+                description={t('Pages.LogoutDialog.alert_desc')}
               />
             ))}
-          <Text priority="400">You’re about to log out. Are you sure?</Text>
+          <Text priority="400">{t('Pages.LogoutDialog.confirm')}</Text>
           {logoutState.status === AsyncStatus.Error && (
             <Text style={{ color: color.Critical.Main }} size="T300">
-              Failed to logout! {logoutState.error.message}
+              {t('Pages.LogoutDialog.failed_logout_prefix')} {logoutState.error.message}
             </Text>
           )}
           <Box direction="Column" gap="200">
@@ -76,10 +79,10 @@ export const LogoutDialog = forwardRef<HTMLDivElement, LogoutDialogProps>(
               disabled={ongoingLogout}
               before={ongoingLogout && <Spinner variant="Critical" fill="Solid" size="200" />}
             >
-              <Text size="B400">Logout</Text>
+              <Text size="B400">{t('Pages.LogoutDialog.logout')}</Text>
             </Button>
             <Button variant="Secondary" fill="Soft" onClick={handleClose} disabled={ongoingLogout}>
-              <Text size="B400">Cancel</Text>
+              <Text size="B400">{t('Common.cancel')}</Text>
             </Button>
           </Box>
         </Box>

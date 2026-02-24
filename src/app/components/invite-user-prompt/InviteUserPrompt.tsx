@@ -32,6 +32,7 @@ import {
 import { Room } from 'matrix-js-sdk';
 import { isKeyHotkey } from 'is-hotkey';
 import FocusTrap from 'focus-trap-react';
+import { useTranslation } from 'react-i18next';
 import { stopPropagation } from '../../utils/keyboard';
 import { useDirectUsers } from '../../hooks/useDirectUsers';
 import { getMxIdLocalPart, getMxIdServer, isUserId } from '../../utils/matrix';
@@ -58,6 +59,7 @@ type InviteUserProps = {
 export function InviteUserPrompt({ room, requestClose }: InviteUserProps) {
   const mx = useMatrixClient();
   const alive = useAlive();
+  const { t } = useTranslation();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const directUsers = useDirectUsers();
@@ -169,7 +171,7 @@ export function InviteUserPrompt({ room, requestClose }: InviteUserProps) {
               >
                 <Box grow="Yes">
                   <Text size="H4" truncate>
-                    Invite
+                    {t('Pages.InviteUser.title')}
                   </Text>
                 </Box>
                 <Box shrink="No">
@@ -187,14 +189,14 @@ export function InviteUserPrompt({ room, requestClose }: InviteUserProps) {
                 gap="400"
               >
                 <Box direction="Column" gap="100">
-                  <Text size="L400">User ID</Text>
+                  <Text size="L400">{t('Pages.InviteUser.user_id_label')}</Text>
                   <div>
                     <Input
                       size="500"
                       ref={inputRef}
                       onChange={handleSearchChange}
                       onKeyDown={handleKeyDown}
-                      placeholder="@username:server"
+                      placeholder={t('Pages.InviteUser.user_id_placeholder')}
                       name="userIdInput"
                       variant="Background"
                       disabled={inviting}
@@ -260,7 +262,7 @@ export function InviteUserPrompt({ room, requestClose }: InviteUserProps) {
                   </div>
                 </Box>
                 <Box direction="Column" gap="100">
-                  <Text size="L400">Reason (Optional)</Text>
+                  <Text size="L400">{t('Pages.InviteUser.reason_optional')}</Text>
                   <TextArea
                     size="500"
                     name="reasonInput"
@@ -279,7 +281,7 @@ export function InviteUserPrompt({ room, requestClose }: InviteUserProps) {
                   disabled={!validUserId || inviting}
                   before={inviting && <Spinner size="200" variant="Primary" fill="Solid" />}
                 >
-                  <Text size="B400">Invite</Text>
+                  <Text size="B400">{t('Pages.InviteUser.invite')}</Text>
                 </Button>
               </Box>
             </Box>

@@ -1,4 +1,5 @@
 import { IconName, IconSrc } from 'folds';
+import i18next from 'i18next';
 
 import {
   EventTimeline,
@@ -332,7 +333,7 @@ export const parseReplyFormattedBody = (
 ): string => {
   const replyToLink = `<a href="https://matrix.to/#/${encodeURIComponent(
     roomId
-  )}/${encodeURIComponent(eventId)}">In reply to</a>`;
+  )}/${encodeURIComponent(eventId)}">${i18next.t('Pages.Room.in_reply_to')}</a>`;
   const userLink = `<a href="https://matrix.to/#/${encodeURIComponent(userId)}">${userId}</a>`;
 
   return `<mx-reply><blockquote>${replyToLink}${userLink}<br />${formattedBody}</blockquote></mx-reply>`;
@@ -350,9 +351,9 @@ export const getMemberSearchStr = (
   query: string,
   mxIdToName: (mxId: string) => string
 ): string[] => [
-  member.rawDisplayName === member.userId ? mxIdToName(member.userId) : member.rawDisplayName,
-  query.startsWith('@') || query.indexOf(':') > -1 ? member.userId : mxIdToName(member.userId),
-];
+    member.rawDisplayName === member.userId ? mxIdToName(member.userId) : member.rawDisplayName,
+    query.startsWith('@') || query.indexOf(':') > -1 ? member.userId : mxIdToName(member.userId),
+  ];
 
 export const getMemberAvatarMxc = (room: Room, userId: string): string | undefined => {
   const member = room.getMember(userId);

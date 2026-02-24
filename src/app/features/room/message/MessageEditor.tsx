@@ -19,6 +19,7 @@ import {
   as,
   config,
 } from 'folds';
+import { useTranslation } from 'react-i18next';
 import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { IContent, IMentions, MatrixEvent, RelationType, Room } from 'matrix-js-sdk';
@@ -281,10 +282,10 @@ export const MessageEditor = as<'div', MessageEditorProps>(
                       ) : undefined
                     }
                   >
-                    <Text size="B300">Save</Text>
+                    <Text size="B300">{t('Pages.MessageEditor.save')}</Text>
                   </Chip>
                   <Chip onClick={onCancel} variant="SurfaceVariant" radii="Pill">
-                    <Text size="B300">Cancel</Text>
+                    <Text size="B300">{t('Common.cancel')}</Text>
                   </Chip>
                 </Box>
                 <Box gap="Inherit">

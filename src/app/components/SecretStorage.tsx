@@ -1,4 +1,5 @@
 import React, { FormEventHandler, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Text, Button, Spinner, color } from 'folds';
 import { decodeRecoveryKey, deriveRecoveryKeyFromPassphrase } from 'matrix-js-sdk/lib/crypto-api';
 import { PasswordInput } from './password-input';
@@ -24,6 +25,7 @@ export function SecretStorageRecoveryPassphrase({
 }: SecretStorageRecoveryPassphraseProps) {
   const mx = useMatrixClient();
   const alive = useAlive();
+  const { t } = useTranslation();
 
   const [driveKeyState, submitPassphrase] = useAsyncCallback<
     Uint8Array,
@@ -42,7 +44,7 @@ export function SecretStorageRecoveryPassphrase({
         const match = await mx.secretStorage.checkKey(decodedRecoveryKey, keyContent as any);
 
         if (!match) {
-          throw new Error('Invalid recovery passphrase.');
+          throw new Error(t('Pages.SecretStorage.invalid_recovery_passphrase'));
         }
 
         return decodedRecoveryKey;
@@ -77,7 +79,7 @@ export function SecretStorageRecoveryPassphrase({
     <Box as="form" onSubmit={handleSubmit} direction="Column" gap="100">
       <Box gap="200" alignItems="End">
         <Box grow="Yes" direction="Column" gap="100">
-          <Text size="L400">Recovery Passphrase</Text>
+          <Text size="L400">{t('Pages.SecretStorage.recovery_passphrase')}</Text>
           <PasswordInput
             name="recoveryPassphraseInput"
             size="400"
@@ -99,7 +101,7 @@ export function SecretStorageRecoveryPassphrase({
             before={loading && <Spinner size="200" variant="Success" fill="Solid" />}
           >
             <Text as="span" size="B400">
-              Verify
+              {t('Pages.SecretStorage.verify')}
             </Text>
           </Button>
         </Box>
@@ -125,6 +127,7 @@ export function SecretStorageRecoveryKey({
 }: SecretStorageRecoveryKeyProps) {
   const mx = useMatrixClient();
   const alive = useAlive();
+  const { t } = useTranslation();
 
   const [driveKeyState, submitRecoveryKey] = useAsyncCallback<Uint8Array, Error, [string]>(
     useCallback(
@@ -134,7 +137,7 @@ export function SecretStorageRecoveryKey({
         const match = await mx.secretStorage.checkKey(decodedRecoveryKey, keyContent as any);
 
         if (!match) {
-          throw new Error('Invalid recovery key.');
+          throw new Error(t('Pages.SecretStorage.invalid_recovery_key'));
         }
 
         return decodedRecoveryKey;
@@ -167,7 +170,7 @@ export function SecretStorageRecoveryKey({
     <Box as="form" onSubmit={handleSubmit} direction="Column" gap="100">
       <Box gap="200" alignItems="End">
         <Box grow="Yes" direction="Column" gap="100">
-          <Text size="L400">Recovery Key</Text>
+          <Text size="L400">{t('Pages.SecretStorage.recovery_key')}</Text>
           <PasswordInput
             name="recoveryKeyInput"
             size="400"
@@ -189,7 +192,7 @@ export function SecretStorageRecoveryKey({
             before={loading && <Spinner size="200" variant="Success" fill="Solid" />}
           >
             <Text as="span" size="B400">
-              Verify
+              {t('Pages.SecretStorage.verify')}
             </Text>
           </Button>
         </Box>

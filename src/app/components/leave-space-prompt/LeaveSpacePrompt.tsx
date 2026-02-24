@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import FocusTrap from 'focus-trap-react';
 import {
   Dialog,
@@ -44,6 +45,7 @@ export function LeaveSpacePrompt({ roomId, onDone, onCancel }: LeaveSpacePromptP
       onDone();
     }
   }, [leaveState, onDone]);
+  const { t } = useTranslation();
 
   return (
     <Overlay open backdrop={<OverlayBackdrop />}>
@@ -66,7 +68,7 @@ export function LeaveSpacePrompt({ roomId, onDone, onCancel }: LeaveSpacePromptP
               size="500"
             >
               <Box grow="Yes">
-                <Text size="H4">Leave Space</Text>
+                <Text size="H4">{t('Pages.LeaveSpace.title')}</Text>
               </Box>
               <IconButton size="300" onClick={onCancel} radii="300">
                 <Icon src={Icons.Cross} />
@@ -74,10 +76,10 @@ export function LeaveSpacePrompt({ roomId, onDone, onCancel }: LeaveSpacePromptP
             </Header>
             <Box style={{ padding: config.space.S400 }} direction="Column" gap="400">
               <Box direction="Column" gap="200">
-                <Text priority="400">Are you sure you want to leave this space?</Text>
+                <Text priority="400">{t('Pages.LeaveSpace.confirm')}</Text>
                 {leaveState.status === AsyncStatus.Error && (
                   <Text style={{ color: color.Critical.Main }} size="T300">
-                    Failed to leave space! {leaveState.error.message}
+                    {t('Pages.LeaveSpace.failed_leave_prefix')} {leaveState.error.message}
                   </Text>
                 )}
               </Box>
@@ -96,7 +98,9 @@ export function LeaveSpacePrompt({ roomId, onDone, onCancel }: LeaveSpacePromptP
                 }
               >
                 <Text size="B400">
-                  {leaveState.status === AsyncStatus.Loading ? 'Leaving...' : 'Leave'}
+                  {leaveState.status === AsyncStatus.Loading
+                    ? t('Pages.LeaveSpace.leaving')
+                    : t('Pages.LeaveSpace.leave')}
                 </Text>
               </Button>
             </Box>

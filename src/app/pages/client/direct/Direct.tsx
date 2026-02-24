@@ -15,6 +15,7 @@ import {
   config,
   toRem,
 } from 'folds';
+import { useTranslation } from 'react-i18next';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import FocusTrap from 'focus-trap-react';
 import { useNavigate } from 'react-router-dom';
@@ -57,6 +58,7 @@ type DirectMenuProps = {
 };
 const DirectMenu = forwardRef<HTMLDivElement, DirectMenuProps>(({ requestClose }, ref) => {
   const mx = useMatrixClient();
+  const { t } = useTranslation();
   const [hideActivity] = useSetting(settingsAtom, 'hideActivity');
   const orphanRooms = useDirectRooms();
   const unread = useRoomsUnread(orphanRooms, roomToUnreadAtom);
@@ -78,7 +80,7 @@ const DirectMenu = forwardRef<HTMLDivElement, DirectMenuProps>(({ requestClose }
           aria-disabled={!unread}
         >
           <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-            Mark as Read
+            {t('Pages.RoomViewHeader.mark_as_read')}
           </Text>
         </MenuItem>
       </Box>
@@ -88,6 +90,7 @@ const DirectMenu = forwardRef<HTMLDivElement, DirectMenuProps>(({ requestClose }
 
 function DirectHeader() {
   const [menuAnchor, setMenuAnchor] = useState<RectCords>();
+  const { t } = useTranslation();
 
   const handleOpenMenu: MouseEventHandler<HTMLButtonElement> = (evt) => {
     const cords = evt.currentTarget.getBoundingClientRect();
@@ -103,7 +106,7 @@ function DirectHeader() {
         <Box alignItems="Center" grow="Yes" gap="300">
           <Box grow="Yes">
             <Text size="H4" truncate>
-              Direct Messages
+              {t('Pages.Direct.title')}
             </Text>
           </Box>
           <Box>
@@ -140,6 +143,7 @@ function DirectHeader() {
 
 function DirectEmpty() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <NavEmptyCenter>
@@ -147,18 +151,18 @@ function DirectEmpty() {
         icon={<Icon size="600" src={Icons.Mention} />}
         title={
           <Text size="H5" align="Center">
-            No Direct Messages
+            {t('Pages.Direct.no_directs')}
           </Text>
         }
         content={
           <Text size="T300" align="Center">
-            You do not have any direct messages yet.
+            {t('Pages.Direct.no_directs_desc')}
           </Text>
         }
         options={
           <Button variant="Secondary" size="300" onClick={() => navigate(getDirectCreatePath())}>
             <Text size="B300" truncate>
-              Direct Message
+              {t('Pages.Direct.direct_message')}
             </Text>
           </Button>
         }
@@ -220,7 +224,7 @@ export function Direct() {
                       </Avatar>
                       <Box as="span" grow="Yes">
                         <Text as="span" size="Inherit" truncate>
-                          Create Chat
+                          {t('Pages.Direct.create_chat')}
                         </Text>
                       </Box>
                     </Box>
@@ -235,7 +239,7 @@ export function Direct() {
                   data-category-id={DEFAULT_CATEGORY_ID}
                   onClick={handleCategoryClick}
                 >
-                  Chats
+                  {t('Pages.Direct.chats')}
                 </RoomNavCategoryButton>
               </NavCategoryHeader>
               <div

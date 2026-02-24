@@ -6,6 +6,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Chip,
@@ -46,6 +47,7 @@ type OrderButtonProps = {
 };
 function OrderButton({ order, onChange }: OrderButtonProps) {
   const [menuAnchor, setMenuAnchor] = useState<RectCords>();
+  const { t } = useTranslation();
   const rankOrder = order === SearchOrderBy.Rank;
 
   const setOrder = (o?: string) => {
@@ -72,7 +74,7 @@ function OrderButton({ order, onChange }: OrderButtonProps) {
         >
           <Menu variant="Surface">
             <Header size="300" variant="Surface" style={{ padding: `0 ${config.space.S300}` }}>
-              <Text size="L400">Sort by</Text>
+              <Text size="L400">{t('Pages.SearchFilters.sort_by')}</Text>
             </Header>
             <Line variant="Surface" size="300" />
             <div style={{ padding: config.space.S100 }}>
@@ -83,7 +85,7 @@ function OrderButton({ order, onChange }: OrderButtonProps) {
                 radii="300"
                 aria-pressed={!rankOrder}
               >
-                <Text size="T300">Recent</Text>
+                <Text size="T300">{t('Pages.SearchFilters.recent')}</Text>
               </MenuItem>
               <MenuItem
                 onClick={() => setOrder(SearchOrderBy.Rank)}
@@ -92,7 +94,7 @@ function OrderButton({ order, onChange }: OrderButtonProps) {
                 radii="300"
                 aria-pressed={rankOrder}
               >
-                <Text size="T300">Relevance</Text>
+                <Text size="T300">{t('Pages.SearchFilters.relevance')}</Text>
               </MenuItem>
             </div>
           </Menu>
@@ -105,7 +107,11 @@ function OrderButton({ order, onChange }: OrderButtonProps) {
         after={<Icon size="50" src={Icons.Sort} />}
         onClick={handleOpenMenu}
       >
-        {rankOrder ? <Text size="T200">Relevance</Text> : <Text size="T200">Recent</Text>}
+        {rankOrder ? (
+          <Text size="T200">{t('Pages.SearchFilters.relevance')}</Text>
+        ) : (
+          <Text size="T200">{t('Pages.SearchFilters.recent')}</Text>
+        )}
       </Chip>
     </PopOut>
   );
@@ -215,7 +221,7 @@ function SelectRoomButton({ roomList, selectedRooms, onChange }: SelectRoomButto
                 gap="100"
                 style={{ padding: config.space.S200, paddingBottom: 0 }}
               >
-                <Text size="L400">Search</Text>
+                <Text size="L400">{t('Pages.SearchFilters.search')}</Text>
                 <Input
                   onChange={handleSearchChange}
                   size="300"
@@ -238,11 +244,15 @@ function SelectRoomButton({ roomList, selectedRooms, onChange }: SelectRoomButto
                     paddingRight: 0,
                   }}
                 >
-                  {!searchResult && <Text size="L400">Rooms</Text>}
-                  {searchResult && <Text size="L400">{`Rooms for "${searchResult.query}"`}</Text>}
+                  {!searchResult && <Text size="L400">{t('Pages.SearchFilters.rooms')}</Text>}
+                  {searchResult && (
+                    <Text size="L400">
+                      {t('Pages.SearchFilters.rooms_for', { query: searchResult.query })}
+                    </Text>
+                  )}
                   {searchResult && searchResult.items.length === 0 && (
                     <Text style={{ padding: config.space.S400 }} size="T300" align="Center">
-                      No match found!
+                      {t('Pages.SearchFilters.no_match_found')}
                     </Text>
                   )}
                   <div
@@ -294,9 +304,11 @@ function SelectRoomButton({ roomList, selectedRooms, onChange }: SelectRoomButto
               <Box shrink="No" direction="Column" gap="100" style={{ padding: config.space.S200 }}>
                 <Button size="300" variant="Secondary" radii="300" onClick={handleSave}>
                   {localSelected && localSelected.length > 0 ? (
-                    <Text size="B300">Save ({localSelected.length})</Text>
+                    <Text size="B300">
+                      {t('Pages.SearchFilters.save_with_count', { count: localSelected.length })}
+                    </Text>
                   ) : (
-                    <Text size="B300">Save</Text>
+                    <Text size="B300">{t('Pages.SearchFilters.save')}</Text>
                   )}
                 </Button>
                 <Button
@@ -307,7 +319,7 @@ function SelectRoomButton({ roomList, selectedRooms, onChange }: SelectRoomButto
                   onClick={handleDeselectAll}
                   disabled={!localSelected || localSelected.length === 0}
                 >
-                  <Text size="B300">Deselect All</Text>
+                  <Text size="B300">{t('Pages.SearchFilters.deselect_all')}</Text>
                 </Button>
               </Box>
             </Box>
@@ -353,7 +365,7 @@ export function SearchFilters({
 
   return (
     <Box direction="Column" gap="100">
-      <Text size="L400">Filter</Text>
+      <Text size="L400">{t('Pages.SearchFilters.filter')}</Text>
       <Box gap="200" wrap="Wrap">
         <Chip
           variant={!global ? 'Success' : 'Surface'}
@@ -372,7 +384,7 @@ export function SearchFilters({
             outlined
             onClick={() => onGlobalChange(true)}
           >
-            <Text size="T200">Global</Text>
+            <Text size="T200">{t('Pages.SearchFilters.global')}</Text>
           </Chip>
         )}
         <Line

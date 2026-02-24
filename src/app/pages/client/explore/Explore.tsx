@@ -1,4 +1,5 @@
 import React, { FormEventHandler, useCallback, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import FocusTrap from 'focus-trap-react';
 import {
@@ -41,6 +42,7 @@ import { stopPropagation } from '../../../utils/keyboard';
 export function AddServer() {
   const mx = useMatrixClient();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [dialog, setDialog] = useState(false);
   const serverInputRef = useRef<HTMLInputElement>(null);
 
@@ -94,7 +96,7 @@ export function AddServer() {
                 size="500"
               >
                 <Box grow="Yes">
-                  <Text size="H4">Add Server</Text>
+                  <Text size="H4">{t('Pages.Explore.add_server')}</Text>
                 </Box>
                 <IconButton size="300" onClick={() => setDialog(false)} radii="300">
                   <Icon src={Icons.Cross} />
@@ -107,13 +109,13 @@ export function AddServer() {
                 direction="Column"
                 gap="400"
               >
-                <Text priority="400">Add server name to explore public communities.</Text>
+                <Text priority="400">{t('Pages.Explore.add_server_desc')}</Text>
                 <Box direction="Column" gap="100">
-                  <Text size="L400">Server Name</Text>
+                  <Text size="L400">{t('Pages.Explore.server_name')}</Text>
                   <Input ref={serverInputRef} name="serverInput" variant="Background" required />
                   {exploreState.status === AsyncStatus.Error && (
                     <Text style={{ color: color.Critical.Main }} size="T300">
-                      Failed to load public rooms. Please try again.
+                      {t('Pages.Explore.failed_load_public_rooms')}
                     </Text>
                   )}
                 </Box>
@@ -128,11 +130,11 @@ export function AddServer() {
                     }
                     aria-disabled={exploreState.status === AsyncStatus.Loading}
                   >
-                    <Text size="B400">Save</Text>
+                    <Text size="B400">{t('Common.save')}</Text>
                   </Button> */}
 
                   <Button type="submit" onClick={handleView} variant="Secondary" fill="Soft">
-                    <Text size="B400">View</Text>
+                    <Text size="B400">{t('Pages.Explore.view')}</Text>
                   </Button>
                 </Box>
               </Box>
@@ -148,7 +150,7 @@ export function AddServer() {
         onClick={() => setDialog(true)}
       >
         <Text size="B300" truncate>
-          Add Server
+          {t('Pages.Explore.add_server')}
         </Text>
       </Button>
     </>
@@ -156,6 +158,7 @@ export function AddServer() {
 }
 
 export function Explore() {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   useNavToActivePathMapper('explore');
   const userId = mx.getUserId();
@@ -173,7 +176,7 @@ export function Explore() {
         <Box grow="Yes" gap="300">
           <Box grow="Yes">
             <Text size="H4" truncate>
-              Explore Community
+              {t('Pages.Explore.title')}
             </Text>
           </Box>
         </Box>
@@ -191,7 +194,7 @@ export function Explore() {
                     </Avatar>
                     <Box as="span" grow="Yes">
                       <Text as="span" size="Inherit" truncate>
-                        Featured
+                        {t('Pages.Explore.featured')}
                       </Text>
                     </Box>
                   </Box>
@@ -229,7 +232,7 @@ export function Explore() {
             <NavCategory>
               <NavCategoryHeader>
                 <Text size="O400" style={{ paddingLeft: config.space.S200 }}>
-                  Servers
+                  {t('Pages.Explore.servers')}
                 </Text>
               </NavCategoryHeader>
               {servers.map((server) => (

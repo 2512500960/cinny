@@ -1,4 +1,5 @@
 import React, { FormEventHandler, useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -37,8 +38,8 @@ type FormData = {
 
 function ResetPasswordComplete({ email }: { email?: string }) {
   const server = useAuthServer();
-
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleClick = () => {
     const path = getLoginPath(server);
@@ -55,12 +56,10 @@ function ResetPasswordComplete({ email }: { email?: string }) {
         <FocusTrap>
           <Dialog>
             <Box style={{ padding: config.space.S400 }} direction="Column" gap="400">
-              <Text>
-                Password has been reset successfully. Please login with your new password.
-              </Text>
+              <Text>{t('Pages.ResetPassword.reset_success')}</Text>
               <Button variant="Primary" onClick={handleClick}>
                 <Text size="B400" as="span">
-                  Login
+                  {t('Pages.ResetPassword.login')}
                 </Text>
               </Button>
             </Box>
@@ -82,6 +81,7 @@ export function PasswordResetForm({ defaultEmail }: PasswordResetFormProps) {
   const mx = useMemo(() => createClient({ baseUrl }), [baseUrl]);
 
   const [formData, setFormData] = useState<FormData>();
+  const { t } = useTranslation();
 
   const [passwordEmailState, passwordEmail] = usePasswordEmail(mx);
 
@@ -167,11 +167,12 @@ export function PasswordResetForm({ defaultEmail }: PasswordResetFormProps) {
   return (
     <Box as="form" onSubmit={handleSubmit} direction="Inherit" gap="400">
       <Text size="T300" priority="400">
-        Homeserver <strong>{server}</strong> will send you an email to let you reset your password.
+        {t('Pages.ResetPassword.email_intro_prefix')} <strong>{server}</strong>{' '}
+        {t('Pages.ResetPassword.email_intro_suffix')}
       </Text>
       <Box direction="Column" gap="100">
         <Text as="label" size="L400" priority="300">
-          Email
+          {t('Pages.PasswordLogin.email_label')}
         </Text>
         <Input
           defaultValue={defaultEmail}
@@ -193,7 +194,7 @@ export function PasswordResetForm({ defaultEmail }: PasswordResetFormProps) {
           <>
             <Box direction="Column" gap="100">
               <Text as="label" size="L400" priority="300">
-                New Password
+                {t('Pages.ResetPassword.new_password')}
               </Text>
               <PasswordInput
                 ref={passRef}
@@ -207,7 +208,7 @@ export function PasswordResetForm({ defaultEmail }: PasswordResetFormProps) {
             </Box>
             <Box direction="Column" gap="100">
               <Text as="label" size="L400" priority="300">
-                Confirm Password
+                {t('Pages.ResetPassword.confirm_password')}
               </Text>
               <PasswordInput
                 ref={confPassRef}
@@ -233,7 +234,7 @@ export function PasswordResetForm({ defaultEmail }: PasswordResetFormProps) {
       <span data-spacing-node />
       <Button type="submit" variant="Primary" size="500">
         <Text as="span" size="B500">
-          Reset Password
+          {t('Pages.ResetPassword.reset_button')}
         </Text>
       </Button>
 

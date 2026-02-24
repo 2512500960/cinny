@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { ReactNode, useCallback, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Badge, Chip, Icon, IconButton, Icons, ProgressBar, Spinner, Text, toRem } from 'folds';
 import { EncryptedAttachmentInfo } from 'browser-encrypt-attachment';
 import { Range } from 'react-range';
@@ -92,6 +93,8 @@ export function AudioContent({
     }
   };
 
+  const { t } = useTranslation();
+
   return renderMediaControl({
     after: (
       <Range
@@ -145,7 +148,9 @@ export function AudioContent({
             )
           }
         >
-          <Text size="B300">{playing ? 'Pause' : 'Play'}</Text>
+          <Text size="B300">
+            {playing ? t('Pages.AudioContent.pause') : t('Pages.AudioContent.play')}
+          </Text>
         </Chip>
 
         <Text size="T200">{`${secondsToMinutesAndSeconds(

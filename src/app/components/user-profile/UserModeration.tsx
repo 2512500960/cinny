@@ -1,5 +1,6 @@
 import { Box, Button, color, config, Icon, Icons, Spinner, Text, Input } from 'folds';
 import React, { useCallback, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useRoom } from '../../hooks/useRoom';
 import { CutoutCard } from '../cutout-card';
 import { SettingTile } from '../setting-tile';
@@ -22,12 +23,14 @@ export function UserKickAlert({ reason, kickedBy, ts }: UserKickAlertProps) {
   const time = ts ? timeHourMinute(ts, hour24Clock) : undefined;
   const date = ts ? timeDayMonYear(ts, dateFormatString) : undefined;
 
+  const { t } = useTranslation();
+
   return (
     <CutoutCard style={{ padding: config.space.S200 }} variant="Critical">
       <SettingTile>
         <Box direction="Column" gap="200">
           <Box gap="200" justifyContent="SpaceBetween">
-            <Text size="L400">Kicked User</Text>
+            <Text size="L400">{t('Pages.UserModeration.kicked_user')}</Text>
             {time && date && (
               <Text size="T200">
                 {date} {time}
@@ -36,17 +39,13 @@ export function UserKickAlert({ reason, kickedBy, ts }: UserKickAlertProps) {
           </Box>
           <Box direction="Column">
             {kickedBy && (
-              <Text size="T200">
-                Kicked by: <b>{kickedBy}</b>
-              </Text>
+              <Text size="T200">{t('Pages.UserModeration.kicked_by', { who: kickedBy })}</Text>
             )}
             <Text size="T200">
               {reason ? (
-                <>
-                  Reason: <b>{reason}</b>
-                </>
+                <>{t('Pages.UserModeration.reason_label', { reason })}</>
               ) : (
-                <i>No Reason Provided.</i>
+                <i>{t('Pages.UserModeration.no_reason_provided')}</i>
               )}
             </Text>
           </Box>
@@ -64,6 +63,7 @@ type UserBanAlertProps = {
   ts?: number;
 };
 export function UserBanAlert({ userId, reason, canUnban, bannedBy, ts }: UserBanAlertProps) {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   const room = useRoom();
   const [hour24Clock] = useSetting(settingsAtom, 'hour24Clock');
@@ -85,7 +85,7 @@ export function UserBanAlert({ userId, reason, canUnban, bannedBy, ts }: UserBan
       <SettingTile>
         <Box direction="Column" gap="200">
           <Box gap="200" justifyContent="SpaceBetween">
-            <Text size="L400">Banned User</Text>
+            <Text size="L400">{t('Pages.UserModeration.banned_user')}</Text>
             {time && date && (
               <Text size="T200">
                 {date} {time}
@@ -94,17 +94,13 @@ export function UserBanAlert({ userId, reason, canUnban, bannedBy, ts }: UserBan
           </Box>
           <Box direction="Column">
             {bannedBy && (
-              <Text size="T200">
-                Banned by: <b>{bannedBy}</b>
-              </Text>
+              <Text size="T200">{t('Pages.UserModeration.banned_by', { who: bannedBy })}</Text>
             )}
             <Text size="T200">
               {reason ? (
-                <>
-                  Reason: <b>{reason}</b>
-                </>
+                <>{t('Pages.UserModeration.reason_label', { reason })}</>
               ) : (
-                <i>No Reason Provided.</i>
+                <i>{t('Pages.UserModeration.no_reason_provided')}</i>
               )}
             </Text>
           </Box>
@@ -122,7 +118,7 @@ export function UserBanAlert({ userId, reason, canUnban, bannedBy, ts }: UserBan
               before={banning && <Spinner size="100" variant="Critical" fill="Solid" />}
               disabled={banning}
             >
-              <Text size="B300">Unban</Text>
+              <Text size="B300">{t('Pages.UserModeration.unban')}</Text>
             </Button>
           )}
         </Box>
@@ -139,6 +135,7 @@ type UserInviteAlertProps = {
   ts?: number;
 };
 export function UserInviteAlert({ userId, reason, canKick, invitedBy, ts }: UserInviteAlertProps) {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   const room = useRoom();
   const [hour24Clock] = useSetting(settingsAtom, 'hour24Clock');
@@ -160,7 +157,7 @@ export function UserInviteAlert({ userId, reason, canKick, invitedBy, ts }: User
       <SettingTile>
         <Box direction="Column" gap="200">
           <Box gap="200" justifyContent="SpaceBetween">
-            <Text size="L400">Invited User</Text>
+            <Text size="L400">{t('Pages.UserModeration.invited_user')}</Text>
             {time && date && (
               <Text size="T200">
                 {date} {time}
@@ -169,17 +166,13 @@ export function UserInviteAlert({ userId, reason, canKick, invitedBy, ts }: User
           </Box>
           <Box direction="Column">
             {invitedBy && (
-              <Text size="T200">
-                Invited by: <b>{invitedBy}</b>
-              </Text>
+              <Text size="T200">{t('Pages.UserModeration.invited_by', { who: invitedBy })}</Text>
             )}
             <Text size="T200">
               {reason ? (
-                <>
-                  Reason: <b>{reason}</b>
-                </>
+                <>{t('Pages.UserModeration.reason_label', { reason })}</>
               ) : (
-                <i>No Reason Provided.</i>
+                <i>{t('Pages.UserModeration.no_reason_provided')}</i>
               )}
             </Text>
           </Box>
@@ -199,7 +192,7 @@ export function UserInviteAlert({ userId, reason, canKick, invitedBy, ts }: User
               before={kicking && <Spinner size="100" variant="Success" fill="Soft" />}
               disabled={kicking}
             >
-              <Text size="B300">Cancel Invite</Text>
+              <Text size="B300">{t('Pages.UserModeration.cancel_invite')}</Text>
             </Button>
           )}
         </Box>
@@ -215,6 +208,7 @@ type UserModerationProps = {
   canInvite: boolean;
 };
 export function UserModeration({ userId, canKick, canBan, canInvite }: UserModerationProps) {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   const room = useRoom();
   const reasonInputRef = useRef<HTMLInputElement>(null);
@@ -256,10 +250,10 @@ export function UserModeration({ userId, canKick, canBan, canInvite }: UserModer
     <Box direction="Column" gap="400">
       <Box direction="Column" gap="200">
         <Box grow="Yes" direction="Column" gap="100">
-          <Text size="L400">Moderation</Text>
+          <Text size="L400">{t('Pages.UserModeration.moderation')}</Text>
           <Input
             ref={reasonInputRef}
-            placeholder="Reason"
+            placeholder={t('Pages.UserModeration.reason_placeholder')}
             size="300"
             variant="Background"
             radii="300"
@@ -299,7 +293,7 @@ export function UserModeration({ userId, canKick, canBan, canInvite }: UserModer
               onClick={invite}
               disabled={disabled}
             >
-              <Text size="B300">Invite</Text>
+              <Text size="B300">{t('Pages.UserModeration.invite')}</Text>
             </Button>
           )}
           {canKick && (
@@ -319,7 +313,7 @@ export function UserModeration({ userId, canKick, canBan, canInvite }: UserModer
               onClick={kick}
               disabled={disabled}
             >
-              <Text size="B300">Kick</Text>
+              <Text size="B300">{t('Pages.UserModeration.kick')}</Text>
             </Button>
           )}
           {canBan && (
@@ -339,7 +333,7 @@ export function UserModeration({ userId, canKick, canBan, canInvite }: UserModer
               onClick={ban}
               disabled={disabled}
             >
-              <Text size="B300">Ban</Text>
+              <Text size="B300">{t('Pages.UserModeration.ban')}</Text>
             </Button>
           )}
         </Box>

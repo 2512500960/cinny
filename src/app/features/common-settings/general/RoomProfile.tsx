@@ -12,6 +12,7 @@ import {
   TextArea,
 } from 'folds';
 import React, { FormEventHandler, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAtomValue } from 'jotai';
 import Linkify from 'linkify-react';
 import classNames from 'classnames';
@@ -61,6 +62,7 @@ export function RoomProfileEdit({
 }: RoomProfileEditProps) {
   const room = useRoom();
   const mx = useMatrixClient();
+  const { t } = useTranslation();
   const alive = useAlive();
   const useAuthentication = useMediaAuthentication();
   const joinRule = useRoomJoinRule(room);
@@ -140,7 +142,7 @@ export function RoomProfileEdit({
     <Box as="form" onSubmit={handleSubmit} direction="Column" gap="400">
       <Box gap="400">
         <Box grow="Yes" direction="Column" gap="100">
-          <Text size="L400">Avatar</Text>
+          <Text size="L400">{t('Pages.RoomProfile.avatar')}</Text>
           {uploadAtom ? (
             <Box gap="200" direction="Column">
               <CompactUploadCardRenderer
@@ -160,7 +162,7 @@ export function RoomProfileEdit({
                 disabled={!canEditAvatar || submitting}
                 onClick={() => pickFile('image/*')}
               >
-                <Text size="B300">Upload</Text>
+                <Text size="B300">{t('Pages.RoomProfile.upload')}</Text>
               </Button>
               {!roomAvatar && avatar && (
                 <Button
@@ -172,7 +174,7 @@ export function RoomProfileEdit({
                   disabled={!canEditAvatar || submitting}
                   onClick={() => setRoomAvatar(avatar)}
                 >
-                  <Text size="B300">Reset</Text>
+                  <Text size="B300">{t('Pages.RoomProfile.reset')}</Text>
                 </Button>
               )}
               {roomAvatar && (
@@ -185,7 +187,7 @@ export function RoomProfileEdit({
                   disabled={!canEditAvatar || submitting}
                   onClick={() => setRoomAvatar(undefined)}
                 >
-                  <Text size="B300">Remove</Text>
+                  <Text size="B300">{t('Pages.RoomProfile.remove')}</Text>
                 </Button>
               )}
             </Box>
@@ -210,7 +212,7 @@ export function RoomProfileEdit({
         </Box>
       </Box>
       <Box direction="Inherit" gap="100">
-        <Text size="L400">Name</Text>
+        <Text size="L400">{t('Pages.RoomProfile.name')}</Text>
         <Input
           name="nameInput"
           defaultValue={name}
@@ -220,7 +222,7 @@ export function RoomProfileEdit({
         />
       </Box>
       <Box direction="Inherit" gap="100">
-        <Text size="L400">Topic</Text>
+        <Text size="L400">{t('Pages.RoomProfile.topic')}</Text>
         <TextArea
           name="topicTextArea"
           defaultValue={topic}
@@ -243,7 +245,7 @@ export function RoomProfileEdit({
           disabled={uploadingAvatar || submitting}
           before={submitting && <Spinner size="100" variant="Success" fill="Solid" />}
         >
-          <Text size="B300">Save</Text>
+          <Text size="B300">{t('Pages.RoomProfile.save')}</Text>
         </Button>
         <Button
           type="reset"
@@ -253,7 +255,7 @@ export function RoomProfileEdit({
           size="300"
           radii="300"
         >
-          <Text size="B300">Cancel</Text>
+          <Text size="B300">{t('Common.cancel')}</Text>
         </Button>
       </Box>
     </Box>
@@ -284,12 +286,13 @@ export function RoomProfile({ permissions }: RoomProfileProps) {
     : undefined;
 
   const [edit, setEdit] = useState(false);
+  const { t } = useTranslation();
 
   const handleCloseEdit = useCallback(() => setEdit(false), []);
 
   return (
     <Box direction="Column" gap="100">
-      <Text size="L400">Profile</Text>
+      <Text size="L400">{t('Pages.RoomProfile.title')}</Text>
       <SequenceCard
         className={SequenceCardStyle}
         variant="SurfaceVariant"
@@ -311,7 +314,7 @@ export function RoomProfile({ permissions }: RoomProfileProps) {
             <Box grow="Yes" direction="Column" gap="300">
               <Box direction="Column" gap="100">
                 <Text className={BreakWord} size="H5">
-                  {name ?? 'Unknown'}
+                  {name ?? t('Pages.RoomProfile.unknown')}
                 </Text>
                 {topic && (
                   <Text className={classNames(BreakWord, LineClamp3)} size="T200">
@@ -329,7 +332,7 @@ export function RoomProfile({ permissions }: RoomProfileProps) {
                     onClick={() => setEdit(true)}
                     outlined
                   >
-                    <Text size="B300">Edit</Text>
+                    <Text size="B300">{t('Pages.RoomProfile.edit')}</Text>
                   </Chip>
                 </Box>
               )}

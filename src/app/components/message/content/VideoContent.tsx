@@ -1,4 +1,5 @@
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Badge,
   Box,
@@ -109,6 +110,8 @@ export const VideoContent = as<'div', VideoContentProps>(
       if (autoPlay) loadSrc();
     }, [autoPlay, loadSrc]);
 
+    const { t } = useTranslation();
+
     return (
       <Box className={classNames(css.RelativeBase, className)} {...props} ref={ref}>
         {typeof blurHash === 'string' && !load && (
@@ -139,7 +142,7 @@ export const VideoContent = as<'div', VideoContentProps>(
               onClick={loadSrc}
               before={<Icon size="Inherit" src={Icons.Play} filled />}
             >
-              <Text size="B300">Watch</Text>
+              <Text size="B300">{t('Pages.VideoContent.watch')}</Text>
             </Button>
           </Box>
         )}
@@ -179,7 +182,7 @@ export const VideoContent = as<'div', VideoContentProps>(
                     setBlurred(false);
                   }}
                 >
-                  <Text size="B300">Spoiler</Text>
+                  <Text size="B300">{t('Pages.VideoContent.spoiler')}</Text>
                 </Chip>
               )}
             </TooltipProvider>
@@ -197,7 +200,7 @@ export const VideoContent = as<'div', VideoContentProps>(
             <TooltipProvider
               tooltip={
                 <Tooltip variant="Critical">
-                  <Text>Failed to load video!</Text>
+                  <Text>{t('Pages.VideoContent.failed_load')}</Text>
                 </Tooltip>
               }
               position="Top"
@@ -214,7 +217,7 @@ export const VideoContent = as<'div', VideoContentProps>(
                   onClick={handleRetry}
                   before={<Icon size="Inherit" src={Icons.Warning} filled />}
                 >
-                  <Text size="B300">Retry</Text>
+                  <Text size="B300">{t('Pages.VideoContent.retry')}</Text>
                 </Button>
               )}
             </TooltipProvider>

@@ -13,6 +13,7 @@ import {
   Spinner,
   Text,
 } from 'folds';
+import { useTranslation } from 'react-i18next';
 import { HttpApiEvent, HttpApiEventHandlerMap, MatrixClient } from 'matrix-js-sdk';
 import FocusTrap from 'focus-trap-react';
 import React, { MouseEventHandler, ReactNode, useCallback, useEffect, useState } from 'react';
@@ -37,11 +38,12 @@ import { AuthMetadataProvider } from '../../hooks/useAuthMetadata';
 import { getFallbackSession } from '../../state/sessions';
 
 function ClientRootLoading() {
+  const { t } = useTranslation();
   return (
     <SplashScreen>
       <Box direction="Column" grow="Yes" alignItems="Center" justifyContent="Center" gap="400">
         <Spinner variant="Secondary" size="600" />
-        <Text>Heating up</Text>
+        <Text>{t('Pages.ClientRoot.heating_up')}</Text>
       </Box>
     </SplashScreen>
   );
@@ -92,7 +94,7 @@ function ClientRootOptions({ mx }: { mx?: MatrixClient }) {
                 {mx && (
                   <MenuItem onClick={() => clearCacheAndReload(mx)} size="300" radii="300">
                     <Text as="span" size="T300" truncate>
-                      Clear Cache and Reload
+                      {t('Pages.ClientRoot.clear_cache_reload')}
                     </Text>
                   </MenuItem>
                 )}
@@ -110,7 +112,7 @@ function ClientRootOptions({ mx }: { mx?: MatrixClient }) {
                   fill="None"
                 >
                   <Text as="span" size="T300" truncate>
-                    Logout
+                    {t('Pages.ClientRoot.logout')}
                   </Text>
                 </MenuItem>
               </Box>

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Header, Scroll, Spinner, Text, color } from 'folds';
 import {
   Outlet,
@@ -45,21 +46,23 @@ const currentAuthPath = (pathname: string): string => {
 };
 
 function AuthLayoutLoading({ message }: { message: string }) {
+  const { t } = useTranslation();
   return (
     <Box justifyContent="Center" alignItems="Center" gap="200">
       <Spinner size="100" variant="Secondary" />
       <Text align="Center" size="T300">
-        {message}
+        {t(message)}
       </Text>
     </Box>
   );
 }
 
 function AuthLayoutError({ message }: { message: string }) {
+  const { t } = useTranslation();
   return (
     <Box justifyContent="Center" alignItems="Center" gap="200">
       <Text align="Center" style={{ color: color.Critical.Main }} size="T300">
-        {message}
+        {t(message)}
       </Text>
     </Box>
   );
@@ -74,6 +77,7 @@ export function AuthLayout() {
 
   const defaultServer = clientDefaultServer(clientConfig);
   let server: string = urlEncodedServer ? tryDecodeURIComponent(urlEncodedServer) : defaultServer;
+  const { t } = useTranslation();
 
   if (!clientAllowedServer(clientConfig, server)) {
     server = defaultServer;
@@ -135,13 +139,13 @@ export function AuthLayout() {
           <Header className={css.AuthHeader} size="600" variant="Surface">
             <Box grow="Yes" direction="Row" gap="300" alignItems="Center">
               <img className={css.AuthLogo} src={CinnySVG} alt="Cinny Logo" />
-              <Text size="H3">Cinny</Text>
+              <Text size="H3">{t('Pages.AuthLayout.title')}</Text>
             </Box>
           </Header>
           <Box className={css.AuthCardContent} direction="Column">
             <Box direction="Column" gap="100">
               <Text as="label" size="L400" priority="300">
-                Homeserver
+                {t('Pages.AuthLayout.homeserver_label')}
               </Text>
               <ServerPicker
                 server={server}
@@ -151,18 +155,18 @@ export function AuthLayout() {
               />
             </Box>
             {discoveryState.status === AsyncStatus.Loading && (
-              <AuthLayoutLoading message="Looking for homeserver..." />
+              <AuthLayoutLoading message="Pages.AuthLayout.looking_for_homeserver" />
             )}
             {discoveryState.status === AsyncStatus.Error && (
-              <AuthLayoutError message="Failed to find homeserver." />
+              <AuthLayoutError message="Pages.AuthLayout.failed_find_homeserver" />
             )}
             {autoDiscoveryError?.action === AutoDiscoveryAction.FAIL_PROMPT && (
               <AuthLayoutError
-                message={`Failed to connect. Homeserver configuration found with ${autoDiscoveryError.host} appears unusable.`}
+                message={`Pages.AuthLayout.failed_connect_unusable:${autoDiscoveryError.host}`}
               />
             )}
             {autoDiscoveryError?.action === AutoDiscoveryAction.FAIL_ERROR && (
-              <AuthLayoutError message="Failed to connect. Homeserver configuration base_url appears invalid." />
+              <AuthLayoutError message="Pages.AuthLayout.failed_connect_invalid_base_url" />
             )}
             {discoveryState.status === AsyncStatus.Success && autoDiscoveryInfo && (
               <AuthServerProvider value={discoveryState.data.serverName}>
@@ -171,11 +175,11 @@ export function AuthLayout() {
                     baseUrl={autoDiscoveryInfo['m.homeserver'].base_url}
                     fallback={() => (
                       <AuthLayoutLoading
-                        message={`Connecting to ${autoDiscoveryInfo['m.homeserver'].base_url}`}
+                        message={`Pages.AuthLayout.connecting_to:${autoDiscoveryInfo['m.homeserver'].base_url}`}
                       />
                     )}
                     error={() => (
-                      <AuthLayoutError message="Failed to connect. Either homeserver is unavailable at this moment or does not exist." />
+                      <AuthLayoutError message="Pages.AuthLayout.failed_connect_unavailable_or_nonexistent" />
                     )}
                   >
                     {(specVersions) => (

@@ -23,6 +23,7 @@ import { EncryptedAttachmentInfo } from 'browser-encrypt-attachment';
 import { IImageInfo, MATRIX_BLUR_HASH_PROPERTY_NAME } from '../../../../types/matrix/common';
 import { AsyncStatus, useAsyncCallback } from '../../../hooks/useAsyncCallback';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';
+import { useTranslation } from 'react-i18next';
 import * as css from './style.css';
 import { bytesToSize } from '../../../utils/common';
 import { FALLBACK_MIMETYPE } from '../../../utils/mimeTypes';
@@ -78,6 +79,7 @@ export const ImageContent = as<'div', ImageContentProps>(
   ) => {
     const mx = useMatrixClient();
     const useAuthentication = useMediaAuthentication();
+    const { t } = useTranslation();
     const blurHash = validBlurHash(info?.[MATRIX_BLUR_HASH_PROPERTY_NAME]);
 
     const [load, setLoad] = useState(false);
@@ -163,7 +165,7 @@ export const ImageContent = as<'div', ImageContentProps>(
               onClick={loadSrc}
               before={<Icon size="Inherit" src={Icons.Photo} filled />}
             >
-              <Text size="B300">View</Text>
+              <Text size="B300">{t('Pages.ImageContent.view')}</Text>
             </Button>
           </Box>
         )}
@@ -207,7 +209,7 @@ export const ImageContent = as<'div', ImageContentProps>(
                     }
                   }}
                 >
-                  <Text size="B300">Spoiler</Text>
+                  <Text size="B300">{t('Pages.ImageContent.spoiler')}</Text>
                 </Chip>
               )}
             </TooltipProvider>
@@ -225,7 +227,7 @@ export const ImageContent = as<'div', ImageContentProps>(
             <TooltipProvider
               tooltip={
                 <Tooltip variant="Critical">
-                  <Text>Failed to load image!</Text>
+                  <Text>{t('Pages.ImageContent.failed_load')}</Text>
                 </Tooltip>
               }
               position="Top"
@@ -242,7 +244,7 @@ export const ImageContent = as<'div', ImageContentProps>(
                   onClick={handleRetry}
                   before={<Icon size="Inherit" src={Icons.Warning} filled />}
                 >
-                  <Text size="B300">Retry</Text>
+                  <Text size="B300">{t('Pages.ImageContent.retry')}</Text>
                 </Button>
               )}
             </TooltipProvider>

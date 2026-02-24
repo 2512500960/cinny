@@ -1,4 +1,5 @@
 import React, { FormEventHandler, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Text,
@@ -56,6 +57,7 @@ function AccountDataEdit({
     textAreaRef,
     EDITOR_INTENT_SPACE_COUNT
   );
+  const { t } = useTranslation();
 
   const [submitState, submit] = useAsyncCallback<void, MatrixError, [string, object]>(submitChange);
   const submitting = submitState.status === AsyncStatus.Loading;
@@ -121,7 +123,7 @@ function AccountDataEdit({
       aria-disabled={submitting}
     >
       <Box shrink="No" direction="Column" gap="100">
-        <Text size="L400">Account Data</Text>
+        <Text size="L400">{t('Pages.AccountDataEditor.account_data')}</Text>
         <Box gap="300">
           <Box grow="Yes" direction="Column">
             <Input
@@ -142,7 +144,7 @@ function AccountDataEdit({
             disabled={submitting}
             before={submitting && <Spinner variant="Primary" fill="Solid" size="300" />}
           >
-            <Text size="B400">Save</Text>
+            <Text size="B400">{t('Common.save')}</Text>
           </Button>
           <Button
             variant="Secondary"
@@ -153,7 +155,7 @@ function AccountDataEdit({
             onClick={onCancel}
             disabled={submitting}
           >
-            <Text size="B400">Cancel</Text>
+            <Text size="B400">{t('Common.cancel')}</Text>
           </Button>
         </Box>
 
@@ -165,7 +167,7 @@ function AccountDataEdit({
       </Box>
       <Box grow="Yes" direction="Column" gap="100">
         <Box shrink="No">
-          <Text size="L400">JSON Content</Text>
+          <Text size="L400">{t('Pages.AccountDataEditor.json_content')}</Text>
         </Box>
         <TextAreaComponent
           ref={textAreaRef}
@@ -198,6 +200,7 @@ type AccountDataViewProps = {
   onEdit: () => void;
 };
 function AccountDataView({ type, defaultContent, onEdit }: AccountDataViewProps) {
+  const { t } = useTranslation();
   return (
     <Box
       direction="Column"
@@ -208,7 +211,7 @@ function AccountDataView({ type, defaultContent, onEdit }: AccountDataViewProps)
     >
       <Box shrink="No" gap="300" alignItems="End">
         <Box grow="Yes" direction="Column" gap="100">
-          <Text size="L400">Account Data</Text>
+          <Text size="L400">{t('Pages.AccountDataEditor.account_data')}</Text>
           <Input
             variant="SurfaceVariant"
             size="400"
@@ -219,11 +222,11 @@ function AccountDataView({ type, defaultContent, onEdit }: AccountDataViewProps)
           />
         </Box>
         <Button variant="Secondary" size="400" radii="300" onClick={onEdit}>
-          <Text size="B400">Edit</Text>
+          <Text size="B400">{t('Pages.AccountDataEditor.edit')}</Text>
         </Button>
       </Box>
       <Box grow="Yes" direction="Column" gap="100">
-        <Text size="L400">JSON Content</Text>
+        <Text size="L400">{t('Pages.AccountDataEditor.json_content')}</Text>
         <SequenceCard variant="SurfaceVariant">
           <Scroll visibility="Always" size="300" hideTrack>
             <TextViewerContent
@@ -254,6 +257,7 @@ export function AccountDataEditor({
   submitChange,
   requestClose,
 }: AccountDataEditorProps) {
+  const { t } = useTranslation();
   const [data, setData] = useState<AccountDataInfo>({
     type: type ?? '',
     content: content ?? {},
@@ -290,7 +294,7 @@ export function AccountDataEditor({
               onClick={requestClose}
               before={<Icon size="100" src={Icons.ArrowLeft} />}
             >
-              <Text size="T300">Developer Tools</Text>
+              <Text size="T300">{t('Pages.Settings.menu.developer_tools')}</Text>
             </Chip>
           </Box>
           <Box shrink="No">

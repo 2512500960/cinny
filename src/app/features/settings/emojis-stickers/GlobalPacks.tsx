@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Text,
@@ -408,7 +409,7 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
                 outlined
                 onClick={() => onViewPack(pack)}
               >
-                <Text size="B300">View</Text>
+                <Text size="B300">{useTranslation().t('Pages.Settings.Emojis.view')}</Text>
               </Button>
             )
           }
@@ -420,7 +421,7 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
   return (
     <>
       <Box direction="Column" gap="100">
-        <Text size="L400">Favorite Packs</Text>
+        <Text size="L400">{useTranslation().t('Pages.Settings.Emojis.favorite_packs')}</Text>
         <SequenceCard
           className={SequenceCardStyle}
           variant="SurfaceVariant"
@@ -428,8 +429,8 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
           gap="400"
         >
           <SettingTile
-            title="Select Pack"
-            description="Pick emojis and stickers pack from rooms to use in all rooms."
+            title={useTranslation().t('Pages.Settings.Emojis.select_pack_title')}
+            description={useTranslation().t('Pages.Settings.Emojis.select_pack_desc')}
             after={
               <>
                 <Button
@@ -440,7 +441,7 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
                   radii="300"
                   outlined
                 >
-                  <Text size="B300">Select</Text>
+                  <Text size="B300">{useTranslation().t('Pages.Settings.Emojis.select')}</Text>
                 </Button>
                 <PopOut
                   anchor={menuCords}
@@ -502,11 +503,11 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
             <Box grow="Yes" direction="Column">
               {applyState.status === AsyncStatus.Error ? (
                 <Text size="T200">
-                  <b>Failed to apply changes! Please try again.</b>
+                  <b>{useTranslation().t('Pages.Settings.Emojis.apply_failed')}</b>
                 </Text>
               ) : (
                 <Text size="T200">
-                  <b>Changes saved! Apply when ready.</b>
+                  <b>{useTranslation().t('Pages.Settings.Emojis.changes_saved')}</b>
                 </Text>
               )}
             </Box>
@@ -519,7 +520,7 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
                 disabled={applyingChanges}
                 onClick={resetChanges}
               >
-                <Text size="B300">Reset</Text>
+                <Text size="B300">{useTranslation().t('Pages.Settings.Emojis.reset')}</Text>
               </Button>
               <Button
                 size="300"
@@ -529,7 +530,7 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
                 before={applyingChanges && <Spinner variant="Success" fill="Solid" size="100" />}
                 onClick={applyChanges}
               >
-                <Text size="B300">Apply Changes</Text>
+                <Text size="B300">{useTranslation().t('Pages.Settings.Emojis.apply_changes')}</Text>
               </Button>
             </Box>
           </Box>

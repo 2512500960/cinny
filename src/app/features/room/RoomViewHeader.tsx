@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, forwardRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import FocusTrap from 'focus-trap-react';
 import {
   Box,
@@ -75,6 +76,7 @@ type RoomMenuProps = {
   requestClose: () => void;
 };
 const RoomMenu = forwardRef<HTMLDivElement, RoomMenuProps>(({ room, requestClose }, ref) => {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   const [hideActivity] = useSetting(settingsAtom, 'hideActivity');
   const unread = useRoomUnread(room.roomId, roomToUnreadAtom);
@@ -132,7 +134,7 @@ const RoomMenu = forwardRef<HTMLDivElement, RoomMenuProps>(({ room, requestClose
           disabled={!unread}
         >
           <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-            Mark as Read
+            {t('Pages.RoomViewHeader.mark_as_read')}
           </Text>
         </MenuItem>
         <RoomNotificationModeSwitcher roomId={room.roomId} value={notificationMode}>
@@ -151,7 +153,7 @@ const RoomMenu = forwardRef<HTMLDivElement, RoomMenuProps>(({ room, requestClose
               onClick={handleOpen}
             >
               <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-                Notifications
+                {t('Pages.RoomViewHeader.notifications')}
               </Text>
             </MenuItem>
           )}
@@ -170,7 +172,7 @@ const RoomMenu = forwardRef<HTMLDivElement, RoomMenuProps>(({ room, requestClose
           disabled={!canInvite}
         >
           <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-            Invite
+            {t('Pages.RoomViewHeader.invite')}
           </Text>
         </MenuItem>
         <MenuItem
@@ -180,7 +182,7 @@ const RoomMenu = forwardRef<HTMLDivElement, RoomMenuProps>(({ room, requestClose
           radii="300"
         >
           <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-            Copy Link
+            {t('Pages.RoomViewHeader.copy_link')}
           </Text>
         </MenuItem>
         <MenuItem
@@ -190,7 +192,7 @@ const RoomMenu = forwardRef<HTMLDivElement, RoomMenuProps>(({ room, requestClose
           radii="300"
         >
           <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-            Room Settings
+            {t('Pages.RoomViewHeader.room_settings')}
           </Text>
         </MenuItem>
         <UseStateProvider initial={false}>
@@ -204,7 +206,7 @@ const RoomMenu = forwardRef<HTMLDivElement, RoomMenuProps>(({ room, requestClose
                 aria-pressed={promptJump}
               >
                 <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-                  Jump to Time
+                  {t('Pages.RoomViewHeader.jump_to_time')}
                 </Text>
               </MenuItem>
               {promptJump && (
@@ -236,7 +238,7 @@ const RoomMenu = forwardRef<HTMLDivElement, RoomMenuProps>(({ room, requestClose
                 aria-pressed={promptLeave}
               >
                 <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-                  Leave Room
+                  {t('Pages.RoomViewHeader.leave_room')}
                 </Text>
               </MenuItem>
               {promptLeave && (
@@ -376,7 +378,7 @@ export function RoomViewHeader() {
               offset={4}
               tooltip={
                 <Tooltip>
-                  <Text>Search</Text>
+                  <Text>{t('Pages.RoomViewHeader.search')}</Text>
                 </Tooltip>
               }
             >
@@ -392,7 +394,7 @@ export function RoomViewHeader() {
             offset={4}
             tooltip={
               <Tooltip>
-                <Text>Pinned Messages</Text>
+                <Text>{t('Pages.RoomViewHeader.pinned_messages')}</Text>
               </Tooltip>
             }
           >
@@ -449,7 +451,11 @@ export function RoomViewHeader() {
               offset={4}
               tooltip={
                 <Tooltip>
-                  <Text>{peopleDrawer ? 'Hide Members' : 'Show Members'}</Text>
+                  <Text>
+                    {peopleDrawer
+                      ? t('Pages.RoomViewHeader.hide_members')
+                      : t('Pages.RoomViewHeader.show_members')}
+                  </Text>
                 </Tooltip>
               }
             >
@@ -466,7 +472,7 @@ export function RoomViewHeader() {
             offset={4}
             tooltip={
               <Tooltip>
-                <Text>More Options</Text>
+                <Text>{t('Pages.RoomViewHeader.more_options')}</Text>
               </Tooltip>
             }
           >

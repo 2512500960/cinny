@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Avatar,
   Box,
@@ -111,7 +112,29 @@ export function Settings({ initialPage, requestClose }: SettingsProps) {
     if (initialPage) return initialPage;
     return screenSize === ScreenSize.Mobile ? undefined : SettingsPages.GeneralPage;
   });
+  const { t } = useTranslation();
   const menuItems = useSettingsMenuItems();
+
+  const menuItemLabel = (page: SettingsPages) => {
+    switch (page) {
+      case SettingsPages.GeneralPage:
+        return t('Pages.Settings.menu.general');
+      case SettingsPages.AccountPage:
+        return t('Pages.Settings.menu.account');
+      case SettingsPages.NotificationPage:
+        return t('Pages.Settings.menu.notifications');
+      case SettingsPages.DevicesPage:
+        return t('Pages.Settings.menu.devices');
+      case SettingsPages.EmojisStickersPage:
+        return t('Pages.Settings.menu.emojis_stickers');
+      case SettingsPages.DeveloperToolsPage:
+        return t('Pages.Settings.menu.developer_tools');
+      case SettingsPages.AboutPage:
+        return t('Pages.Settings.menu.about');
+      default:
+        return '';
+    }
+  };
 
   const handlePageRequestClose = () => {
     if (screenSize === ScreenSize.Mobile) {
@@ -136,7 +159,7 @@ export function Settings({ initialPage, requestClose }: SettingsProps) {
                   />
                 </Avatar>
                 <Text size="H4" truncate>
-                  Settings
+                  {t('Pages.Settings.title')}
                 </Text>
               </Box>
               <Box shrink="No">
@@ -166,7 +189,7 @@ export function Settings({ initialPage, requestClose }: SettingsProps) {
                         size="T300"
                         truncate
                       >
-                        {item.name}
+                        {menuItemLabel(item.page)}
                       </Text>
                     </MenuItem>
                   ))}
@@ -184,7 +207,7 @@ export function Settings({ initialPage, requestClose }: SettingsProps) {
                         before={<Icon src={Icons.Power} size="100" />}
                         onClick={() => setLogout(true)}
                       >
-                        <Text size="B400">Logout</Text>
+                        <Text size="B400">{t('Pages.Settings.logout')}</Text>
                       </Button>
                       {logout && (
                         <Overlay open backdrop={<OverlayBackdrop />}>

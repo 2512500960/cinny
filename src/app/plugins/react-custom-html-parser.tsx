@@ -17,6 +17,7 @@ import {
 import { MatrixClient } from 'matrix-js-sdk';
 import classNames from 'classnames';
 import { Box, Chip, config, Header, Icon, IconButton, Icons, Scroll, Text, toRem } from 'folds';
+import { useTranslation } from 'react-i18next';
 import { IntermediateRepresentation, Opts as LinkifyOpts, OptFn } from 'linkifyjs';
 import Linkify from 'linkify-react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -257,12 +258,14 @@ export function CodeBlock({
     setExpand(!expanded);
   };
 
+  const { t } = useTranslation();
+
   return (
     <Text size="T300" as="pre" className={css.CodeBlock}>
       <Header variant="Surface" size="400" className={css.CodeBlockHeader}>
         <Box grow="Yes">
           <Text size="L400" truncate>
-            {language ?? 'Code'}
+            {language ?? t('Pages.CodeBlock.language')}
           </Text>
         </Box>
         <Box shrink="No" gap="200">
@@ -273,7 +276,9 @@ export function CodeBlock({
             onClick={handleCopy}
             before={copied && <Icon size="50" src={Icons.Check} />}
           >
-            <Text size="B300">{copied ? 'Copied' : 'Copy'}</Text>
+            <Text size="B300">
+              {copied ? t('Pages.CodeBlock.copied') : t('Pages.CodeBlock.copy')}
+            </Text>
           </Chip>
           {largeCodeBlock && (
             <IconButton
@@ -282,7 +287,7 @@ export function CodeBlock({
               outlined
               radii="300"
               onClick={toggleExpand}
-              aria-label={expanded ? 'Collapse' : 'Expand'}
+              aria-label={expanded ? t('Pages.CodeBlock.collapse') : t('Pages.CodeBlock.expand')}
             >
               <Icon size="50" src={expanded ? Icons.ChevronTop : Icons.ChevronBottom} />
             </IconButton>

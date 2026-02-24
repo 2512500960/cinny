@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Text,
@@ -87,11 +88,13 @@ function ProfileAvatar({ profile, userId }: ProfileProps) {
     setAlertRemove(false);
   };
 
+  const { t } = useTranslation();
+
   return (
     <SettingTile
       title={
         <Text as="span" size="L400">
-          Avatar
+          {t('Pages.Profile.avatar')}
         </Text>
       }
       after={
@@ -123,7 +126,7 @@ function ProfileAvatar({ profile, userId }: ProfileProps) {
             radii="300"
             disabled={disableSetAvatar}
           >
-            <Text size="B300">Upload</Text>
+            <Text size="B300">{t('Pages.Profile.upload')}</Text>
           </Button>
           {avatarUrl && (
             <Button
@@ -134,7 +137,7 @@ function ProfileAvatar({ profile, userId }: ProfileProps) {
               disabled={disableSetAvatar}
               onClick={() => setAlertRemove(true)}
             >
-              <Text size="B300">Remove</Text>
+              <Text size="B300">{t('Pages.Profile.remove')}</Text>
             </Button>
           )}
         </Box>
@@ -183,7 +186,7 @@ function ProfileAvatar({ profile, userId }: ProfileProps) {
                 size="500"
               >
                 <Box grow="Yes">
-                  <Text size="H4">Remove Avatar</Text>
+                  <Text size="H4">{t('Pages.Profile.remove_avatar_title')}</Text>
                 </Box>
                 <IconButton size="300" onClick={() => setAlertRemove(false)} radii="300">
                   <Icon src={Icons.Cross} />
@@ -191,10 +194,10 @@ function ProfileAvatar({ profile, userId }: ProfileProps) {
               </Header>
               <Box style={{ padding: config.space.S400 }} direction="Column" gap="400">
                 <Box direction="Column" gap="200">
-                  <Text priority="400">Are you sure you want to remove profile avatar?</Text>
+                  <Text priority="400">{t('Pages.Profile.remove_avatar_confirm')}</Text>
                 </Box>
                 <Button variant="Critical" onClick={handleRemoveAvatar}>
-                  <Text size="B400">Remove</Text>
+                  <Text size="B400">{t('Pages.Profile.remove')}</Text>
                 </Button>
               </Box>
             </Dialog>
@@ -308,9 +311,11 @@ export function Profile() {
   const userId = mx.getUserId()!;
   const profile = useUserProfile(userId);
 
+  const { t } = useTranslation();
+
   return (
     <Box direction="Column" gap="100">
-      <Text size="L400">Profile</Text>
+      <Text size="L400">{t('Pages.Profile.title')}</Text>
       <SequenceCard
         className={SequenceCardStyle}
         variant="SurfaceVariant"

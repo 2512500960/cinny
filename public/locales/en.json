@@ -2,6 +2,745 @@
   "Organisms": {
     "RoomCommon": {
       "changed_room_name": " changed room name"
+    },
+    "RoomTimeline": {
+      "new_messages": "New Messages",
+      "jump_to_unread": "Jump to Unread",
+      "mark_as_read": "Mark as Read",
+      "jump_to_latest": "Jump to Latest",
+      "changed_room_topic": " changed room topic",
+      "changed_room_avatar": " changed room avatar",
+      "sent": " sent ",
+      "state_event": "state event",
+      "event": "event"
+    }
+  },
+  "Common": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "retry": "Retry",
+    "continue": "Continue",
+    "cancel": "Cancel",
+    "save": "Save",
+    "close": "Close"
+  },
+  "Pages": {
+    "Router": {
+      "join": "join",
+      "page_not_found": "Page not found"
+    },
+    "FeatureCheck": {
+      "missing_browser_feature": "Missing Browser Feature",
+      "no_indexeddb_support": "No IndexedDB support found. This application requires IndexedDB to store session data locally. Please make sure your browser support IndexedDB and have it enabled.",
+      "what_is_indexeddb": "What is IndexedDB?"
+    },
+    "ConfigConfig": {
+      "heating_up": "Heating up",
+      "failed_load_config": "Failed to load client configuration file."
+    },
+    "SyncStatus": {
+      "connecting": "Connecting...",
+      "reconnecting": "Connection Lost! Reconnecting...",
+      "connection_lost": "Connection Lost!"
+    },
+    "SpecVersions": {
+      "connecting_to_server": "Connecting to server",
+      "failed_connect_homeserver": "Failed to connect to homeserver. Either homeserver is down or your internet."
+    },
+    "ExploreServer": {
+      "search": "Search",
+      "search_placeholder": "Search for keyword",
+      "clear": "Clear",
+      "enter": "Enter",
+      "popular_communities": "Popular Communities",
+      "all": "All",
+      "spaces": "Spaces",
+      "rooms": "Rooms",
+      "results_for": "Results for \"{{term}}\"",
+      "no_communities_found": "No communities found!",
+      "previous": "Previous Page",
+      "next": "Next Page",
+      "protocols": "Protocols",
+      "presets": "Presets",
+      "custom_limit": "Custom Limit",
+      "change_limit": "Change Limit",
+      "page_limit_prefix": "Page Limit: "
+    },
+    "Featured": {
+      "title": "Featured by Client",
+      "subtitle": "Find and explore public rooms and spaces featured by client provider.",
+      "spaces": "Featured Spaces",
+      "rooms": "Featured Rooms",
+      "no_featured": "No rooms or spaces featured by client provider."
+    },
+    "Explore": {
+      "add_server": "Add Server",
+      "add_server_desc": "Add server name to explore public communities.",
+      "server_name": "Server Name",
+      "failed_load_public_rooms": "Failed to load public rooms. Please try again.",
+      "servers": "Servers",
+      "view": "View",
+      "title": "Explore Community",
+      "featured": "Featured"
+    },
+    "ClientRoot": {
+      "heating_up": "Heating up",
+      "clear_cache_reload": "Clear Cache and Reload",
+      "logout": "Logout"
+    },
+    "RoomViewHeader": {
+      "mark_as_read": "Mark as Read",
+      "notifications": "Notifications",
+      "invite": "Invite",
+      "copy_link": "Copy Link",
+      "room_settings": "Room Settings",
+      "jump_to_time": "Jump to Time",
+      "leave_room": "Leave Room",
+      "search": "Search",
+      "pinned_messages": "Pinned Messages",
+      "hide_members": "Hide Members",
+      "show_members": "Show Members",
+      "more_options": "More Options"
+    },
+    "RoomTombstone": {
+      "replaced_no_longer_active": "This room has been replaced and is no longer active.",
+      "failed_join_replacement": "Failed to join replacement room!",
+      "open_new_room": "Open New Room",
+      "join_new_room": "Join New Room"
+    },
+    "RoomInput": {
+      "drop_files_in": "Drop Files in \"{{room}}\"",
+      "room": "Room",
+      "drop_files_desc": "Drag and drop files here or click for selection dialog"
+    },
+    "SearchInput": {
+      "search": "Search",
+      "search_placeholder": "Search for keyword",
+      "clear": "Clear",
+      "enter": "Enter"
+    },
+    "SearchFilters": {
+      "sort_by": "Sort by",
+      "recent": "Recent",
+      "relevance": "Relevance",
+      "search": "Search",
+      "rooms": "Rooms",
+      "rooms_for": "Rooms for \"{{query}}\"",
+      "no_match_found": "No match found!",
+      "save_with_count": "Save ({{count}})",
+      "save": "Save",
+      "deselect_all": "Deselect All",
+      "filter": "Filter",
+      "global": "Global",
+      "select_rooms": "Select Rooms"
+    },
+    "TokenLogin": {
+      "title": "Token Login",
+      "invalid_login_token": "Invalid login token.",
+      "account_deactivated": "This account has been deactivated.",
+      "invalid_request": "Failed to login. Part of your request data is invalid.",
+      "rate_limited": "Failed to login. Your login request has been rate-limited by server, Please try after some time.",
+      "unknown_failure": "Failed to login. Unknown reason."
+    },
+    "PasswordLogin": {
+      "hint": "Hint",
+      "username_label": "Username:",
+      "matrix_id_label": "Matrix ID:",
+      "email_label": "Email:",
+      "username": "Username",
+      "server_not_allowed": "Login with custom server not allowed by your client instance.",
+      "failed_find_mxid_server": "Failed to find your Matrix ID server.",
+      "password": "Password",
+      "invalid_credentials": "Invalid Username or Password.",
+      "account_deactivated": "This account has been deactivated.",
+      "invalid_request": "Failed to login. Part of your request data is invalid.",
+      "rate_limited": "Failed to login. Your login request has been rate-limited by server, Please try after some time.",
+      "unknown_failure": "Failed to login. Unknown reason.",
+      "forget_password": "Forget Password?",
+      "login": "Login"
+    },
+    "AuthLayout": {
+      "title": "Cinny",
+      "homeserver_label": "Homeserver",
+      "looking_for_homeserver": "Looking for homeserver...",
+      "failed_find_homeserver": "Failed to find homeserver.",
+      "failed_connect_unusable": "Failed to connect. Homeserver configuration found with {{host}} appears unusable.",
+      "failed_connect_invalid_base_url": "Failed to connect. Homeserver configuration base_url appears invalid.",
+      "connecting_to": "Connecting to {{host}}",
+      "failed_connect_unavailable_or_nonexistent": "Failed to connect. Either homeserver is unavailable at this moment or does not exist."
+    },
+    "AuthFlowsLoader": {
+      "missing_auth_flow": "Missing auth flow!",
+      "failed_load_auth_flow": "Failed to load auth flow!"
+    },
+    "Register": {
+      "title": "Register",
+      "registration_disabled": "Registration has been disabled on this homeserver.",
+      "rate_limited": "You have been rate-limited! Please try after some time.",
+      "invalid_request": "Invalid Request! Failed to get any registration options.",
+      "already_have_account": "Already have an account?",
+      "login": "Login"
+    },
+    "Login": {
+      "title": "Login",
+      "unsupported_login": "This client does not support login on \"{{server}}\" homeserver. Password and SSO based login method not found.",
+      "no_account": "Do not have an account?",
+      "register": "Register"
+    },
+    "ResetPassword": {
+      "title": "Reset Password",
+      "remember_password": "Remember your password?",
+      "login": "Login",
+      "email_intro_prefix": "Homeserver",
+      "email_intro_suffix": "will send you an email to let you reset your password.",
+      "new_password": "New Password",
+      "confirm_password": "Confirm Password",
+      "reset_button": "Reset Password",
+      "reset_success": "Password has been reset successfully. Please login with your new password."
+    },
+    "RoomItem": {
+      "join": "Join",
+      "unknown": "Unknown",
+      "suggested": "Suggested",
+      "inaccessible": "Inaccessible",
+      "members": "{{count}} Members",
+      "open_room": "Open Room"
+    },
+    "Space": {
+      "space_upgraded": "Space Upgraded",
+      "replaced_no_longer_active": "This space has been replaced and is no longer active.",
+      "failed_join_replacement_space": "Failed to join replacement space!",
+      "open_new_space": "Open New Space",
+      "join_new_space": "Join New Space",
+      "event_timeline": "Event Timeline",
+      "lobby": "Lobby"
+    },
+    "CreateTab": {
+      "create_space": "Create Space",
+      "build_space_for_community": "Build a space for your community.",
+      "join_with_address": "Join with Address",
+      "become_part_of_existing_community": "Become a part of existing community.",
+      "add_space": "Add Space"
+    },
+    "Notifications": {
+      "header": "Notification Messages",
+      "filter": "Filter",
+      "all_notifications": "All Notifications",
+      "highlighted": "Highlighted",
+      "no_notifications": "No Notifications",
+      "no_notifications_desc": "You don't have any new notifications to display yet.",
+      "mark_as_read": "Mark as Read",
+      "open": "Open",
+      "scroll_to_top": "Scroll to Top",
+      "room_tombstone_prefix": "Room Tombstone.",
+      "event": " event"
+    },
+    "Invites": {
+      "title": "Invites",
+      "filter": "Filter",
+      "encrypted": "Encrypted",
+      "direct_message": "Direct Message",
+      "space": "Space",
+      "decline": "Decline",
+      "accept": "Accept",
+      "primary": "Primary",
+      "public": "Public",
+      "spam": "Spam",
+      "spam_count": "{{count}} Spam Invites",
+      "spam_subtitle": "Some of the following invites may contain harmful content or have been sent by banned users.",
+      "no_spam_invites": "No Spam Invites",
+      "no_spam_invites_subtitle": "Invites detected as spam appear here.",
+      "from_prefix": "From:",
+      "reason_prefix": "Reason:",
+      "no_invites_title": "No Invites",
+      "no_invites_subtitle": "When someone you share a room with sends you an invite, it’ll show up here.",
+      "decline_all": "Decline All",
+      "report_all": "Report All",
+      "block_all": "Block All",
+      "hide_all": "Hide All",
+      "view_all": "View All"
+    },
+    "Settings": {
+      "title": "Settings",
+      "menu": {
+        "general": "General",
+        "account": "Account",
+        "notifications": "Notifications",
+        "devices": "Devices",
+        "emojis_stickers": "Emojis & Stickers",
+        "developer_tools": "Developer Tools",
+        "about": "About"
+      },
+      "logout": "Logout",
+      "Notifications": {
+        "system": "System",
+        "desktop_notifications": "Desktop Notifications",
+        "permission_blocked": "Notification permission is blocked. Please allow notification permission from browser address bar.",
+        "not_supported": "Notifications are not supported by the system.",
+        "show_desktop_notifications": "Show desktop notifications when message arrive.",
+        "enable": "Enable",
+        "notification_sound": "Notification Sound",
+        "notification_sound_desc": "Play sound when new message arrive."
+      }
+    },
+    "Profile": {
+      "title": "Profile",
+      "avatar": "Avatar",
+      "upload": "Upload",
+      "remove": "Remove",
+      "remove_avatar_title": "Remove Avatar",
+      "remove_avatar_confirm": "Are you sure you want to remove profile avatar?",
+      "display_name": "Display Name",
+      "save": "Save"
+    },
+    "About": {
+      "title": "About",
+      "cinny": "Cinny",
+      "tagline": "Yet another matrix client.",
+      "source_code": "Source Code",
+      "support": "Support",
+      "options": "Options",
+      "clear_cache_title": "Clear Cache & Reload",
+      "clear_cache_desc": "Clear all your locally stored data and reload from server.",
+      "clear_cache": "Clear Cache",
+      "credits": "Credits"
+    },
+    "CodeBlock": {
+      "language": "Code",
+      "copy": "Copy",
+      "copied": "Copied",
+      "collapse": "Collapse",
+      "expand": "Expand"
+    },
+    "RoomIntro": {
+      "no_topic": "This is the beginning of conversation.",
+      "invite_member": "Invite Member",
+      "open_old_room": "Open Old Room",
+      "join_old_room": "Join Old Room"
+    },
+    "UploadBoard": {
+      "files": "Files",
+      "send": "Send",
+      "upload_failed": "Upload Failed",
+      "remove": "Remove",
+      "remove_all": "Remove All"
+    },
+    "UploadCard": {
+      "retry": "Retry",
+      "retry_upload_aria": "Retry Upload",
+      "cancel_upload_aria": "Cancel Upload",
+      "spoiler": "Spoiler",
+      "file_too_large": "The file size exceeds the limit. Maximum allowed size is {{max}}, but the uploaded file is {{size}}."
+    },
+    "LeaveRoom": {
+      "title": "Leave Room",
+      "confirm": "Are you sure you want to leave this room?",
+      "failed_leave_prefix": "Failed to leave room!",
+      "leaving": "Leaving...",
+      "leave": "Leave"
+    },
+    "LeaveSpace": {
+      "title": "Leave Space",
+      "confirm": "Are you sure you want to leave this space?",
+      "failed_leave_prefix": "Failed to leave space!",
+      "leaving": "Leaving...",
+      "leave": "Leave"
+    },
+    "JoinAddress": {
+      "title": "Join with Address",
+      "instructions": "Enter public address to join the community. Addresses looks like:",
+      "address_label": "Address",
+      "invalid_address": "Invalid Address",
+      "open": "Open"
+    },
+    "InviteUser": {
+      "title": "Invite",
+      "user_id_label": "User ID",
+      "user_id_placeholder": "@username:server",
+      "reason_optional": "Reason (Optional)",
+      "invalid": "Invalid",
+      "invite": "Invite"
+    },
+    "BetaNotice": {
+      "notice": "Notice",
+      "description": "This feature is under testing and may change over time.",
+      "beta": "Beta"
+    },
+    "MembersDrawer": {
+      "members": "Members",
+      "members_count": "{{count}} Members"
+    },
+    "MessageEditor": {
+      "save": "Save"
+    },
+    "AccountDataEditor": {
+      "account_data": "Account Data",
+      "json_content": "JSON Content",
+      "edit": "Edit"
+    },
+    "Reply": {
+      "thread": "Thread"
+    },
+    "RoomCard": {
+      "space": "Space",
+      "members": "Members",
+      "view": "View",
+      "joining": "Joining",
+      "join": "Join",
+      "join_error_title": "Join Error",
+      "join_error_unknown": "Failed to join. Unknown Error.",
+      "view_error": "View Error"
+    },
+    "Reaction": {
+      "reacted_single": "{{name}} reacted with :{{shortcode}}:",
+      "reacted_two": "{{name0}} and {{name1}} reacted with :{{shortcode}}:",
+      "reacted_three": "{{name0}}, {{name1}} and {{name2}} reacted with :{{shortcode}}:",
+      "reacted_many": "{{name0}}, {{name1}}, {{name2}} and {{others}} others reacted with :{{shortcode}}:"
+    },
+    "JoinRulesSwitcher": {
+      "invite_only": "Invite Only",
+      "knock_invite": "Knock & Invite",
+      "space_or_knock": "Space Members or Knock",
+      "space_members": "Space Members",
+      "public": "Public",
+      "unsupported": "Unsupported"
+    },
+    "ManualVerification": {
+      "recovery_passphrase": "Recovery Passphrase",
+      "recovery_key": "Recovery Key",
+      "verify_manually": "Verify Manually",
+      "select_method": "Select a verification method.",
+      "provide_recovery_key": "Provide recovery key.",
+      "device_verified": "Device verified!",
+      "unexpected_crypto_error": "Unexpected Error! Crypto object not found."
+    },
+    "RoomNotificationSwitcher": {
+      "default": "Default",
+      "all_messages": "All Messages",
+      "mention_keywords": "Mention & Keywords",
+      "mute": "Mute"
+    },
+    "SecretStorage": {
+      "recovery_passphrase": "Recovery Passphrase",
+      "recovery_key": "Recovery Key",
+      "verify": "Verify",
+      "invalid_recovery_passphrase": "Invalid recovery passphrase.",
+      "invalid_recovery_key": "Invalid recovery key."
+    },
+    "BackupRestore": {
+      "title": "Encryption Backup",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "syncing": "Syncing ({{count}})",
+      "backup_details": "Backup Details",
+      "restoring": "Restoring: {{percent}}%",
+      "version_prefix": "Version: {{version}}",
+      "keys_prefix": "Keys: {{count}}",
+      "restore_backup": "Restore Backup",
+      "no_backup": "No backup present on server!",
+      "trusted_decryption": "Backup has trusted decryption key.",
+      "no_trusted_decryption": "Backup does not have trusted decryption key!",
+      "trusted_signature": "Backup has trusted by signature.",
+      "no_trusted_signature": "Backup does not have trusted signature!"
+    },
+    "CreateRoom": {
+      "title": "Create Room",
+      "subtitle": "Build a Room for Real-Time Conversations.",
+      "access": "Access",
+      "name": "Name",
+      "topic_optional": "Topic (Optional)",
+      "options": "Options",
+      "advanced_options": "Advanced Options",
+      "e2ee_title": "End-to-End Encryption",
+      "e2ee_desc": "Once this feature is enabled, it can't be disabled after the room is created.",
+      "founders": "Founders",
+      "founders_desc": "Special privileged users can be assigned during creation. These users have elevated control and can only be modified during a upgrade.",
+      "no_suggestions": "No Suggestions",
+      "no_suggestions_desc": "Please provide the user ID and hit Enter.",
+      "placeholder_username": "@username:server",
+      "enter": "Enter",
+      "address_optional": "Address (Optional)",
+      "pick_unique_address": "Pick an unique address to make it discoverable.",
+      "address_taken": "This address is already taken. Please select a different one.",
+      "kind_restricted": "Restricted",
+      "kind_restricted_desc": "Only member of parent space can join.",
+      "kind_private": "Private",
+      "kind_private_desc": "Only people with invite can join.",
+      "kind_public": "Public",
+      "kind_public_desc": "Anyone with the address can join.",
+      "knock_title": "Knock to Join",
+      "knock_desc": "Anyone can send request to join this room.",
+      "allow_federation_title": "Allow Federation",
+      "allow_federation_desc": "Users from other servers can join.",
+      "create": "Create"
+    },
+    "RoomVersionSelector": {
+      "versions": "Versions"
+    },
+    "Editor": {
+      "bold": "Bold",
+      "italic": "Italic",
+      "underline": "Underline",
+      "strike": "Strike Through",
+      "inline_code": "Inline Code",
+      "spoiler": "Spoiler",
+      "block_quote": "Block Quote",
+      "block_code": "Block Code",
+      "ordered_list": "Ordered List",
+      "unordered_list": "Unordered List",
+      "heading_1": "Heading 1",
+      "heading_2": "Heading 2",
+      "heading_3": "Heading 3",
+      "exit_formatting": "Exit Formatting",
+      "enable_markdown": "Enable Markdown",
+      "disable_markdown": "Disable Markdown"
+    },
+    "CreateSpace": {
+      "title": "Create Space",
+      "subtitle": "Build a space for your community."
+    },
+    "Direct": {
+      "title": "Direct Messages",
+      "no_directs": "No Direct Messages",
+      "no_directs_desc": "You do not have any direct messages yet.",
+      "direct_message": "Direct Message",
+      "create_chat": "Create Chat",
+      "chats": "Chats"
+    },
+    "DirectCreate": {
+      "title": "Create Chat",
+      "subtitle": "Start a private, encrypted chat by entering a user ID."
+    },
+    "PasswordStage": {
+      "title": "Account Password",
+      "instruction": "To perform this action you need to authenticate yourself by entering your account password.",
+      "password_label": "Password",
+      "invalid_password": "Invalid Password!"
+    },
+    "DeviceVerification": {
+      "title": "Device Verification",
+      "unexpected_error": "Unexpected Error! Verification is started but verifier is missing.",
+      "close": "Close",
+      "accept": "Accept",
+      "they_match": "They Match",
+      "do_not_match": "Do not Match",
+      "device_verified": "Your device is verified.",
+      "okay": "Okay",
+      "verification_canceled": "Verification has been canceled.",
+      "waiting_accept": "Waiting for request to be accepted...",
+      "starting_verification": "Starting verification using emoji comparison...",
+      "accept_request_instruction": "Please accept the request from other device.",
+      "accept_instruction": "Click accept to start the verification process.",
+      "request_accepted": "Verification request has been accepted.",
+      "waiting_response": "Waiting for the response from other device...",
+      "confirm_emoji_instruction": "Confirm the emoji below are displayed on both devices, in the same order:"
+    },
+    "DeviceVerificationSetup": {
+      "title": "Setup Device Verification",
+      "generate_recovery_prefix": "Generate a ",
+      "recovery_key": "Recovery Key",
+      "generate_recovery_suffix": " for verifying identity if you do not have access to other devices. Additionally, setup a passphrase as a memorable alternative.",
+      "passphrase_optional": "Passphrase (Optional)",
+      "unexpected_error": "Unexpected Error!",
+      "auth_not_supported": "Authentication steps to perform this action are not supported by client.",
+      "store_recovery_desc": "Store the Recovery Key in a safe place for future use, as you will need it to verify your identity if you do not have access to other devices.",
+      "recovery_key_label": "Recovery Key",
+      "copy": "Copy",
+      "download": "Download",
+      "reset": "Reset",
+      "reset_warning_title": "Reset Device Verification",
+      "reset_warning_line1": "Resetting device verification is permanent.",
+      "reset_warning_line2": "Anyone you have verified with will see security alerts and your encryption backup will be lost. You almost certainly do not want to do this, unless you have lost Recovery Key or Recovery Passphrase and every device you can verify from.",
+      "auth_not_supported_short": "Auth not supported"
+    },
+    "UserHero": {
+      "at_username": "@{{username}}"
+    },
+    "RoomProfile": {
+      "avatar": "Avatar",
+      "upload": "Upload",
+      "reset": "Reset",
+      "remove": "Remove",
+      "name": "Name",
+      "topic": "Topic",
+      "save": "Save",
+      "title": "Profile",
+      "unknown": "Unknown",
+      "edit": "Edit"
+    },
+    "VideoContent": {
+      "watch": "Watch",
+      "spoiler": "Spoiler",
+      "failed_load": "Failed to load video!",
+      "retry": "Retry"
+    },
+    "ImageContent": {
+      "view": "View",
+      "spoiler": "Spoiler",
+      "failed_load": "Failed to load image!",
+      "retry": "Retry"
+    },
+    "FileContent": {
+      "failed_load_file": "Failed to load file!",
+      "open_file": "Open File",
+      "open_pdf": "Open PDF",
+      "retry_download": "Retry Download ({{size}})",
+      "download": "Download ({{size}})"
+    },
+    "AudioContent": {
+      "play": "Play",
+      "pause": "Pause",
+      "failed_load": "Failed to load audio!"
+    },
+    "PdfViewer": {
+      "zoom_out": "Zoom Out",
+      "zoom_in": "Zoom In",
+      "download": "Download",
+      "failed_load": "Failed to load PDF",
+      "retry": "Retry",
+      "page_number": "Page Number",
+      "jump_to_page": "Jump To Page",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "Welcome": {
+      "title": "Welcome to Cinny",
+      "subtitle": "Yet another matrix client.",
+      "source_code": "Source Code",
+      "support": "Support"
+    },
+    "Sidebar": {
+      "home": "Home"
+    },
+    "Home": {
+      "title": "Home",
+      "no_rooms": "No Rooms",
+      "no_rooms_desc": "You do not have any rooms yet.",
+      "create_room": "Create Room",
+      "explore_community_rooms": "Explore Community Rooms",
+      "message_search": "Message Search",
+      "rooms": "Rooms"
+    },
+    "Inbox": {
+      "title": "Inbox",
+      "invites": "Invites",
+      "notifications": "Notifications"
+    },
+    "UserChips": {
+      "copy_server": "Copy Server",
+      "explore_community": "Explore Community",
+      "open_in_browser": "Open in Browser",
+      "copy_user_id": "Copy User ID",
+      "copy_user_link": "Copy User Link",
+      "share": "Share",
+      "spaces": "Spaces",
+      "rooms": "Rooms",
+      "direct_messages": "Direct Messages",
+      "mutual_rooms": "Mutual Rooms",
+      "mutual_rooms_count": "{{count}} Mutual Rooms",
+      "blocked_user": "Blocked User",
+      "blocked_user_description": "You do not receive any messages or invites from this user.",
+      "unblock_user": "Unblock User",
+      "block_user": "Block User"
+    },
+    "Room": {
+      "in_reply_to": "In reply to"
+    },
+    "UserRoomProfile": {
+      "message": "Message"
+    },
+    "UserModeration": {
+      "kicked_user": "Kicked User",
+      "kicked_by": "Kicked by: {{who}}",
+      "reason_label": "Reason: {{reason}}",
+      "no_reason_provided": "No Reason Provided.",
+      "banned_user": "Banned User",
+      "banned_by": "Banned by: {{who}}",
+      "unban": "Unban",
+      "invited_user": "Invited User",
+      "invited_by": "Invited by: {{who}}",
+      "cancel_invite": "Cancel Invite",
+      "moderation": "Moderation",
+      "reason_placeholder": "Reason",
+      "invite": "Invite",
+      "kick": "Kick",
+      "ban": "Ban"
+    },
+    "ServerPicker": {
+      "homeserver_list": "Homeserver List"
+    },
+    "HexColorPicker": {
+      "remove": "Remove"
+    },
+    "PowerChip": {
+      "self_demotion": "Self Demotion",
+      "demote": "Demote",
+      "shared_power": "Shared Power",
+      "promote": "Promote",
+      "self_demotion_warning": "You are about to demote yourself! You will not be able to regain this power yourself.",
+      "shared_power_warning": "You are promoting the user to have the same power as yourself! You will not be able to change their power afterward.",
+      "error_prefix": "Error: {{name}}",
+      "manage_powers": "Manage Powers"
+    },
+    "UIAFlowOverlay": {
+      "exit": "Exit",
+      "step": "Step {{currentStep}}/{{stepCount}}"
+    },
+    "SSOStage": {
+      "title": "SSO Login",
+      "description": "To perform this action you need to authenticate yourself by SSO login.",
+      "continue": "Continue",
+      "continue_with_sso": "Continue with SSO"
+    },
+    "LogoutDialog": {
+      "unverified_device": "Unverified Device",
+      "unverified_devices": "Unverified Devices"
+    },
+    "TimePicker": {
+      "hour": "Hour",
+      "minutes": "Minutes",
+      "period": "Period",
+      "am": "AM",
+      "pm": "PM"
+    },
+    "LobbyMenu": {
+      "invite": "Invite",
+      "space_settings": "Space Settings",
+      "leave_space": "Leave Space"
+    },
+    "LobbyHeader": {
+      "members": "Members",
+      "more_options": "More Options"
+    },
+    "SpaceItem": {
+      "unknown": "Unknown",
+      "inaccessible": "Inaccessible",
+      "suggested": "Suggested",
+      "rooms": "Rooms",
+      "new_room": "New Room",
+      "existing_room": "Existing Room",
+      "add_room": "Add Room",
+      "new_space": "New Space",
+      "existing_space": "Existing Space",
+      "add_space": "Add Space"
+    },
+    "HierarchyItemMenu": {
+      "unset_suggested": "Unset Suggested",
+      "set_suggested": "Set Suggested",
+      "remove": "Remove",
+      "invite": "Invite",
+      "settings": "Settings",
+      "unpin_sidebar": "Unpin from Sidebar",
+      "pin_sidebar": "Pin to Sidebar",
+      "leave": "Leave"
+    },
+    "SpaceHierarchy": {
+      "no_rooms": "No Rooms",
+      "no_rooms_desc": "This space does not contain rooms yet."
+    },
+    "Lobby": {
+      "scroll_to_top": "Scroll to Top",
+      "reordering": "Reordering"
     }
   }
 }

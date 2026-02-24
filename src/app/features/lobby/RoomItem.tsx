@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, ReactNode, useCallback, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Avatar,
   Badge,
@@ -45,6 +46,7 @@ type RoomJoinButtonProps = {
 };
 function RoomJoinButton({ roomId, via }: RoomJoinButtonProps) {
   const mx = useMatrixClient();
+  const { t } = useTranslation();
 
   const [joinState, join] = useAsyncCallback<Room, MatrixError, []>(
     useCallback(() => mx.joinRoom(roomId, { viaServers: via }), [mx, roomId, via])
@@ -91,7 +93,7 @@ function RoomJoinButton({ roomId, via }: RoomJoinButtonProps) {
         onClick={join}
         disabled={!canJoin}
       >
-        <Text size="B300">Join</Text>
+        <Text size="B300">{t('Pages.RoomItem.join')}</Text>
       </Chip>
     </Box>
   );
@@ -146,12 +148,12 @@ function RoomProfileError({ roomId, suggested, inaccessibleRoom, via }: RoomProf
       <Box grow="Yes" direction="Column" className={css.ErrorNameContainer}>
         <Box gap="200" alignItems="Center">
           <Text size="H5" truncate>
-            Unknown
+            {t('Pages.RoomItem.unknown')}
           </Text>
           {suggested && (
             <Box shrink="No" alignItems="Center">
               <Badge variant="Success" fill="Soft" radii="Pill" outlined>
-                <Text size="L400">Suggested</Text>
+                <Text size="L400">{t('Pages.RoomItem.suggested')}</Text>
               </Badge>
             </Box>
           )}
@@ -159,7 +161,7 @@ function RoomProfileError({ roomId, suggested, inaccessibleRoom, via }: RoomProf
         <Box gap="200" alignItems="Center">
           {inaccessibleRoom ? (
             <Badge variant="Secondary" fill="Soft" radii="300" size="500">
-              <Text size="L400">Inaccessible</Text>
+              <Text size="L400">{t('Pages.RoomItem.inaccessible')}</Text>
             </Badge>
           ) : (
             <Text size="T200" truncate>
@@ -213,7 +215,7 @@ function RoomProfile({
           {suggested && (
             <Box shrink="No" alignItems="Center">
               <Badge variant="Success" fill="Soft" radii="Pill" outlined>
-                <Text size="L400">Suggested</Text>
+                <Text size="L400">{t('Pages.RoomItem.suggested')}</Text>
               </Badge>
             </Box>
           )}
@@ -221,7 +223,9 @@ function RoomProfile({
         <Box gap="200" alignItems="Center">
           {memberCount && (
             <Box shrink="No" gap="200">
-              <Text size="T200" priority="300">{`${millify(memberCount)} Members`}</Text>
+              <Text size="T200" priority="300">
+                {t('Pages.RoomItem.members', { count: millify(memberCount) })}
+              </Text>
             </Box>
           )}
           {memberCount && topic && (
@@ -358,7 +362,7 @@ export const RoomItemCard = as<'div', RoomItemCardProps>(
                           fill="None"
                           size="400"
                           radii="Pill"
-                          aria-label="Open Room"
+                          aria-label={t('Pages.RoomItem.open_room')}
                         >
                           <Icon size="50" src={Icons.ArrowRight} />
                         </Chip>

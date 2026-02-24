@@ -1,4 +1,5 @@
 import React, { FormEventHandler, forwardRef, useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Dialog,
   Header,
@@ -73,6 +74,7 @@ type SetupVerificationProps = {
 function SetupVerification({ onComplete }: SetupVerificationProps) {
   const mx = useMatrixClient();
   const alive = useAlive();
+  const { t } = useTranslation();
 
   const [uiaAction, setUIAAction] = useState<UIAAction<void>>();
   const [nextAuthData, setNextAuthData] = useState<IAuthData | null>(); // null means no next action.
@@ -182,11 +184,12 @@ function SetupVerification({ onComplete }: SetupVerificationProps) {
   return (
     <Box as="form" onSubmit={handleSubmit} direction="Column" gap="400">
       <Text size="T300">
-        Generate a <b>Recovery Key</b> for verifying identity if you do not have access to other
-        devices. Additionally, setup a passphrase as a memorable alternative.
+        {t('Pages.DeviceVerificationSetup.generate_recovery_prefix')}
+        <b>{t('Pages.DeviceVerificationSetup.recovery_key')}</b>
+        {t('Pages.DeviceVerificationSetup.generate_recovery_suffix')}
       </Text>
       <Box direction="Column" gap="100">
-        <Text size="L400">Passphrase (Optional)</Text>
+        <Text size="L400">{t('Pages.DeviceVerificationSetup.passphrase_optional')}</Text>
         <PasswordInput name="passphraseInput" size="400" readOnly={loading} />
       </Box>
       <Button
@@ -194,20 +197,22 @@ function SetupVerification({ onComplete }: SetupVerificationProps) {
         disabled={loading}
         before={loading && <Spinner size="200" variant="Primary" fill="Solid" />}
       >
-        <Text size="B400">Continue</Text>
+        <Text size="B400">{t('Common.continue')}</Text>
       </Button>
       {setupState.status === AsyncStatus.Error && (
         <Text size="T200" style={{ color: color.Critical.Main }}>
-          <b>{setupState.error ? setupState.error.message : 'Unexpected Error!'}</b>
+          <b>
+            {setupState.error
+              ? setupState.error.message
+              : t('Pages.DeviceVerificationSetup.unexpected_error')}
+          </b>
         </Text>
       )}
       {nextAuthData !== null && uiaAction && (
         <ActionUIAFlowsLoader
           authData={nextAuthData ?? uiaAction.authData}
           unsupported={() => (
-            <Text size="T200">
-              Authentication steps to perform this action are not supported by client.
-            </Text>
+            <Text size="T200">{t('Pages.DeviceVerificationSetup.auth_not_supported')}</Text>
           )}
         >
           {(ongoingFlow) => (
@@ -228,6 +233,7 @@ type RecoveryKeyDisplayProps = {
   recoveryKey: string;
 };
 function RecoveryKeyDisplay({ recoveryKey }: RecoveryKeyDisplayProps) {
+  const { t } = useTranslation();
   const [show, setShow] = useState(false);
 
   const handleCopy = () => {
@@ -245,12 +251,9 @@ function RecoveryKeyDisplay({ recoveryKey }: RecoveryKeyDisplayProps) {
 
   return (
     <Box direction="Column" gap="400">
-      <Text size="T300">
-        Store the Recovery Key in a safe place for future use, as you will need it to verify your
-        identity if you do not have access to other devices.
-      </Text>
+      <Text size="T300">{t('Pages.DeviceVerificationSetup.store_recovery_desc')}</Text>
       <Box direction="Column" gap="100">
-        <Text size="L400">Recovery Key</Text>
+        <Text size="L400">{t('Pages.DeviceVerificationSetup.recovery_key_label')}</Text>
         <Box
           className={ContainerColor({ variant: 'SurfaceVariant' })}
           style={{
@@ -265,16 +268,18 @@ function RecoveryKeyDisplay({ recoveryKey }: RecoveryKeyDisplayProps) {
             {safeToDisplayKey}
           </Text>
           <Chip onClick={() => setShow(!show)} variant="Secondary" radii="Pill">
-            <Text size="B300">{show ? 'Hide' : 'Show'}</Text>
+            <Text size="B300">
+              {show ? t('Common.hide') ?? 'Hide' : t('Common.show') ?? 'Show'}
+            </Text>
           </Chip>
         </Box>
       </Box>
       <Box direction="Column" gap="200">
         <Button onClick={handleCopy}>
-          <Text size="B400">Copy</Text>
+          <Text size="B400">{t('Pages.DeviceVerificationSetup.copy')}</Text>
         </Button>
         <Button onClick={handleDownload} fill="Soft">
-          <Text size="B400">Download</Text>
+          <Text size="B400">{t('Pages.DeviceVerificationSetup.download')}</Text>
         </Button>
       </Box>
     </Box>
@@ -299,7 +304,7 @@ export const DeviceVerificationSetup = forwardRef<HTMLDivElement, DeviceVerifica
           size="500"
         >
           <Box grow="Yes">
-            <Text size="H4">Setup Device Verification</Text>
+            <Text size="H4">{t('Pages.DeviceVerificationSetup.title')}</Text>
           </Box>
           <IconButton size="300" radii="300" onClick={onCancel}>
             <Icon src={Icons.Cross} />
@@ -356,16 +361,13 @@ export const DeviceVerificationReset = forwardRef<HTMLDivElement, DeviceVerifica
           <Box style={{ padding: config.space.S400 }} direction="Column" gap="400">
             <Box direction="Column" gap="200">
               <Text size="H1">✋🧑‍🚒🤚</Text>
-              <Text size="T300">Resetting device verification is permanent.</Text>
+              <Text size="T300">{t('Pages.DeviceVerificationSetup.reset_warning_line1')}</Text>
               <Text size="T300">
-                Anyone you have verified with will see security alerts and your encryption backup
-                will be lost. You almost certainly do not want to do this, unless you have lost{' '}
-                <b>Recovery Key</b> or <b>Recovery Passphrase</b> and every device you can verify
-                from.
+                {t('Pages.DeviceVerificationSetup.reset_warning_line2')}
               </Text>
             </Box>
             <Button variant="Critical" onClick={() => setReset(true)}>
-              <Text size="B400">Reset</Text>
+              <Text size="B400">{t('Pages.DeviceVerificationSetup.reset')}</Text>
             </Button>
           </Box>
         )}

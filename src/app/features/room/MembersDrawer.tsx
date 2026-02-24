@@ -26,6 +26,7 @@ import {
   TooltipProvider,
   config,
 } from 'folds';
+import { useTranslation } from 'react-i18next';
 import { MatrixClient, Room, RoomMember } from 'matrix-js-sdk';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import classNames from 'classnames';
@@ -65,13 +66,18 @@ type MemberDrawerHeaderProps = {
 };
 function MemberDrawerHeader({ room }: MemberDrawerHeaderProps) {
   const setPeopleDrawer = useSetSetting(settingsAtom, 'isPeopleDrawer');
+  const { t } = useTranslation();
 
   return (
     <Header className={css.MembersDrawerHeader} variant="Background" size="600">
       <Box grow="Yes" alignItems="Center" gap="200">
         <Box grow="Yes" alignItems="Center" gap="200">
-          <Text title={`${room.getJoinedMemberCount()} Members`} size="H5" truncate>
-            {`${millify(room.getJoinedMemberCount())} Members`}
+          <Text
+            title={`${room.getJoinedMemberCount()} ${t('Pages.MembersDrawer.members')}`}
+            size="H5"
+            truncate
+          >
+            {`${millify(room.getJoinedMemberCount())} ${t('Pages.MembersDrawer.members')}`}
           </Text>
         </Box>
         <Box shrink="No" alignItems="Center">
@@ -81,7 +87,7 @@ function MemberDrawerHeader({ room }: MemberDrawerHeaderProps) {
             offset={4}
             tooltip={
               <Tooltip>
-                <Text>Close</Text>
+                <Text>{t('Common.close')}</Text>
               </Tooltip>
             }
           >

@@ -1,5 +1,6 @@
 import { Chip, config, Icon, Icons, Menu, MenuItem, PopOut, RectCords, Text } from 'folds';
 import React, { MouseEventHandler, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import FocusTrap from 'focus-trap-react';
 import { isKeyHotkey } from 'is-hotkey';
 import { useRoomCreatorsTag } from '../../hooks/useRoomCreatorsTag';
@@ -22,6 +23,7 @@ export function CreatorChip() {
   const space = useSpaceOptionally();
   const openRoomSettings = useOpenRoomSettings();
   const openSpaceSettings = useOpenSpaceSettings();
+  const { t } = useTranslation();
 
   const [cords, setCords] = useState<RectCords>();
   const tag = useRoomCreatorsTag();
@@ -70,7 +72,7 @@ export function CreatorChip() {
                   close();
                 }}
               >
-                <Text size="B300">Manage Powers</Text>
+                <Text size="B300">{t('Pages.PowerChip.manage_powers')}</Text>
               </MenuItem>
             </div>
           </Menu>

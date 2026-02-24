@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Chip, Icon, IconButton, Icons, Text, color } from 'folds';
+import { useTranslation } from 'react-i18next';
 import { UploadCard, UploadCardError, CompactUploadCardProgress } from './UploadCard';
 import { TUploadAtom, UploadStatus, UploadSuccess, useBindUploadAtom } from '../../state/upload';
 import { useMatrixClient } from '../../hooks/useMatrixClient';
@@ -26,6 +27,7 @@ export function CompactUploadCardRenderer({
   const { upload, startUpload, cancelUpload } = useBindUploadAtom(mx, uploadAtom, isEncrypted);
   const { file } = upload;
   const fileSizeExceeded = file.size >= allowSize;
+  const { t } = useTranslation();
 
   if (upload.status === UploadStatus.Idle && !fileSizeExceeded) {
     startUpload();
@@ -54,17 +56,17 @@ export function CompactUploadCardRenderer({
             <Chip
               as="button"
               onClick={startUpload}
-              aria-label="Retry Upload"
+              aria-label={t('Pages.UploadCard.retry_upload_aria')}
               variant="Critical"
               radii="Pill"
               outlined
             >
-              <Text size="B300">Retry</Text>
+              <Text size="B300">{t('Pages.UploadCard.retry')}</Text>
             </Chip>
           )}
           <IconButton
             onClick={removeUpload}
-            aria-label="Cancel Upload"
+            aria-label={t('Pages.UploadCard.cancel_upload_aria')}
             variant="SurfaceVariant"
             radii="Pill"
             size="300"
@@ -97,9 +99,10 @@ export function CompactUploadCardRenderer({
           {upload.status === UploadStatus.Idle && fileSizeExceeded && (
             <UploadCardError>
               <Text size="T200">
-                The file size exceeds the limit. Maximum allowed size is{' '}
-                <b>{bytesToSize(allowSize)}</b>, but the uploaded file is{' '}
-                <b>{bytesToSize(file.size)}</b>.
+                {t('Pages.UploadCard.file_too_large', {
+                  max: bytesToSize(allowSize),
+                  size: bytesToSize(file.size),
+                })}
               </Text>
             </UploadCardError>
           )}

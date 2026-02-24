@@ -1,4 +1,5 @@
 import React from 'react';
+import i18next from 'i18next';
 import {
   Outlet,
   Route,
@@ -165,7 +166,7 @@ export const createRouter = (clientConfig: ClientConfig, screenSize: ScreenSize)
         >
           {mobile ? null : <Route index element={<WelcomePage />} />}
           <Route path={_CREATE_PATH} element={<HomeCreateRoom />} />
-          <Route path={_JOIN_PATH} element={<p>join</p>} />
+          <Route path={_JOIN_PATH} element={<p>{i18next.t('Pages.Router.join')}</p>} />
           <Route path={_SEARCH_PATH} element={<HomeSearch />} />
           <Route
             path={_ROOM_PATH}
@@ -291,7 +292,7 @@ export const createRouter = (clientConfig: ClientConfig, screenSize: ScreenSize)
           <Route path={_INVITES_PATH} element={<Invites />} />
         </Route>
       </Route>
-      <Route path="/*" element={<p>Page not found</p>} />
+      <Route path="/*" element={<p>{i18next.t('Pages.Router.page_not_found')}</p>} />
     </Route>
   );
 

@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useEffect, useMemo } from 'react';
+import i18n from 'i18next';
 import { MatrixError, createClient } from 'matrix-js-sdk';
 import { AsyncStatus, useAsyncCallback } from '../hooks/useAsyncCallback';
 import { useAutoDiscoveryInfo } from '../hooks/useAutoDiscoveryInfo';
@@ -33,10 +34,10 @@ export function AuthFlowsLoader({ fallback, error, children }: AuthFlowsLoaderPr
       }
 
       if (!loginFlows) {
-        throw new Error('Missing auth flow!');
+        throw new Error(i18n.t('Pages.AuthFlowsLoader.missing_auth_flow'));
       }
       if ('errcode' in loginFlows) {
-        throw new Error('Failed to load auth flow!');
+        throw new Error(i18n.t('Pages.AuthFlowsLoader.failed_load_auth_flow'));
       }
 
       const authFlows: AuthFlows = {

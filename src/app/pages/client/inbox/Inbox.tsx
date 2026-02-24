@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Avatar, Box, Icon, Icons, Text } from 'folds';
 import { useAtomValue } from 'jotai';
 import { NavCategory, NavItem, NavItemContent, NavLink } from '../../../components/nav';
@@ -16,6 +17,7 @@ function InvitesNavItem() {
   const invitesSelected = useInboxInvitesSelected();
   const allInvites = useAtomValue(allInvitesAtom);
   const inviteCount = allInvites.length;
+  const { t } = useTranslation();
 
   return (
     <NavItem
@@ -32,7 +34,7 @@ function InvitesNavItem() {
             </Avatar>
             <Box as="span" grow="Yes">
               <Text as="span" size="Inherit" truncate>
-                Invites
+                {t('Pages.Inbox.invites')}
               </Text>
             </Box>
             {inviteCount > 0 && <UnreadBadge highlight count={inviteCount} />}
@@ -46,6 +48,7 @@ function InvitesNavItem() {
 export function Inbox() {
   useNavToActivePathMapper('inbox');
   const notificationsSelected = useInboxNotificationsSelected();
+  const { t } = useTranslation();
 
   return (
     <PageNav>
@@ -53,7 +56,7 @@ export function Inbox() {
         <Box grow="Yes" gap="300">
           <Box grow="Yes">
             <Text size="H4" truncate>
-              Inbox
+              {t('Pages.Inbox.title')}
             </Text>
           </Box>
         </Box>
@@ -71,7 +74,7 @@ export function Inbox() {
                     </Avatar>
                     <Box as="span" grow="Yes">
                       <Text as="span" size="Inherit" truncate>
-                        Notifications
+                        {t('Pages.Inbox.notifications')}
                       </Text>
                     </Box>
                   </Box>

@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, forwardRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Avatar,
   Box,
@@ -46,6 +47,7 @@ type LobbyMenuProps = {
 const LobbyMenu = forwardRef<HTMLDivElement, LobbyMenuProps>(
   ({ powerLevels, requestClose }, ref) => {
     const mx = useMatrixClient();
+    const { t } = useTranslation();
     const space = useSpace();
     const creators = useRoomCreators(space);
 
@@ -87,7 +89,7 @@ const LobbyMenu = forwardRef<HTMLDivElement, LobbyMenuProps>(
             disabled={!canInvite}
           >
             <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-              Invite
+              {t('Pages.LobbyMenu.invite')}
             </Text>
           </MenuItem>
           <MenuItem
@@ -97,7 +99,7 @@ const LobbyMenu = forwardRef<HTMLDivElement, LobbyMenuProps>(
             radii="300"
           >
             <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-              Space Settings
+              {t('Pages.LobbyMenu.space_settings')}
             </Text>
           </MenuItem>
         </Box>
@@ -116,7 +118,7 @@ const LobbyMenu = forwardRef<HTMLDivElement, LobbyMenuProps>(
                   aria-pressed={promptLeave}
                 >
                   <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-                    Leave Space
+                    {t('Pages.LobbyMenu.leave_space')}
                   </Text>
                 </MenuItem>
                 {promptLeave && (
@@ -213,7 +215,7 @@ export function LobbyHeader({ showProfile, powerLevels }: LobbyHeaderProps) {
               offset={4}
               tooltip={
                 <Tooltip>
-                  <Text>Members</Text>
+                  <Text>{t('Pages.LobbyHeader.members')}</Text>
                 </Tooltip>
               }
             >
@@ -230,7 +232,7 @@ export function LobbyHeader({ showProfile, powerLevels }: LobbyHeaderProps) {
             offset={4}
             tooltip={
               <Tooltip>
-                <Text>More Options</Text>
+                <Text>{t('Pages.LobbyHeader.more_options')}</Text>
               </Tooltip>
             }
           >

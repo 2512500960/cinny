@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import FocusTrap from 'focus-trap-react';
 import {
   Box,
@@ -43,6 +44,7 @@ function SuggestMenuItem({
   requestClose: () => void;
 }) {
   const mx = useMatrixClient();
+  const { t } = useTranslation();
   const { roomId, parentId, content } = item;
 
   const [toggleState, handleToggleSuggested] = useAsyncCallback(
@@ -67,7 +69,9 @@ function SuggestMenuItem({
       disabled={toggleState.status === AsyncStatus.Loading}
     >
       <Text as="span" size="T300" truncate>
-        {content.suggested ? 'Unset Suggested' : 'Set Suggested'}
+        {content.suggested
+          ? t('Pages.HierarchyItemMenu.unset_suggested')
+          : t('Pages.HierarchyItemMenu.set_suggested')}
       </Text>
     </MenuItem>
   );
@@ -81,6 +85,7 @@ function RemoveMenuItem({
   requestClose: () => void;
 }) {
   const mx = useMatrixClient();
+  const { t } = useTranslation();
   const { roomId, parentId } = item;
 
   const [removeState, handleRemove] = useAsyncCallback(
@@ -111,7 +116,7 @@ function RemoveMenuItem({
       disabled={removeState.status === AsyncStatus.Loading}
     >
       <Text as="span" size="T300" truncate>
-        Remove
+        {t('Pages.HierarchyItemMenu.remove')}
       </Text>
     </MenuItem>
   );
@@ -129,6 +134,7 @@ function InviteMenuItem({
   const mx = useMatrixClient();
   const room = mx.getRoom(item.roomId);
   const [invitePrompt, setInvitePrompt] = useState(false);
+  const { t } = useTranslation();
 
   const handleInvite = () => {
     setInvitePrompt(true);
@@ -146,7 +152,7 @@ function InviteMenuItem({
         disabled={disabled || !room}
       >
         <Text as="span" size="T300" truncate>
-          Invite
+          {t('Pages.HierarchyItemMenu.invite')}
         </Text>
       </MenuItem>
       {invitePrompt && room && (
@@ -174,6 +180,7 @@ function SettingsMenuItem({
   const openRoomSettings = useOpenRoomSettings();
   const openSpaceSettings = useOpenSpaceSettings();
   const space = useSpaceOptionally();
+  const { t } = useTranslation();
 
   const handleSettings = () => {
     if ('space' in item) {
@@ -187,7 +194,7 @@ function SettingsMenuItem({
   return (
     <MenuItem onClick={handleSettings} size="300" radii="300" disabled={disabled}>
       <Text as="span" size="T300" truncate>
-        Settings
+        {t('Pages.HierarchyItemMenu.settings')}
       </Text>
     </MenuItem>
   );
@@ -274,7 +281,9 @@ export function HierarchyItemMenu({
                         }}
                       >
                         <Text as="span" size="T300" truncate>
-                          {pinned ? 'Unpin from Sidebar' : 'Pin to Sidebar'}
+                          {pinned
+                            ? t('Pages.HierarchyItemMenu.unpin_sidebar')
+                            : t('Pages.HierarchyItemMenu.pin_sidebar')}
                         </Text>
                       </MenuItem>
                     )}
@@ -297,7 +306,7 @@ export function HierarchyItemMenu({
                             aria-pressed={promptLeave}
                           >
                             <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-                              Leave
+                              {t('Pages.HierarchyItemMenu.leave')}
                             </Text>
                           </MenuItem>
                           {promptLeave &&

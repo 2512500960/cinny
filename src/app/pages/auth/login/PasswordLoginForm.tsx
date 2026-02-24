@@ -1,4 +1,5 @@
 import React, { FormEventHandler, MouseEventHandler, useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -40,7 +41,7 @@ import { stopPropagation } from '../../../utils/keyboard';
 
 function UsernameHint({ server }: { server: string }) {
   const [anchor, setAnchor] = useState<RectCords>();
-
+  const { t } = useTranslation();
   const handleOpenMenu: MouseEventHandler<HTMLElement> = (evt) => {
     setAnchor(evt.currentTarget.getBoundingClientRect());
   };
@@ -60,7 +61,7 @@ function UsernameHint({ server }: { server: string }) {
         >
           <Menu>
             <Header size="300" style={{ padding: `0 ${config.space.S200}` }}>
-              <Text size="L400">Hint</Text>
+              <Text size="L400">{t('Pages.PasswordLogin.hint')}</Text>
             </Header>
             <Box
               style={{ padding: config.space.S200, paddingTop: 0 }}
@@ -70,19 +71,19 @@ function UsernameHint({ server }: { server: string }) {
             >
               <Text size="T300">
                 <Text as="span" size="Inherit" priority="300">
-                  Username:
+                  {t('Pages.PasswordLogin.username_label')}
                 </Text>{' '}
                 user123
               </Text>
               <Text size="T300">
                 <Text as="span" size="Inherit" priority="300">
-                  Matrix ID:
+                  {t('Pages.PasswordLogin.matrix_id_label')}
                 </Text>
                 {` @user123:${server}`}
               </Text>
               <Text size="T300">
                 <Text as="span" size="Inherit" priority="300">
-                  Email:
+                  {t('Pages.PasswordLogin.email_label')}
                 </Text>
                 {` user123@${server}`}
               </Text>
@@ -111,6 +112,7 @@ type PasswordLoginFormProps = {
   defaultEmail?: string;
 };
 export function PasswordLoginForm({ defaultUsername, defaultEmail }: PasswordLoginFormProps) {
+  const { t } = useTranslation();
   const server = useAuthServer();
   const clientConfig = useClientConfig();
 
@@ -200,7 +202,7 @@ export function PasswordLoginForm({ defaultUsername, defaultEmail }: PasswordLog
     <Box as="form" onSubmit={handleSubmit} direction="Inherit" gap="400">
       <Box direction="Column" gap="100">
         <Text as="label" size="L400" priority="300">
-          Username
+          {t('Pages.PasswordLogin.username')}
         </Text>
         <Input
           defaultValue={defaultUsername ?? defaultEmail}
@@ -215,49 +217,51 @@ export function PasswordLoginForm({ defaultUsername, defaultEmail }: PasswordLog
         {loginState.status === AsyncStatus.Error && (
           <>
             {loginState.error.errcode === LoginError.ServerNotAllowed && (
-              <FieldError message="Login with custom server not allowed by your client instance." />
+              <FieldError message={t('Pages.PasswordLogin.server_not_allowed')} />
             )}
             {loginState.error.errcode === LoginError.InvalidServer && (
-              <FieldError message="Failed to find your Matrix ID server." />
+              <FieldError message={t('Pages.PasswordLogin.failed_find_mxid_server')} />
             )}
           </>
         )}
       </Box>
       <Box direction="Column" gap="100">
         <Text as="label" size="L400" priority="300">
-          Password
+          {t('Pages.PasswordLogin.password')}
         </Text>
         <PasswordInput name="passwordInput" variant="Background" size="500" outlined required />
         <Box alignItems="Start" justifyContent="SpaceBetween" gap="200">
           {loginState.status === AsyncStatus.Error && (
             <>
               {loginState.error.errcode === LoginError.Forbidden && (
-                <FieldError message="Invalid Username or Password." />
+                <FieldError message={t('Pages.PasswordLogin.invalid_credentials')} />
               )}
               {loginState.error.errcode === LoginError.UserDeactivated && (
-                <FieldError message="This account has been deactivated." />
+                <FieldError message={t('Pages.PasswordLogin.account_deactivated')} />
               )}
               {loginState.error.errcode === LoginError.InvalidRequest && (
-                <FieldError message="Failed to login. Part of your request data is invalid." />
+                <FieldError message={t('Pages.PasswordLogin.invalid_request')} />
               )}
               {loginState.error.errcode === LoginError.RateLimited && (
-                <FieldError message="Failed to login. Your login request has been rate-limited by server, Please try after some time." />
+                <FieldError message={t('Pages.PasswordLogin.rate_limited')} />
               )}
               {loginState.error.errcode === LoginError.Unknown && (
-                <FieldError message="Failed to login. Unknown reason." />
+                <FieldError message={t('Pages.PasswordLogin.unknown_failure')} />
               )}
             </>
           )}
           <Box grow="Yes" shrink="No" justifyContent="End">
             <Text as="span" size="T200" priority="400" align="Right">
-              <Link to={getResetPasswordPath(server)}>Forget Password?</Link>
+              <Link to={getResetPasswordPath(server)}>
+                {t('Pages.PasswordLogin.forget_password')}
+              </Link>
             </Text>
           </Box>
         </Box>
       </Box>
       <Button type="submit" variant="Primary" size="500">
         <Text as="span" size="B500">
-          Login
+          {t('Pages.PasswordLogin.login')}
         </Text>
       </Button>
 

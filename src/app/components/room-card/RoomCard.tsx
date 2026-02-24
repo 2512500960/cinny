@@ -17,6 +17,7 @@ import {
   color,
   config,
 } from 'folds';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import FocusTrap from 'focus-trap-react';
 import * as css from './style.css';
@@ -207,6 +208,8 @@ export const RoomCard = as<'div', RoomCardProps>(
     const closeTopic = () => setViewTopic(false);
     const openTopic = () => setViewTopic(true);
 
+    const { t } = useTranslation();
+
     return (
       <RoomCardBase {...props} ref={ref}>
         <Box gap="200" justifyContent="SpaceBetween">
@@ -224,7 +227,7 @@ export const RoomCard = as<'div', RoomCardProps>(
           </Avatar>
           {(roomType === RoomType.Space || joinedRoom?.isSpaceRoom()) && (
             <Badge variant="Secondary" fill="Soft" outlined>
-              <Text size="L400">Space</Text>
+              <Text size="L400">{t('Pages.RoomCard.space')}</Text>
             </Badge>
           )}
         </Box>
@@ -263,7 +266,7 @@ export const RoomCard = as<'div', RoomCardProps>(
             size="300"
           >
             <Text size="B300" truncate>
-              View
+              {t('Pages.RoomCard.view')}
             </Text>
           </Button>
         )}
@@ -276,7 +279,7 @@ export const RoomCard = as<'div', RoomCardProps>(
             before={joining && <Spinner size="50" variant="Secondary" fill="Soft" />}
           >
             <Text size="B300" truncate>
-              {joining ? 'Joining' : 'Join'}
+              {joining ? t('Pages.RoomCard.joining') : t('Pages.RoomCard.join')}
             </Text>
           </Button>
         )}
@@ -290,7 +293,7 @@ export const RoomCard = as<'div', RoomCardProps>(
               size="300"
             >
               <Text size="B300" truncate>
-                Retry
+                {t('Common.retry')}
               </Text>
             </Button>
             <ErrorDialog
@@ -307,7 +310,7 @@ export const RoomCard = as<'div', RoomCardProps>(
                   size="300"
                 >
                   <Text size="B300" truncate>
-                    View Error
+                    {t('Pages.RoomCard.view_error')}
                   </Text>
                 </Button>
               )}

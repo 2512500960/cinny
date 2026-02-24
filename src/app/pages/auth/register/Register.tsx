@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Text, color } from 'folds';
 import { Link, useSearchParams } from 'react-router-dom';
 import { SSOAction } from 'matrix-js-sdk';
@@ -24,6 +25,7 @@ const useRegisterSearchParams = (searchParams: URLSearchParams): RegisterPathSea
   );
 
 export function Register() {
+  const { t } = useTranslation();
   const server = useAuthServer();
   const { loginFlows, registerFlows } = useAuthFlows();
   const [searchParams] = useSearchParams();
@@ -36,21 +38,21 @@ export function Register() {
   return (
     <Box direction="Column" gap="500">
       <Text size="H2" priority="400">
-        Register
+        {t('Pages.Register.title')}
       </Text>
       {registerFlows.status === RegisterFlowStatus.RegistrationDisabled && !sso && (
         <Text style={{ color: color.Critical.Main }} size="T300">
-          Registration has been disabled on this homeserver.
+          {t('Pages.Register.registration_disabled')}
         </Text>
       )}
       {registerFlows.status === RegisterFlowStatus.RateLimited && !sso && (
         <Text style={{ color: color.Critical.Main }} size="T300">
-          You have been rate-limited! Please try after some time.
+          {t('Pages.Register.rate_limited')}
         </Text>
       )}
       {registerFlows.status === RegisterFlowStatus.InvalidRequest && !sso && (
         <Text style={{ color: color.Critical.Main }} size="T300">
-          Invalid Request! Failed to get any registration options.
+          {t('Pages.Register.invalid_request')}
         </Text>
       )}
       {registerFlows.status === RegisterFlowStatus.FlowRequired && (
@@ -91,7 +93,8 @@ export function Register() {
         </>
       )}
       <Text align="Center">
-        Already have an account? <Link to={getLoginPath(server)}>Login</Link>
+        {t('Pages.Register.already_have_account')}{' '}
+        <Link to={getLoginPath(server)}>{t('Pages.Register.login')}</Link>
       </Text>
     </Box>
   );

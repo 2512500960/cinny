@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import FocusTrap from 'focus-trap-react';
 import { isKeyHotkey } from 'is-hotkey';
@@ -44,6 +45,7 @@ import { SettingTile } from '../setting-tile';
 
 export function ServerChip({ server }: { server: string }) {
   const mx = useMatrixClient();
+  const { t } = useTranslation();
   const myServer = getMxIdServer(mx.getSafeUserId());
   const navigate = useNavigate();
   const closeProfile = useCloseUserRoomProfile();
@@ -87,7 +89,7 @@ export function ServerChip({ server }: { server: string }) {
                   close();
                 }}
               >
-                <Text size="B300">Copy Server</Text>
+                <Text size="B300">{t('Pages.UserChips.copy_server')}</Text>
               </MenuItem>
               <MenuItem
                 variant="Surface"
@@ -99,7 +101,7 @@ export function ServerChip({ server }: { server: string }) {
                   closeProfile();
                 }}
               >
-                <Text size="B300">Explore Community</Text>
+                <Text size="B300">{t('Pages.UserChips.explore_community')}</Text>
               </MenuItem>
             </div>
             <Line size="300" />
@@ -114,7 +116,7 @@ export function ServerChip({ server }: { server: string }) {
                   close();
                 }}
               >
-                <Text size="B300">Open in Browser</Text>
+                <Text size="B300">{t('Pages.UserChips.open_in_browser')}</Text>
               </MenuItem>
             </div>
           </Menu>
@@ -143,6 +145,7 @@ export function ServerChip({ server }: { server: string }) {
 }
 
 export function ShareChip({ userId }: { userId: string }) {
+  const { t } = useTranslation();
   const [cords, setCords] = useState<RectCords>();
 
   const [copied, setCopied] = useTimeoutToggle();
@@ -183,7 +186,7 @@ export function ShareChip({ userId }: { userId: string }) {
                   close();
                 }}
               >
-                <Text size="B300">Copy User ID</Text>
+                <Text size="B300">{t('Pages.UserChips.copy_user_id')}</Text>
               </MenuItem>
               <MenuItem
                 variant="Surface"
@@ -196,7 +199,7 @@ export function ShareChip({ userId }: { userId: string }) {
                   close();
                 }}
               >
-                <Text size="B300">Copy User Link</Text>
+                <Text size="B300">{t('Pages.UserChips.copy_user_link')}</Text>
               </MenuItem>
             </div>
           </Menu>
@@ -217,7 +220,7 @@ export function ShareChip({ userId }: { userId: string }) {
         aria-pressed={!!cords}
       >
         <Text size="B300" truncate>
-          Share
+          {t('Pages.UserChips.share')}
         </Text>
       </Chip>
     </PopOut>
@@ -232,6 +235,7 @@ type MutualRoomsData = {
 
 export function MutualRoomsChip({ userId }: { userId: string }) {
   const mx = useMatrixClient();
+  const { t } = useTranslation();
   const mutualRoomSupported = useMutualRoomsSupport();
   const mutualRoomsState = useMutualRooms(userId);
   const { navigateRoom, navigateSpace } = useRoomNavigate();
@@ -370,7 +374,7 @@ export function MutualRoomsChip({ userId }: { userId: string }) {
                     {mutual.spaces.length > 0 && (
                       <Box direction="Column" gap="100">
                         <Text style={{ paddingLeft: config.space.S100 }} size="L400">
-                          Spaces
+                          {t('Pages.UserChips.spaces')}
                         </Text>
                         {mutual.spaces.map(renderItem)}
                       </Box>
@@ -378,7 +382,7 @@ export function MutualRoomsChip({ userId }: { userId: string }) {
                     {mutual.rooms.length > 0 && (
                       <Box direction="Column" gap="100">
                         <Text style={{ paddingLeft: config.space.S100 }} size="L400">
-                          Rooms
+                          {t('Pages.UserChips.rooms')}
                         </Text>
                         {mutual.rooms.map(renderItem)}
                       </Box>
@@ -386,7 +390,7 @@ export function MutualRoomsChip({ userId }: { userId: string }) {
                     {mutual.directs.length > 0 && (
                       <Box direction="Column" gap="100">
                         <Text style={{ paddingLeft: config.space.S100 }} size="L400">
-                          Direct Messages
+                          {t('Pages.UserChips.direct_messages')}
                         </Text>
                         {mutual.directs.map(renderItem)}
                       </Box>
@@ -411,8 +415,8 @@ export function MutualRoomsChip({ userId }: { userId: string }) {
       >
         <Text size="B300">
           {mutualRoomsState.status === AsyncStatus.Success &&
-            `${mutualRoomsState.data.length} Mutual Rooms`}
-          {mutualRoomsState.status === AsyncStatus.Loading && 'Mutual Rooms'}
+            t('Pages.UserChips.mutual_rooms_count', { count: mutualRoomsState.data.length })}
+          {mutualRoomsState.status === AsyncStatus.Loading && t('Pages.UserChips.mutual_rooms')}
         </Text>
       </Chip>
     </PopOut>
@@ -420,15 +424,16 @@ export function MutualRoomsChip({ userId }: { userId: string }) {
 }
 
 export function IgnoredUserAlert() {
+  const { t } = useTranslation();
   return (
     <CutoutCard style={{ padding: config.space.S200 }} variant="Critical">
       <SettingTile>
         <Box direction="Column" gap="200">
           <Box gap="200" justifyContent="SpaceBetween">
-            <Text size="L400">Blocked User</Text>
+            <Text size="L400">{t('Pages.UserChips.blocked_user')}</Text>
           </Box>
           <Box direction="Column">
-            <Text size="T200">You do not receive any messages or invites from this user.</Text>
+            <Text size="T200">{t('Pages.UserChips.blocked_user_description')}</Text>
           </Box>
         </Box>
       </SettingTile>
@@ -438,6 +443,7 @@ export function IgnoredUserAlert() {
 
 export function OptionsChip({ userId }: { userId: string }) {
   const mx = useMatrixClient();
+  const { t } = useTranslation();
   const [cords, setCords] = useState<RectCords>();
 
   const open: MouseEventHandler<HTMLButtonElement> = (evt) => {
@@ -495,7 +501,9 @@ export function OptionsChip({ userId }: { userId: string }) {
                 }
                 disabled={ignoring}
               >
-                <Text size="B300">{ignored ? 'Unblock User' : 'Block User'}</Text>
+                <Text size="B300">
+                  {ignored ? t('Pages.UserChips.unblock_user') : t('Pages.UserChips.block_user')}
+                </Text>
               </MenuItem>
             </div>
           </Menu>

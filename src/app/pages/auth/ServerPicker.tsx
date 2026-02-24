@@ -19,6 +19,7 @@ import {
   Text,
   config,
 } from 'folds';
+import { useTranslation } from 'react-i18next';
 import FocusTrap from 'focus-trap-react';
 
 import { useDebounce } from '../../hooks/useDebounce';
@@ -46,6 +47,7 @@ export function ServerPicker({
   }, [server]);
 
   const debounceServerSelect = useDebounce(onServerChange, { wait: 700 });
+  const { t } = useTranslation();
 
   const handleServerChange: ChangeEventHandler<HTMLInputElement> = (evt) => {
     const inputServer = evt.target.value.trim();
@@ -109,7 +111,7 @@ export function ServerPicker({
               >
                 <Menu>
                   <Header size="300" style={{ padding: `0 ${config.space.S200}` }}>
-                    <Text size="L400">Homeserver List</Text>
+                    <Text size="L400">{t('Pages.ServerPicker.homeserver_list')}</Text>
                   </Header>
                   <div style={{ padding: config.space.S100, paddingTop: 0 }}>
                     {serverList?.map((serverName) => (

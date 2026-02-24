@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Icon, Icons, Text, Scroll, IconButton } from 'folds';
 import { Page, PageContent, PageContentCenter, PageHeader } from '../../../components/page';
 import { MessageSearch } from '../../../features/message-search';
@@ -10,6 +11,7 @@ export function HomeSearch() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const rooms = useHomeRooms();
   const screenSize = useScreenSizeContext();
+  const { t } = useTranslation();
 
   return (
     <Page>
@@ -29,7 +31,7 @@ export function HomeSearch() {
           <Box justifyContent="Center" alignItems="Center" gap="200">
             {screenSize !== ScreenSize.Mobile && <Icon size="400" src={Icons.Search} />}
             <Text size="H3" truncate>
-              Message Search
+              {t('Pages.Home.message_search')}
             </Text>
           </Box>
           <Box grow="Yes" basis="No" />

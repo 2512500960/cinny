@@ -1,4 +1,5 @@
 import React, { FormEventHandler, useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MatrixError, Room } from 'matrix-js-sdk';
 import {
   Box,
@@ -52,6 +53,7 @@ type CreateRoomFormProps = {
 };
 export function CreateRoomForm({ defaultKind, space, onCreate }: CreateRoomFormProps) {
   const mx = useMatrixClient();
+  const { t } = useTranslation();
   const alive = useAlive();
 
   const capabilities = useCapabilities();
@@ -137,7 +139,7 @@ export function CreateRoomForm({ defaultKind, space, onCreate }: CreateRoomFormP
   return (
     <Box as="form" onSubmit={handleSubmit} grow="Yes" direction="Column" gap="500">
       <Box direction="Column" gap="100">
-        <Text size="L400">Access</Text>
+        <Text size="L400">{t('Pages.CreateRoom.access')}</Text>
         <CreateRoomKindSelector
           value={kind}
           onSelect={setKind}
@@ -147,7 +149,7 @@ export function CreateRoomForm({ defaultKind, space, onCreate }: CreateRoomFormP
         />
       </Box>
       <Box shrink="No" direction="Column" gap="100">
-        <Text size="L400">Name</Text>
+        <Text size="L400">{t('Pages.CreateRoom.name')}</Text>
         <Input
           required
           before={<Icon size="100" src={getCreateRoomKindToIcon(kind)} />}
@@ -161,7 +163,7 @@ export function CreateRoomForm({ defaultKind, space, onCreate }: CreateRoomFormP
         />
       </Box>
       <Box shrink="No" direction="Column" gap="100">
-        <Text size="L400">Topic (Optional)</Text>
+        <Text size="L400">{t('Pages.CreateRoom.topic_optional')}</Text>
         <TextArea
           name="topicTextAria"
           size="500"
@@ -175,7 +177,7 @@ export function CreateRoomForm({ defaultKind, space, onCreate }: CreateRoomFormP
 
       <Box shrink="No" direction="Column" gap="100">
         <Box gap="200" alignItems="End">
-          <Text size="L400">Options</Text>
+          <Text size="L400">{t('Pages.CreateRoom.options')}</Text>
           <Box grow="Yes" justifyContent="End">
             <Chip
               radii="Pill"
@@ -183,7 +185,7 @@ export function CreateRoomForm({ defaultKind, space, onCreate }: CreateRoomFormP
               onClick={() => setAdvance(!advance)}
               type="button"
             >
-              <Text size="T200">Advanced Options</Text>
+              <Text size="T200">{t('Pages.CreateRoom.advanced_options')}</Text>
             </Chip>
           </Box>
         </Box>
@@ -210,8 +212,8 @@ export function CreateRoomForm({ defaultKind, space, onCreate }: CreateRoomFormP
               gap="500"
             >
               <SettingTile
-                title="End-to-End Encryption"
-                description="Once this feature is enabled, it can't be disabled after the room is created."
+                title={t('Pages.CreateRoom.e2ee_title')}
+                description={t('Pages.CreateRoom.e2ee_desc')}
                 after={
                   <Switch
                     variant="Primary"
@@ -230,8 +232,8 @@ export function CreateRoomForm({ defaultKind, space, onCreate }: CreateRoomFormP
                 gap="500"
               >
                 <SettingTile
-                  title="Knock to Join"
-                  description="Anyone can send request to join this room."
+                  title={t('Pages.CreateRoom.knock_title')}
+                  description={t('Pages.CreateRoom.knock_desc')}
                   after={
                     <Switch
                       variant="Primary"
@@ -253,8 +255,8 @@ export function CreateRoomForm({ defaultKind, space, onCreate }: CreateRoomFormP
           gap="500"
         >
           <SettingTile
-            title="Allow Federation"
-            description="Users from other servers can join."
+            title={t('Pages.CreateRoom.allow_federation_title')}
+            description={t('Pages.CreateRoom.allow_federation_desc')}
             after={
               <Switch
                 variant="Primary"
@@ -298,7 +300,7 @@ export function CreateRoomForm({ defaultKind, space, onCreate }: CreateRoomFormP
           disabled={disabled}
           before={loading && <Spinner variant="Primary" fill="Solid" size="200" />}
         >
-          <Text size="B500">Create</Text>
+          <Text size="B500">{t('Pages.CreateRoom.create')}</Text>
         </Button>
       </Box>
     </Box>

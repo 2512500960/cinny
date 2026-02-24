@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Badge, color, Icon, Icons, Text } from 'folds';
+import { useTranslation } from 'react-i18next';
 import {
   SidebarAvatar,
   SidebarItem,
@@ -40,6 +41,7 @@ function UnverifiedIndicator() {
     otherDevicesId
   );
 
+  const { t } = useTranslation();
   const [settings, setSettings] = useState(false);
   const closeSettings = () => setSettings(false);
 
@@ -49,7 +51,13 @@ function UnverifiedIndicator() {
     <>
       {hasUnverified && (
         <SidebarItem active={settings} className={css.UnverifiedTab}>
-          <SidebarItemTooltip tooltip={unverified ? 'Unverified Device' : 'Unverified Devices'}>
+          <SidebarItemTooltip
+            tooltip={
+              unverified
+                ? t('Pages.UnverifiedTab.unverified_device')
+                : t('Pages.UnverifiedTab.unverified_devices')
+            }
+          >
             {(triggerRef) => (
               <SidebarAvatar
                 className={unverified ? css.UnverifiedAvatar : css.UnverifiedOtherAvatar}

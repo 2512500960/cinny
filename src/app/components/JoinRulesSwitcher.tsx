@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   config,
   Box,
@@ -47,18 +48,20 @@ export const useSpaceJoinRuleIcon = (): JoinRuleIcons =>
   );
 
 type JoinRuleLabels = Record<ExtendedJoinRules, string>;
-export const useRoomJoinRuleLabel = (): JoinRuleLabels =>
-  useMemo(
+export const useRoomJoinRuleLabel = (): JoinRuleLabels => {
+  const { t } = useTranslation();
+  return useMemo(
     () => ({
-      [JoinRule.Invite]: 'Invite Only',
-      [JoinRule.Knock]: 'Knock & Invite',
-      knock_restricted: 'Space Members or Knock',
-      [JoinRule.Restricted]: 'Space Members',
-      [JoinRule.Public]: 'Public',
-      [JoinRule.Private]: 'Invite Only',
+      [JoinRule.Invite]: t('Pages.JoinRulesSwitcher.invite_only'),
+      [JoinRule.Knock]: t('Pages.JoinRulesSwitcher.knock_invite'),
+      knock_restricted: t('Pages.JoinRulesSwitcher.space_or_knock'),
+      [JoinRule.Restricted]: t('Pages.JoinRulesSwitcher.space_members'),
+      [JoinRule.Public]: t('Pages.JoinRulesSwitcher.public'),
+      [JoinRule.Private]: t('Pages.JoinRulesSwitcher.invite_only'),
     }),
-    []
+    [t]
   );
+};
 
 type JoinRulesSwitcherProps<T extends ExtendedJoinRules[]> = {
   icons: JoinRuleIcons;
@@ -78,6 +81,7 @@ export function JoinRulesSwitcher<T extends ExtendedJoinRules[]>({
   disabled,
   changing,
 }: JoinRulesSwitcherProps<T>) {
+  const { t } = useTranslation();
   const [cords, setCords] = useState<RectCords>();
 
   const handleOpenMenu: MouseEventHandler<HTMLButtonElement> = (evt) => {
@@ -148,7 +152,7 @@ export function JoinRulesSwitcher<T extends ExtendedJoinRules[]>({
         onClick={handleOpenMenu}
         disabled={disabled}
       >
-        <Text size="B300">{labels[value] ?? 'Unsupported'}</Text>
+        <Text size="B300">{labels[value] ?? t('Pages.JoinRulesSwitcher.unsupported')}</Text>
       </Button>
     </PopOut>
   );

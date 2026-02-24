@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Avatar,
   Box,
@@ -29,6 +30,7 @@ type UserHeroProps = {
 };
 export function UserHero({ userId, avatarUrl, presence }: UserHeroProps) {
   const [viewAvatar, setViewAvatar] = useState<string>();
+  const { t } = useTranslation();
 
   return (
     <Box direction="Column" className={css.UserHero}>
@@ -98,6 +100,7 @@ type UserHeroNameProps = {
 };
 export function UserHeroName({ displayName, userId }: UserHeroNameProps) {
   const username = getMxIdLocalPart(userId);
+  const { t } = useTranslation();
 
   return (
     <Box grow="Yes" direction="Column" gap="0">
@@ -112,7 +115,7 @@ export function UserHeroName({ displayName, userId }: UserHeroNameProps) {
       </Box>
       <Box alignItems="Center" gap="100" wrap="Wrap">
         <Text size="T200" className={classNames(BreakWord, LineClamp3)} title={username}>
-          @{username}
+          {t('Pages.UserHero.at_username', { username })}
         </Text>
       </Box>
     </Box>

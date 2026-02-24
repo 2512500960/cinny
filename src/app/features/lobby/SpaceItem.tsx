@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, ReactNode, useCallback, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Avatar,
@@ -57,6 +58,7 @@ type InaccessibleSpaceProfileProps = {
   suggested?: boolean;
 };
 function InaccessibleSpaceProfile({ roomId, suggested }: InaccessibleSpaceProfileProps) {
+  const { t } = useTranslation();
   return (
     <Chip
       as="span"
@@ -78,15 +80,15 @@ function InaccessibleSpaceProfile({ roomId, suggested }: InaccessibleSpaceProfil
     >
       <Box alignItems="Center" gap="200">
         <Text size="H4" truncate>
-          Unknown
+          {t('Pages.SpaceItem.unknown')}
         </Text>
 
         <Badge variant="Secondary" fill="Soft" radii="Pill" outlined>
-          <Text size="L400">Inaccessible</Text>
+          <Text size="L400">{t('Pages.SpaceItem.inaccessible')}</Text>
         </Badge>
         {suggested && (
           <Badge variant="Success" fill="Soft" radii="Pill" outlined>
-            <Text size="L400">Suggested</Text>
+            <Text size="L400">{t('Pages.SpaceItem.suggested')}</Text>
           </Badge>
         )}
       </Box>
@@ -113,6 +115,8 @@ function UnjoinedSpaceProfile({
   const [joinState, join] = useAsyncCallback<Room, MatrixError, []>(
     useCallback(() => mx.joinRoom(roomId, { viaServers: via }), [mx, roomId, via])
   );
+
+  const { t } = useTranslation();
 
   const canJoin = joinState.status === AsyncStatus.Idle || joinState.status === AsyncStatus.Error;
   return (
@@ -142,11 +146,11 @@ function UnjoinedSpaceProfile({
     >
       <Box alignItems="Center" gap="200">
         <Text size="H4" truncate>
-          {name || 'Unknown'}
+          {name || t('Pages.SpaceItem.unknown')}
         </Text>
         {suggested && (
           <Badge variant="Success" fill="Soft" radii="Pill" outlined>
-            <Text size="L400">Suggested</Text>
+            <Text size="L400">{t('Pages.SpaceItem.suggested')}</Text>
           </Badge>
         )}
         {joinState.status === AsyncStatus.Error && (
@@ -179,6 +183,7 @@ function SpaceProfile({
   categoryId,
   handleClose,
 }: SpaceProfileProps) {
+  const { t } = useTranslation();
   return (
     <Chip
       data-category-id={categoryId}
@@ -208,7 +213,7 @@ function SpaceProfile({
         </Text>
         {suggested && (
           <Badge variant="Success" fill="Soft" radii="Pill" outlined>
-            <Text size="L400">Suggested</Text>
+            <Text size="L400">{t('Pages.SpaceItem.suggested')}</Text>
           </Badge>
         )}
       </Box>
@@ -222,6 +227,7 @@ type RootSpaceProfileProps = {
   handleClose?: MouseEventHandler<HTMLButtonElement>;
 };
 function RootSpaceProfile({ closed, categoryId, handleClose }: RootSpaceProfileProps) {
+  const { t } = useTranslation();
   return (
     <Chip
       data-category-id={categoryId}
@@ -233,7 +239,7 @@ function RootSpaceProfile({ closed, categoryId, handleClose }: RootSpaceProfileP
     >
       <Box alignItems="Center" gap="200">
         <Text size="H4" truncate>
-          Rooms
+          {t('Pages.SpaceItem.rooms')}
         </Text>
       </Box>
     </Chip>
@@ -283,10 +289,10 @@ function AddRoomButton({ item }: { item: HierarchyItem }) {
               fill="None"
               onClick={handleCreateRoom}
             >
-              <Text size="T300">New Room</Text>
+              <Text size="T300">{t('Pages.SpaceItem.new_room')}</Text>
             </MenuItem>
             <MenuItem size="300" radii="300" fill="None" onClick={handleAddExisting}>
-              <Text size="T300">Existing Room</Text>
+              <Text size="T300">{t('Pages.SpaceItem.existing_room')}</Text>
             </MenuItem>
           </Menu>
         </FocusTrap>
@@ -299,7 +305,7 @@ function AddRoomButton({ item }: { item: HierarchyItem }) {
         onClick={handleAddRoom}
         aria-pressed={!!cords}
       >
-        <Text size="B300">Add Room</Text>
+        <Text size="B300">{t('Pages.SpaceItem.add_room')}</Text>
       </Chip>
       {addExisting && (
         <AddExistingModal parentId={item.roomId} requestClose={() => setAddExisting(false)} />
@@ -350,10 +356,10 @@ function AddSpaceButton({ item }: { item: HierarchyItem }) {
               fill="None"
               onClick={handleCreateSpace}
             >
-              <Text size="T300">New Space</Text>
+              <Text size="T300">{t('Pages.SpaceItem.new_space')}</Text>
             </MenuItem>
             <MenuItem size="300" radii="300" fill="None" onClick={handleAddExisting}>
-              <Text size="T300">Existing Space</Text>
+              <Text size="T300">{t('Pages.SpaceItem.existing_space')}</Text>
             </MenuItem>
           </Menu>
         </FocusTrap>
@@ -366,7 +372,7 @@ function AddSpaceButton({ item }: { item: HierarchyItem }) {
         onClick={handleAddSpace}
         aria-pressed={!!cords}
       >
-        <Text size="B300">Add Space</Text>
+        <Text size="B300">{t('Pages.SpaceItem.add_space')}</Text>
       </Chip>
       {addExisting && (
         <AddExistingModal space parentId={item.roomId} requestClose={() => setAddExisting(false)} />

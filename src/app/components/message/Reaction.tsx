@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Text, as } from 'folds';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { MatrixClient, MatrixEvent, Room } from 'matrix-js-sdk';
 import * as css from './Reaction.css';
@@ -29,8 +30,7 @@ export const Reaction = as<
       {reaction.startsWith('mxc://') ? (
         <img
           className={css.ReactionImg}
-          src={mxcUrlToHttp(mx, reaction, useAuthentication) ?? reaction
-          }
+          src={mxcUrlToHttp(mx, reaction, useAuthentication) ?? reaction}
           alt={reaction}
         />
       ) : (
@@ -52,6 +52,7 @@ type ReactionTooltipMsgProps = {
 };
 
 export function ReactionTooltipMsg({ room, reaction, events }: ReactionTooltipMsgProps) {
+  const { t } = useTranslation();
   const shortCodeEvt = events.find(eventWithShortcode);
   const shortcode =
     shortCodeEvt?.getContent().shortcode ??
@@ -66,50 +67,33 @@ export function ReactionTooltipMsg({ room, reaction, events }: ReactionTooltipMs
 
   return (
     <>
-      {names.length === 1 && <b>{names[0]}</b>}
+      {names.length === 1 && (
+        <>{t('Pages.Reaction.reacted_single', { name: names[0], shortcode })}</>
+      )}
       {names.length === 2 && (
-        <>
-          <b>{names[0]}</b>
-          <Text as="span" size="Inherit" priority="300">
-            {' and '}
-          </Text>
-          <b>{names[1]}</b>
-        </>
+        <>{t('Pages.Reaction.reacted_two', { name0: names[0], name1: names[1], shortcode })}</>
       )}
       {names.length === 3 && (
         <>
-          <b>{names[0]}</b>
-          <Text as="span" size="Inherit" priority="300">
-            {', '}
-          </Text>
-          <b>{names[1]}</b>
-          <Text as="span" size="Inherit" priority="300">
-            {' and '}
-          </Text>
-          <b>{names[2]}</b>
+          {t('Pages.Reaction.reacted_three', {
+            name0: names[0],
+            name1: names[1],
+            name2: names[2],
+            shortcode,
+          })}
         </>
       )}
       {names.length > 3 && (
         <>
-          <b>{names[0]}</b>
-          <Text as="span" size="Inherit" priority="300">
-            {', '}
-          </Text>
-          <b>{names[1]}</b>
-          <Text as="span" size="Inherit" priority="300">
-            {', '}
-          </Text>
-          <b>{names[2]}</b>
-          <Text as="span" size="Inherit" priority="300">
-            {' and '}
-          </Text>
-          <b>{names.length - 3} others</b>
+          {t('Pages.Reaction.reacted_many', {
+            name0: names[0],
+            name1: names[1],
+            name2: names[2],
+            others: names.length - 3,
+            shortcode,
+          })}
         </>
       )}
-      <Text as="span" size="Inherit" priority="300">
-        {' reacted with '}
-      </Text>
-      :<b>{shortcode}</b>:
     </>
   );
 }
