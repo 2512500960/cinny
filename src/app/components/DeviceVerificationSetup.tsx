@@ -362,9 +362,7 @@ export const DeviceVerificationReset = forwardRef<HTMLDivElement, DeviceVerifica
             <Box direction="Column" gap="200">
               <Text size="H1">✋🧑‍🚒🤚</Text>
               <Text size="T300">{t('Pages.DeviceVerificationSetup.reset_warning_line1')}</Text>
-              <Text size="T300">
-                {t('Pages.DeviceVerificationSetup.reset_warning_line2')}
-              </Text>
+              <Text size="T300">{t('Pages.DeviceVerificationSetup.reset_warning_line2')}</Text>
             </Box>
             <Button variant="Critical" onClick={() => setReset(true)}>
               <Text size="B400">{t('Pages.DeviceVerificationSetup.reset')}</Text>
