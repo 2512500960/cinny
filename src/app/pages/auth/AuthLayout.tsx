@@ -184,14 +184,14 @@ export function AuthLayout() {
                   >
                     {(specVersions) => (
                       <SpecVersionsProvider value={specVersions}>
-                        <AuthFlowsLoader
-                          fallback={() => (
-                            <AuthLayoutLoading message="Loading authentication flow..." />
-                          )}
-                          error={() => (
-                            <AuthLayoutError message="Failed to get authentication flow information." />
-                          )}
-                        >
+                          <AuthFlowsLoader
+                            fallback={() => (
+                              <AuthLayoutLoading message="Pages.AuthLayout.loading_auth_flow" />
+                            )}
+                            error={() => (
+                              <AuthLayoutError message="Pages.AuthLayout.failed_get_auth_flow" />
+                            )}
+                          >
                           {(authFlows) => (
                             <AuthFlowsProvider value={authFlows}>
                               <Outlet />

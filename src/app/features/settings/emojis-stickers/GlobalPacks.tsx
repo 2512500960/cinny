@@ -55,6 +55,7 @@ function GlobalPackSelector({
   onSelect: (addresses: PackAddress[]) => void;
 }) {
   const mx = useMatrixClient();
+  const { t } = useTranslation();
   const roomToPacks = useMemo(() => {
     const rToP = new Map<string, ImagePack[]>();
     packs
@@ -108,7 +109,7 @@ function GlobalPackSelector({
       <Header size="400" variant="Surface" style={{ padding: `0 ${config.space.S300}` }}>
         <Box grow="Yes">
           <Text size="L400" truncate>
-            Room Packs
+            {t('Pages.Settings.Emojis.room_packs')}
           </Text>
         </Box>
         <Box shrink="No">
@@ -118,7 +119,7 @@ function GlobalPackSelector({
             outlined={hasSelected}
             onClick={() => onSelect(selected)}
           >
-            <Text size="B300">{hasSelected ? 'Save' : 'Close'}</Text>
+            <Text size="B300">{hasSelected ? t('Common.save') : t('Common.close')}</Text>
           </Chip>
         </Box>
       </Header>
@@ -163,7 +164,7 @@ function GlobalPackSelector({
                           addSelected(roomPackAddresses);
                         }}
                       >
-                        <Text size="B300">{allSelected ? 'Unselect All' : 'Select All'}</Text>
+                        <Text size="B300">{allSelected ? t('Pages.Settings.Emojis.unselect_all') : t('Pages.Settings.Emojis.select_all')}</Text>
                       </Chip>
                     </Box>
                   </Box>
@@ -185,7 +186,7 @@ function GlobalPackSelector({
                         gap="400"
                       >
                         <SettingTile
-                          title={pack.meta.name ?? 'Unknown'}
+                            title={pack.meta.name ?? useTranslation().t('Pages.RoomItem.unknown')}
                           description={<span className={LineClamp2}>{pack.meta.attribution}</span>}
                           before={
                             <Box alignItems="Center" gap="300">
@@ -232,12 +233,12 @@ function GlobalPackSelector({
                     margin: 'auto',
                   }}
                 >
-                  <Text size="H5" align="Center">
-                    No Packs
-                  </Text>
-                  <Text size="T200" align="Center">
-                    Pack from rooms will appear here. You do not have any room with packs yet.
-                  </Text>
+                    <Text size="H5" align="Center">
+                      {useTranslation().t('Pages.Settings.Emojis.no_packs_title')}
+                    </Text>
+                    <Text size="T200" align="Center">
+                      {useTranslation().t('Pages.Settings.Emojis.no_packs_desc')}
+                    </Text>
                 </Box>
               </SequenceCard>
             )}

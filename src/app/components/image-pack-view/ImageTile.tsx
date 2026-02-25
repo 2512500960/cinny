@@ -1,5 +1,6 @@
 import React, { FormEventHandler, ReactNode, useMemo, useState } from 'react';
 import { Badge, Box, Button, Chip, Icon, Icons, Input, Text } from 'folds';
+import { useTranslation } from 'react-i18next';
 import { UsageSwitcher, useUsageStr } from './UsageSwitcher';
 import { mxcUrlToHttp } from '../../utils/matrix';
 import * as css from './style.css';
@@ -32,6 +33,7 @@ export function ImageTile({
 }: ImageTileProps) {
   const mx = useMatrixClient();
   const getUsageStr = useUsageStr();
+  const { t } = useTranslation();
 
   return (
     <SettingTile
@@ -71,7 +73,7 @@ export function ImageTile({
               radii="Pill"
               onClick={() => onDeleteToggle?.(defaultShortcode)}
             >
-              {deleted ? <Text size="B300">Undo</Text> : <Icon size="50" src={Icons.Delete} />}
+              {deleted ? <Text size="B300">{t('Common.undo')}</Text> : <Icon size="50" src={Icons.Delete} />}
             </Chip>
             {!deleted && (
               <Chip
@@ -79,7 +81,7 @@ export function ImageTile({
                 radii="Pill"
                 onClick={() => onEdit?.(defaultShortcode, image)}
               >
-                <Text size="B300">Edit</Text>
+                <Text size="B300">{t('Common.edit')}</Text>
               </Chip>
             )}
           </Box>
@@ -124,6 +126,7 @@ export function ImageTileEdit({
   const defaultUsage = image.usage ?? packUsage;
 
   const [unsavedUsage, setUnsavedUsages] = useState(defaultUsage);
+  const { t } = useTranslation();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (evt) => {
     evt.preventDefault();
@@ -171,7 +174,7 @@ export function ImageTileEdit({
       <Box as="form" onSubmit={handleSubmit} direction="Column" gap="200">
         <Box direction="Column" className={css.ImagePackImageInputs}>
           <Input
-            before={<Text size="L400">Shortcode:</Text>}
+            before={<Text size="L400">{t('Pages.ImagePack.shortcode')}</Text>}
             defaultValue={image.shortcode}
             name="shortcodeInput"
             variant="Secondary"
@@ -181,7 +184,7 @@ export function ImageTileEdit({
             autoFocus
           />
           <Input
-            before={<Text size="L400">Body:</Text>}
+            before={<Text size="L400">{t('Pages.ImagePack.body')}</Text>}
             defaultValue={image.body}
             name="bodyInput"
             variant="Secondary"
@@ -195,7 +198,7 @@ export function ImageTileEdit({
           </Box>
           <Box grow="Yes" />
           <Button type="submit" variant="Success" size="300" radii="300">
-            <Text size="B300">Save</Text>
+            <Text size="B300">{t('Common.save')}</Text>
           </Button>
           <Button
             type="reset"
@@ -205,7 +208,7 @@ export function ImageTileEdit({
             radii="300"
             onClick={() => onCancel(defaultShortcode)}
           >
-            <Text size="B300">Cancel</Text>
+            <Text size="B300">{t('Common.cancel')}</Text>
           </Button>
         </Box>
       </Box>

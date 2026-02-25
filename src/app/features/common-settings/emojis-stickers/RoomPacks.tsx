@@ -143,6 +143,7 @@ type RoomPacksProps = {
 };
 export function RoomPacks({ onViewPack }: RoomPacksProps) {
   const mx = useMatrixClient();
+  const { t } = useTranslation();
   const useAuthentication = useMediaAuthentication();
   const room = useRoom();
   const alive = useAlive();
@@ -332,7 +333,7 @@ export function RoomPacks({ onViewPack }: RoomPacksProps) {
                 disabled={applyingChanges}
                 onClick={handleCancelChanges}
               >
-                <Text size="B300">Cancel</Text>
+                <Text size="B300">{t('Common.cancel')}</Text>
               </Button>
               <Button
                 size="300"
@@ -342,7 +343,7 @@ export function RoomPacks({ onViewPack }: RoomPacksProps) {
                 before={applyingChanges && <Spinner variant="Critical" fill="Solid" size="100" />}
                 onClick={handleApplyChanges}
               >
-                <Text size="B300">Delete</Text>
+                <Text size="B300">{t('Pages.Settings.Emojis.delete_selected')}</Text>
               </Button>
             </Box>
           </Box>

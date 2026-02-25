@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAtomValue } from 'jotai';
 import { Avatar, Box, config, Icon, IconButton, Icons, IconSrc, MenuItem, Text } from 'folds';
 import { JoinRule } from 'matrix-js-sdk';
@@ -80,6 +81,24 @@ export function SpaceSettings({ initialPage, requestClose }: SpaceSettingsProps)
     return screenSize === ScreenSize.Mobile ? undefined : SpaceSettingsPage.GeneralPage;
   });
   const menuItems = useSpaceSettingsMenuItems();
+  const { t } = useTranslation();
+
+  const menuItemLabel = (page: SpaceSettingsPage) => {
+    switch (page) {
+      case SpaceSettingsPage.GeneralPage:
+        return t('Pages.SpaceSettings.menu.general');
+      case SpaceSettingsPage.MembersPage:
+        return t('Pages.SpaceSettings.menu.members');
+      case SpaceSettingsPage.PermissionsPage:
+        return t('Pages.SpaceSettings.menu.permissions');
+      case SpaceSettingsPage.EmojisStickersPage:
+        return t('Pages.SpaceSettings.menu.emojis_stickers');
+      case SpaceSettingsPage.DeveloperToolsPage:
+        return t('Pages.SpaceSettings.menu.developer_tools');
+      default:
+        return '';
+    }
+  };
 
   const handlePageRequestClose = () => {
     if (screenSize === ScreenSize.Mobile) {
@@ -135,14 +154,14 @@ export function SpaceSettings({ initialPage, requestClose }: SpaceSettingsProps)
                       before={<Icon src={item.icon} size="100" filled={activePage === item.page} />}
                       onClick={() => setActivePage(item.page)}
                     >
-                      <Text
+                        <Text
                         style={{
                           fontWeight: activePage === item.page ? config.fontWeight.W600 : undefined,
                         }}
                         size="T300"
                         truncate
                       >
-                        {item.name}
+                        {menuItemLabel(item.page)}
                       </Text>
                     </MenuItem>
                   ))}

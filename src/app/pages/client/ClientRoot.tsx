@@ -194,16 +194,16 @@ export function ClientRoot({ children }: ClientRootProps) {
             <Dialog>
               <Box direction="Column" gap="400" style={{ padding: config.space.S400 }}>
                 {loadState.status === AsyncStatus.Error && (
-                  <Text>{`Failed to load. ${loadState.error.message}`}</Text>
+                  <Text>{t('Pages.ClientRoot.failed_load_prefix', { message: loadState.error.message })}</Text>
                 )}
                 {startState.status === AsyncStatus.Error && (
-                  <Text>{`Failed to start. ${startState.error.message}`}</Text>
+                  <Text>{t('Pages.ClientRoot.failed_start_prefix', { message: startState.error.message })}</Text>
                 )}
-                <Button variant="Critical" onClick={mx ? () => startMatrix(mx) : loadMatrix}>
-                  <Text as="span" size="B400">
-                    Retry
-                  </Text>
-                </Button>
+                  <Button variant="Critical" onClick={mx ? () => startMatrix(mx) : loadMatrix}>
+                    <Text as="span" size="B400">
+                      {t('Common.retry')}
+                    </Text>
+                  </Button>
               </Box>
             </Dialog>
           </Box>

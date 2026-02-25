@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { color, Text } from 'folds';
 import { JoinRule, MatrixError, RestrictedAllowType } from 'matrix-js-sdk';
 import { RoomJoinRulesEventContent } from 'matrix-js-sdk/lib/types';
@@ -78,6 +79,7 @@ export function RoomJoinRules({ permissions }: RoomJoinRulesProps) {
   const icons = useRoomJoinRuleIcon();
   const spaceIcons = useSpaceJoinRuleIcon();
   const labels = useRoomJoinRuleLabel();
+  const { t } = useTranslation();
 
   const [submitState, submit] = useAsyncCallback(
     useCallback(
@@ -129,11 +131,15 @@ export function RoomJoinRules({ permissions }: RoomJoinRulesProps) {
       gap="400"
     >
       <SettingTile
-        title={room.isSpaceRoom() ? 'Space Access' : 'Room Access'}
+        title={
+          room.isSpaceRoom()
+            ? t('Pages.RoomSettings.JoinRules.title_space')
+            : t('Pages.RoomSettings.JoinRules.title_room')
+        }
         description={
           room.isSpaceRoom()
-            ? 'Change how people can join the space.'
-            : 'Change how people can join the room.'
+            ? t('Pages.RoomSettings.JoinRules.desc_space')
+            : t('Pages.RoomSettings.JoinRules.desc_room')
         }
         after={
           <JoinRulesSwitcher

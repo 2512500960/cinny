@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, color, Spinner, Switch, Text } from 'folds';
 import { JoinRule, MatrixError } from 'matrix-js-sdk';
 import { RoomJoinRulesEventContent } from 'matrix-js-sdk/lib/types';
@@ -37,6 +38,7 @@ export function RoomPublish({ permissions }: RoomPublishProps) {
     visibilityState.status === AsyncStatus.Loading || toggleState.status === AsyncStatus.Loading;
   const validRule =
     rule === JoinRule.Public || rule === JoinRule.Knock || rule === 'knock_restricted';
+  const { t } = useTranslation();
 
   return (
     <SequenceCard
@@ -46,11 +48,11 @@ export function RoomPublish({ permissions }: RoomPublishProps) {
       gap="400"
     >
       <SettingTile
-        title="Publish to Directory"
+        title={t('Pages.RoomSettings.Publish.title')}
         description={
           room.isSpaceRoom()
-            ? 'List the space in the public directory to make it discoverable by others.'
-            : 'List the room in the public directory to make it discoverable by others.'
+            ? t('Pages.RoomSettings.Publish.desc_space')
+            : t('Pages.RoomSettings.Publish.desc_room')
         }
         after={
           <Box gap="200" alignItems="Center">

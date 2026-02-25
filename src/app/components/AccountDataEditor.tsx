@@ -229,14 +229,14 @@ function AccountDataView({ type, defaultContent, onEdit }: AccountDataViewProps)
         <Text size="L400">{t('Pages.AccountDataEditor.json_content')}</Text>
         <SequenceCard variant="SurfaceVariant">
           <Scroll visibility="Always" size="300" hideTrack>
-            <TextViewerContent
-              size="T300"
-              style={{
-                padding: `${config.space.S300} ${config.space.S100} ${config.space.S300} ${config.space.S300}`,
-              }}
-              text={defaultContent}
-              langName="JSON"
-            />
+                <TextViewerContent
+                  size="T300"
+                  style={{
+                    padding: `${config.space.S300} ${config.space.S100} ${config.space.S300} ${config.space.S300}`,
+                  }}
+                  text={defaultContent}
+                  langName={t('Pages.AccountDataEditor.lang_json')}
+                />
           </Scroll>
         </SequenceCard>
       </Box>

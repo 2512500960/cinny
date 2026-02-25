@@ -62,7 +62,7 @@ export const TextViewer = as<'div', TextViewerProps>(
           </Box>
           <Box shrink="No" alignItems="Center" gap="200">
             <Chip variant="Primary" radii="300" onClick={handleCopy}>
-              <Text size="B300">Copy All</Text>
+              <Text size="B300">{t('Pages.TextViewer.copy_all')}</Text>
             </Chip>
           </Box>
         </Header>

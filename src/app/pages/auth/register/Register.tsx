@@ -64,7 +64,7 @@ export function Register() {
             {(supportedFlows) =>
               supportedFlows.length === 0 ? (
                 <Text style={{ color: color.Critical.Main }} size="T300">
-                  This application does not support registration on this homeserver.
+                  {t('Pages.Register.unsupported_registration')}
                 </Text>
               ) : (
                 <PasswordRegisterForm

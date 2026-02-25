@@ -96,6 +96,7 @@ function ErrorDialog({
   children: (openError: () => void) => ReactNode;
 }) {
   const [viewError, setViewError] = useState(false);
+  const { t } = useTranslation();
   const closeError = () => setViewError(false);
   const openError = () => setViewError(true);
 
@@ -121,7 +122,7 @@ function ErrorDialog({
                   </Text>
                 </Box>
                 <Button size="400" variant="Secondary" fill="Soft" onClick={closeError}>
-                  <Text size="B400">Cancel</Text>
+                  <Text size="B400">{t('Common.cancel')}</Text>
                 </Button>
               </Box>
             </Dialog>
@@ -297,8 +298,8 @@ export const RoomCard = as<'div', RoomCardProps>(
               </Text>
             </Button>
             <ErrorDialog
-              title="Join Error"
-              message={joinState.error.message || 'Failed to join. Unknown Error.'}
+              title={t('Pages.RoomCard.join_error_title')}
+              message={joinState.error.message || t('Pages.RoomCard.join_error_message')}
             >
               {(openError) => (
                 <Button

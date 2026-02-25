@@ -210,6 +210,7 @@ function ProfileAvatar({ profile, userId }: ProfileProps) {
 
 function ProfileDisplayName({ profile, userId }: ProfileProps) {
   const mx = useMatrixClient();
+  const { t } = useTranslation();
   const capabilities = useCapabilities();
   const disableSetDisplayname = capabilities['m.set_displayname']?.enabled === false;
 
@@ -251,8 +252,8 @@ function ProfileDisplayName({ profile, userId }: ProfileProps) {
     <SettingTile
       title={
         <Text as="span" size="L400">
-          Display Name
-        </Text>
+              {t('Pages.Profile.display_name')}
+            </Text>
       }
     >
       <Box direction="Column" grow="Yes" gap="100">
@@ -298,7 +299,7 @@ function ProfileDisplayName({ profile, userId }: ProfileProps) {
             type="submit"
           >
             {changingDisplayName && <Spinner variant="Success" fill="Solid" size="300" />}
-            <Text size="B400">Save</Text>
+            <Text size="B400">{t('Common.save')}</Text>
           </Button>
         </Box>
       </Box>

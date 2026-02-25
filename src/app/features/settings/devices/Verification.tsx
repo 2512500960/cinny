@@ -18,6 +18,7 @@ import {
   Menu,
   MenuItem,
 } from 'folds';
+import { useTranslation } from 'react-i18next';
 import FocusTrap from 'focus-trap-react';
 import { CryptoApi, VerificationRequest } from 'matrix-js-sdk/lib/crypto-api';
 import { VerificationStatus } from '../../../hooks/useDeviceVerificationStatus';
@@ -44,6 +45,7 @@ export function VerificationStatusBadge({
   verificationStatus,
   otherUnverifiedCount,
 }: VerificationStatusBadgeProps) {
+  const { t } = useTranslation();
   if (
     verificationStatus === VerificationStatus.Unknown ||
     typeof otherUnverifiedCount !== 'number'
@@ -53,7 +55,7 @@ export function VerificationStatusBadge({
   if (verificationStatus === VerificationStatus.Unverified) {
     return (
       <Badge variant="Critical" fill="Solid" size="500">
-        <Text size="L400">Unverified</Text>
+        <Text size="L400">{t('Pages.Settings.Devices.Verification.unverified')}</Text>
       </Badge>
     );
   }
@@ -61,36 +63,37 @@ export function VerificationStatusBadge({
   if (otherUnverifiedCount > 0) {
     return (
       <Badge variant="Warning" fill="Solid" size="500">
-        <Text size="L400">{otherUnverifiedCount} Unverified</Text>
+        <Text size="L400">{t('Pages.Settings.Devices.Verification.unverified_count', { count: otherUnverifiedCount })}</Text>
       </Badge>
     );
   }
 
   return (
     <Badge variant="Success" fill="Solid" size="500">
-      <Text size="L400">Verified</Text>
+      <Text size="L400">{t('Pages.Settings.Devices.Verification.verified')}</Text>
     </Badge>
   );
 }
 
 function LearnStartVerificationFromOtherDevice() {
+  const { t } = useTranslation();
   return (
     <Box direction="Column">
-      <Text size="T200">Steps to verify from other device.</Text>
+      <Text size="T200">{t('Pages.Settings.Devices.Verification.steps_intro')}</Text>
       <Text as="div" size="T200">
         <ul style={{ margin: `${config.space.S100} 0` }}>
-          <li>Open your other verified device.</li>
+          <li>{t('Pages.Settings.Devices.Verification.step_open_other_device')}</li>
           <li>
-            Open <i>Settings</i>.
+            {t('Pages.Settings.Devices.Verification.step_open_settings', { strong: 'Settings' })}
           </li>
           <li>
-            Find this device in <i>Devices/Sessions</i> section.
+            {t('Pages.Settings.Devices.Verification.step_find_device')}
           </li>
-          <li>Initiate verification.</li>
+          <li>{t('Pages.Settings.Devices.Verification.step_initiate_verification')}</li>
         </ul>
       </Text>
       <Text size="T200">
-        If you do not have any verified device press the <i>&quot;Verify Manually&quot;</i> button.
+        {t('Pages.Settings.Devices.Verification.no_verified_device_prompt')}
       </Text>
     </Box>
   );
@@ -113,12 +116,12 @@ export function VerifyCurrentDeviceTile({
     <>
       <InfoCard
         variant="Critical"
-        title="Unverified"
+        title={t('Pages.Settings.Devices.Verification.unverified')}
         description={
           <>
-            Start verification from other device or verify manually.{' '}
+            {t('Pages.Settings.Devices.Verification.start_or_verify')}{' '}
             <Text as="a" size="T200" onClick={() => setLearnMore(!learnMore)}>
-              <b>{learnMore ? 'View Less' : 'Learn More'}</b>
+              <b>{learnMore ? t('Pages.Settings.Devices.Verification.view_less') : t('Pages.Settings.Devices.Verification.learn_more')}</b>
             </Text>
           </>
         }
@@ -133,7 +136,7 @@ export function VerifyCurrentDeviceTile({
               onClick={() => setManualVerification(true)}
             >
               <Text as="span" size="B300">
-                Verify Manually
+                {t('Pages.Settings.Devices.Verification.verify_manually')}
               </Text>
             </Button>
           )
@@ -190,8 +193,8 @@ export function VerifyOtherDeviceTile({ crypto, deviceId }: VerifyOtherDeviceTil
   return (
     <InfoCard
       variant="Warning"
-      title="Unverified"
-      description="Verify device identity and grant access to encrypted messages."
+      title={t('Pages.Settings.Devices.Verification.unverified')}
+      description={t('Pages.Settings.Devices.Verification.verify_description')}
       after={
         <Button
           size="300"
@@ -202,7 +205,7 @@ export function VerifyOtherDeviceTile({ crypto, deviceId }: VerifyOtherDeviceTil
           disabled={requesting}
         >
           <Text as="span" size="B300">
-            Verify
+            {t('Pages.Settings.Devices.Verification.verify')}
           </Text>
         </Button>
       }
@@ -229,9 +232,7 @@ export function EnableVerification({ visible }: EnableVerificationProps) {
     <>
       {visible && (
         <Button size="300" radii="300" onClick={() => setOpen(true)}>
-          <Text as="span" size="B300">
-            Enable
-          </Text>
+          <Text as="span" size="B300">{t('Pages.Settings.Devices.enable')}</Text>
         </Button>
       )}
       {open && (
@@ -324,7 +325,7 @@ export function DeviceVerificationOptions() {
                   fill="None"
                 >
                   <Text as="span" size="T300" truncate>
-                    Reset
+                    {t('Pages.Settings.Devices.reset')}
                   </Text>
                 </MenuItem>
               </Box>

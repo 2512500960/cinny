@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Button,
   color,
@@ -26,16 +27,7 @@ import { useStateEvent } from '../../../hooks/useStateEvent';
 import { stopPropagation } from '../../../utils/keyboard';
 import { RoomPermissionsAPI } from '../../../hooks/useRoomPermissions';
 
-const useVisibilityStr = () =>
-  useMemo(
-    () => ({
-      [HistoryVisibility.Invited]: 'After Invite',
-      [HistoryVisibility.Joined]: 'After Join',
-      [HistoryVisibility.Shared]: 'All Messages',
-      [HistoryVisibility.WorldReadable]: 'All Messages (Guests)',
-    }),
-    []
-  );
+// visibility labels are generated per-render so they can use i18n
 
 const useVisibilityMenu = () =>
   useMemo(
@@ -54,6 +46,7 @@ type RoomHistoryVisibilityProps = {
 export function RoomHistoryVisibility({ permissions }: RoomHistoryVisibilityProps) {
   const mx = useMatrixClient();
   const room = useRoom();
+  const { t } = useTranslation();
 
   const canEdit = permissions.stateEvent(StateEvent.RoomHistoryVisibility, mx.getSafeUserId());
 
@@ -62,7 +55,17 @@ export function RoomHistoryVisibility({ permissions }: RoomHistoryVisibilityProp
     visibilityEvent?.getContent<RoomHistoryVisibilityEventContent>().history_visibility ??
     HistoryVisibility.Shared;
   const visibilityMenu = useVisibilityMenu();
-  const visibilityStr = useVisibilityStr();
+  const visibilityStr = useMemo(
+    () => ({
+      [HistoryVisibility.Invited]: t('Pages.RoomSettings.HistoryVisibility.after_invite'),
+      [HistoryVisibility.Joined]: t('Pages.RoomSettings.HistoryVisibility.after_join'),
+      [HistoryVisibility.Shared]: t('Pages.RoomSettings.HistoryVisibility.all_messages'),
+      [HistoryVisibility.WorldReadable]: t(
+        'Pages.RoomSettings.HistoryVisibility.all_messages_guests'
+      ),
+    }),
+    [t]
+  );
 
   const [menuAnchor, setMenuAnchor] = useState<RectCords>();
 
@@ -96,8 +99,8 @@ export function RoomHistoryVisibility({ permissions }: RoomHistoryVisibilityProp
       gap="400"
     >
       <SettingTile
-        title="Message History Visibility"
-        description="Changes to history visibility will only apply to future messages. The visibility of existing history will have no effect."
+        title={t('Pages.RoomSettings.HistoryVisibility.title')}
+        description={t('Pages.RoomSettings.HistoryVisibility.description')}
         after={
           <PopOut
             anchor={menuAnchor}

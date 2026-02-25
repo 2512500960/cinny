@@ -17,6 +17,7 @@ import {
   Badge,
   Spinner,
 } from 'folds';
+import { useTranslation } from 'react-i18next';
 import { useFocusWithin, useHover } from 'react-aria';
 import FocusTrap from 'focus-trap-react';
 import { NavItem, NavItemContent, NavItemOptions, NavLink } from '../../components/nav';
@@ -60,6 +61,7 @@ type RoomNavItemMenuProps = {
 const RoomNavItemMenu = forwardRef<HTMLDivElement, RoomNavItemMenuProps>(
   ({ room, requestClose, notificationMode }, ref) => {
     const mx = useMatrixClient();
+    const { t } = useTranslation();
     const [hideActivity] = useSetting(settingsAtom, 'hideActivity');
     const unread = useRoomUnread(room.roomId, roomToUnreadAtom);
     const powerLevels = usePowerLevels(room);
@@ -113,7 +115,7 @@ const RoomNavItemMenu = forwardRef<HTMLDivElement, RoomNavItemMenuProps>(
             disabled={!unread}
           >
             <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-              Mark as Read
+              {t('Pages.RoomViewHeader.mark_as_read')}
             </Text>
           </MenuItem>
           <RoomNotificationModeSwitcher roomId={room.roomId} value={notificationMode}>
@@ -131,8 +133,8 @@ const RoomNavItemMenu = forwardRef<HTMLDivElement, RoomNavItemMenuProps>(
                 aria-pressed={opened}
                 onClick={handleOpen}
               >
-                <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-                  Notifications
+                  <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
+                  {t('Pages.RoomViewHeader.notifications')}
                 </Text>
               </MenuItem>
             )}
@@ -151,7 +153,7 @@ const RoomNavItemMenu = forwardRef<HTMLDivElement, RoomNavItemMenuProps>(
             disabled={!canInvite}
           >
             <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-              Invite
+              {t('Pages.RoomViewHeader.invite')}
             </Text>
           </MenuItem>
           <MenuItem
@@ -161,7 +163,7 @@ const RoomNavItemMenu = forwardRef<HTMLDivElement, RoomNavItemMenuProps>(
             radii="300"
           >
             <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-              Copy Link
+              {t('Pages.RoomViewHeader.copy_link')}
             </Text>
           </MenuItem>
           <MenuItem
@@ -171,7 +173,7 @@ const RoomNavItemMenu = forwardRef<HTMLDivElement, RoomNavItemMenuProps>(
             radii="300"
           >
             <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-              Room Settings
+              {t('Pages.RoomViewHeader.room_settings')}
             </Text>
           </MenuItem>
         </Box>
@@ -189,8 +191,8 @@ const RoomNavItemMenu = forwardRef<HTMLDivElement, RoomNavItemMenuProps>(
                   radii="300"
                   aria-pressed={promptLeave}
                 >
-                  <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
-                    Leave Room
+                    <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
+                    {t('Pages.RoomViewHeader.leave_room')}
                   </Text>
                 </MenuItem>
                 {promptLeave && (

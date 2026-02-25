@@ -1,5 +1,6 @@
 import React, { FormEventHandler, useCallback, useEffect, useState } from 'react';
 import { Box, Button, color, Icon, Icons, Spinner, Text, toRem } from 'folds';
+import { useTranslation } from 'react-i18next';
 import FileSaver from 'file-saver';
 import { SequenceCard } from '../../../components/sequence-card';
 import { SettingTile } from '../../../components/setting-tile';
@@ -15,6 +16,7 @@ import { useFilePicker } from '../../../hooks/useFilePicker';
 function ExportKeys() {
   const mx = useMatrixClient();
   const alive = useAlive();
+  const { t } = useTranslation();
 
   const [exportState, exportKeys] = useAsyncCallback<void, Error, [string]>(
     useCallback(
@@ -66,7 +68,7 @@ function ExportKeys() {
             {(match, doMatch, passRef, confPassRef) => (
               <>
                 <Box grow="Yes" direction="Column" gap="100">
-                  <Text size="L400">New Password</Text>
+                  <Text size="L400">{t('Pages.Settings.Devices.LocalBackup.new_password')}</Text>
                   <PasswordInput
                     ref={passRef}
                     name="passwordInput"
@@ -80,7 +82,7 @@ function ExportKeys() {
                   />
                 </Box>
                 <Box grow="Yes" direction="Column" gap="100">
-                  <Text size="L400">Confirm Password</Text>
+                  <Text size="L400">{t('Pages.Settings.Devices.LocalBackup.confirm_password')}</Text>
                   <PasswordInput
                     ref={confPassRef}
                     style={{ color: match ? undefined : color.Critical.Main }}
@@ -107,12 +109,12 @@ function ExportKeys() {
             before={exporting ? <Spinner size="200" variant="Secondary" fill="Soft" /> : undefined}
           >
             <Text as="span" size="B400">
-              Export
+              {t('Pages.Settings.Devices.LocalBackup.export')}
             </Text>
           </Button>
         </Box>
         {exportState.status === AsyncStatus.Error && (
-          <Text size="T200" style={{ color: color.Critical.Main }}>
+            <Text size="T200" style={{ color: color.Critical.Main }}>
             <b>{exportState.error.message}</b>
           </Text>
         )}
@@ -127,8 +129,8 @@ function ExportKeysTile() {
   return (
     <>
       <SettingTile
-        title="Export Messages Data"
-        description="Save password protected copy of encryption data on your device to decrypt messages later."
+        title={t('Pages.Settings.Devices.LocalBackup.export_title')}
+        description={t('Pages.Settings.Devices.LocalBackup.export_desc')}
         after={
           <Box>
             <Button
@@ -144,7 +146,7 @@ function ExportKeysTile() {
               }
             >
               <Text as="span" size="B300" truncate>
-                {expand ? 'Collapse' : 'Expand'}
+                {expand ? t('Pages.Settings.Devices.LocalBackup.collapse') : t('Pages.Settings.Devices.LocalBackup.expand')}
               </Text>
             </Button>
           </Box>
@@ -209,7 +211,7 @@ function ImportKeys({ file, onDone }: ImportKeysProps) {
       <Box as="form" onSubmit={handleSubmit} direction="Column" gap="100">
         <Box gap="200" alignItems="End">
           <Box grow="Yes" direction="Column" gap="100">
-            <Text size="L400">Password</Text>
+            <Text size="L400">{t('Pages.Settings.Devices.LocalBackup.password')}</Text>
             <PasswordInput
               name="passwordInput"
               size="400"
@@ -231,7 +233,7 @@ function ImportKeys({ file, onDone }: ImportKeysProps) {
             before={decrypting ? <Spinner size="200" variant="Secondary" fill="Soft" /> : undefined}
           >
             <Text as="span" size="B400">
-              Decrypt
+              {t('Pages.Settings.Devices.LocalBackup.decrypt')}
             </Text>
           </Button>
         </Box>
@@ -256,8 +258,8 @@ function ImportKeysTile() {
   return (
     <>
       <SettingTile
-        title="Import Messages Data"
-        description="Load password protected copy of encryption data from device to decrypt your messages."
+        title={t('Pages.Settings.Devices.LocalBackup.import_title')}
+        description={t('Pages.Settings.Devices.LocalBackup.import_desc')}
         after={
           <Box>
             {file ? (
@@ -288,7 +290,7 @@ function ImportKeysTile() {
                 before={<Icon size="100" src={Icons.ArrowRight} />}
               >
                 <Text as="span" size="B300">
-                  Import
+                  {t('Pages.Settings.Devices.LocalBackup.import')}
                 </Text>
               </Button>
             )}
@@ -301,9 +303,10 @@ function ImportKeysTile() {
 }
 
 export function LocalBackup() {
+  const { t } = useTranslation();
   return (
     <Box direction="Column" gap="100">
-      <Text size="L400">Local Backup</Text>
+      <Text size="L400">{t('Pages.Settings.Devices.LocalBackup.title')}</Text>
       <SequenceCard
         className={SequenceCardStyle}
         variant="SurfaceVariant"

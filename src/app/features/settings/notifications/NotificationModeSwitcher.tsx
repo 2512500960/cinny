@@ -13,6 +13,7 @@ import {
 } from 'folds';
 import { IPushRule } from 'matrix-js-sdk';
 import React, { MouseEventHandler, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import FocusTrap from 'focus-trap-react';
 import { NotificationMode, useNotificationActionsMode } from '../../../hooks/useNotificationMode';
 import { stopPropagation } from '../../../utils/keyboard';
@@ -21,14 +22,14 @@ import { AsyncStatus, useAsyncCallback } from '../../../hooks/useAsyncCallback';
 export const useNotificationModes = (): NotificationMode[] =>
   useMemo(() => [NotificationMode.NotifyLoud, NotificationMode.Notify, NotificationMode.OFF], []);
 
-const useNotificationModeStr = (): Record<NotificationMode, string> =>
+const useNotificationModeStr = (t: (key: string) => string): Record<NotificationMode, string> =>
   useMemo(
     () => ({
-      [NotificationMode.OFF]: 'Disable',
-      [NotificationMode.Notify]: 'Notify Silent',
-      [NotificationMode.NotifyLoud]: 'Notify Loud',
+      [NotificationMode.OFF]: t('Pages.Settings.Notifications.mode_disable'),
+      [NotificationMode.Notify]: t('Pages.Settings.Notifications.mode_notify_silent'),
+      [NotificationMode.NotifyLoud]: t('Pages.Settings.Notifications.mode_notify_loud'),
     }),
-    []
+    [t]
   );
 
 type NotificationModeSwitcherProps = {
@@ -37,7 +38,8 @@ type NotificationModeSwitcherProps = {
 };
 export function NotificationModeSwitcher({ pushRule, onChange }: NotificationModeSwitcherProps) {
   const modes = useNotificationModes();
-  const modeToStr = useNotificationModeStr();
+  const { t } = useTranslation();
+  const modeToStr = useNotificationModeStr(t);
   const selectedMode = useNotificationActionsMode(pushRule.actions);
   const [changeState, change] = useAsyncCallback(onChange);
   const changing = changeState.status === AsyncStatus.Loading;

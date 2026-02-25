@@ -402,7 +402,7 @@ export function MLocation({ content }: MLocationProps) {
         radii="Pill"
         before={<Icon src={Icons.External} size="50" />}
       >
-        <Text size="B300">Open Location</Text>
+        <Text size="B300">{t('Pages.Message.open_location')}</Text>
       </Chip>
     </Box>
   );

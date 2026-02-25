@@ -64,6 +64,7 @@ function StateEventEdit({ type, stateKey, content, requestClose }: StateEventEdi
     )
   );
   const submitting = submitState.status === AsyncStatus.Loading;
+  const { t } = useTranslation();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (evt) => {
     evt.preventDefault();
@@ -138,7 +139,7 @@ function StateEventEdit({ type, stateKey, content, requestClose }: StateEventEdi
                   disabled={submitting}
                   before={submitting && <Spinner variant="Primary" fill="Solid" size="300" />}
                 >
-                  <Text size="B300">Save</Text>
+                  <Text size="B300">{t('Common.save')}</Text>
                 </Button>
                 <Button
                   variant="Secondary"
@@ -148,7 +149,7 @@ function StateEventEdit({ type, stateKey, content, requestClose }: StateEventEdi
                   onClick={requestClose}
                   disabled={submitting}
                 >
-                  <Text size="B300">Cancel</Text>
+                  <Text size="B300">{t('Common.cancel')}</Text>
                 </Button>
               </Box>
             }

@@ -26,7 +26,7 @@ export function WelcomePage() {
                   target="_blank"
                   rel="noreferrer noopener"
                 >
-                  v4.10.3
+                  {t('Pages.AuthFooter.version')}
                 </a>
               </span>
             }

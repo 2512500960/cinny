@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { as, Box, Text, config, Button, Menu, Spinner } from 'folds';
+import { useTranslation } from 'react-i18next';
 import {
   ImagePack,
   ImageUsage,
@@ -34,6 +35,7 @@ export type ImagePackContentProps = {
 export const ImagePackContent = as<'div', ImagePackContentProps>(
   ({ imagePack, canEdit, onUpdate, ...props }, ref) => {
     const useAuthentication = useMediaAuthentication();
+    const { t } = useTranslation();
 
     const [metaEditing, setMetaEditing] = useState(false);
     const [savedMeta, setSavedMeta] = useState<PackMetaReader>();
@@ -256,11 +258,11 @@ export const ImagePackContent = as<'div', ImagePackContentProps>(
               <Box grow="Yes" direction="Column">
                 {applyState.status === AsyncStatus.Error ? (
                   <Text size="T200">
-                    <b>Failed to apply changes! Please try again.</b>
+                    <b>{t('Pages.ImagePack.apply_failed')}</b>
                   </Text>
                 ) : (
                   <Text size="T200">
-                    <b>Changes saved! Apply when ready.</b>
+                    <b>{t('Pages.ImagePack.changes_saved')}</b>
                   </Text>
                 )}
               </Box>
@@ -273,7 +275,7 @@ export const ImagePackContent = as<'div', ImagePackContentProps>(
                   disabled={!canApplyChanges || applying}
                   onClick={handleResetSavedChanges}
                 >
-                  <Text size="B300">Reset</Text>
+                  <Text size="B300">{t('Common.reset')}</Text>
                 </Button>
                 <Button
                   size="300"
@@ -283,14 +285,14 @@ export const ImagePackContent = as<'div', ImagePackContentProps>(
                   before={applying && <Spinner variant="Success" fill="Solid" size="100" />}
                   onClick={applyChanges}
                 >
-                  <Text size="B300">Apply Changes</Text>
+                  <Text size="B300">{t('Pages.ImagePack.apply_changes')}</Text>
                 </Button>
               </Box>
             </Box>
           </Menu>
         )}
         <Box direction="Column" gap="100">
-          <Text size="L400">Pack</Text>
+          <Text size="L400">{t('Pages.ImagePack.pack')}</Text>
           <SequenceCard
             style={{ padding: config.space.S300 }}
             variant="SurfaceVariant"
@@ -318,8 +320,8 @@ export const ImagePackContent = as<'div', ImagePackContentProps>(
             gap="400"
           >
             <SettingTile
-              title="Images Usage"
-              description="Select how the images are being used: as emojis, as stickers, or as both."
+              title={t('Pages.ImagePack.images_usage')}
+              description={t('Pages.ImagePack.images_usage_desc')}
               after={
                 <UsageSwitcher
                   usage={currentMeta.usage}
@@ -332,7 +334,7 @@ export const ImagePackContent = as<'div', ImagePackContentProps>(
         </Box>
         {images.length === 0 && !canEdit ? null : (
           <Box direction="Column" gap="100">
-            <Text size="L400">Images</Text>
+            <Text size="L400">{t('Pages.ImagePack.images')}</Text>
             {canEdit && (
               <SequenceCard
                 style={{ padding: config.space.S300 }}
@@ -341,8 +343,8 @@ export const ImagePackContent = as<'div', ImagePackContentProps>(
                 gap="400"
               >
                 <SettingTile
-                  title="Upload Images"
-                  description="Select images from your storage to upload them in pack."
+                  title={t('Pages.ImagePack.upload_images')}
+                  description={t('Pages.ImagePack.upload_images_desc')}
                   after={
                     <Button
                       variant="Secondary"
@@ -353,7 +355,7 @@ export const ImagePackContent = as<'div', ImagePackContentProps>(
                       outlined
                       onClick={() => pickFiles('image/*')}
                     >
-                      <Text size="B300">Select</Text>
+                      <Text size="B300">{t('Pages.ImagePack.select')}</Text>
                     </Button>
                   }
                 />

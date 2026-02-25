@@ -115,7 +115,7 @@ export function EmailStageDialog({
     return (
       <Box direction="Column" alignItems="Center" gap="400">
         <Spinner variant="Secondary" size="600" />
-        <Text style={{ color: color.Secondary.Main }}>Sending verification email...</Text>
+        <Text style={{ color: color.Secondary.Main }}>{t('Pages.UIA.Email.sending_verification_email')}</Text>
       </Box>
     );
   }
@@ -140,7 +140,7 @@ export function EmailStageDialog({
       <Dialog>
         <Box style={{ padding: config.space.S400 }} direction="Column" gap="400">
           <Box direction="Column" gap="100">
-            <Text size="H4">Verification Request Sent</Text>
+            <Text size="H4">{t('Pages.UIA.Email.request_sent')}</Text>
             <Text>{`Please check your email "${emailTokenState.data.email}" and validate before continuing further.`}</Text>
 
             {errorCode && (

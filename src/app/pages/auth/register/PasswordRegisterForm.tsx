@@ -11,6 +11,7 @@ import {
   color,
 } from 'folds';
 import React, { ChangeEventHandler, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   AuthDict,
   AuthType,
@@ -207,6 +208,8 @@ export function PasswordRegisterForm({
 
   useRegisterComplete(customRegisterResp);
 
+  const { t } = useTranslation();
+
   const handleSubmit: ChangeEventHandler<HTMLFormElement> = (evt) => {
     evt.preventDefault();
     const {
@@ -259,7 +262,7 @@ export function PasswordRegisterForm({
       <Box as="form" onSubmit={handleSubmit} direction="Inherit" gap="400">
         <Box direction="Column" gap="100">
           <Text as="label" size="L400" priority="300">
-            Username
+            {t('Pages.Register.username_label')}
           </Text>
           <Input
             variant="Background"
@@ -270,13 +273,13 @@ export function PasswordRegisterForm({
             required
           />
           {registerError?.errcode === RegisterError.UserTaken && (
-            <FieldError message="This username is already taken." />
+            <FieldError message={t('Pages.Register.username_taken')} />
           )}
           {registerError?.errcode === RegisterError.UserInvalid && (
-            <FieldError message="This username contains invalid characters." />
+            <FieldError message={t('Pages.Register.username_invalid_chars')} />
           )}
           {registerError?.errcode === RegisterError.UserExclusive && (
-            <FieldError message="This username is reserved." />
+            <FieldError message={t('Pages.Register.username_reserved')} />
           )}
         </Box>
         <ConfirmPasswordMatch initialValue>
@@ -284,7 +287,7 @@ export function PasswordRegisterForm({
             <>
               <Box direction="Column" gap="100">
                 <Text as="label" size="L400" priority="300">
-                  Password
+                  {t('Pages.Register.password_label')}
                 </Text>
                 <PasswordInput
                   ref={passRef}
@@ -297,24 +300,18 @@ export function PasswordRegisterForm({
                 />
                 {registerError?.errcode === RegisterError.PasswordWeak && (
                   <FieldError
-                    message={
-                      registerError.data.error ??
-                      'Weak Password. Password rejected by server please choosing more strong Password.'
-                    }
+                    message={registerError.data.error ?? t('Pages.Register.password_weak')}
                   />
                 )}
                 {registerError?.errcode === RegisterError.PasswordShort && (
                   <FieldError
-                    message={
-                      registerError.data.error ??
-                      'Short Password. Password rejected by server please choosing more long Password.'
-                    }
+                    message={registerError.data.error ?? t('Pages.Register.password_short')}
                   />
                 )}
               </Box>
               <Box direction="Column" gap="100">
                 <Text as="label" size="L400" priority="300">
-                  Confirm Password
+                  {t('Pages.Register.confirm_password_label')}
                 </Text>
                 <PasswordInput
                   ref={confPassRef}
@@ -334,8 +331,8 @@ export function PasswordRegisterForm({
           <Box direction="Column" gap="100">
             <Text as="label" size="L400" priority="300">
               {requiredStageInFlows(uiaFlows, AuthType.RegistrationToken)
-                ? 'Registration Token'
-                : 'Registration Token (Optional)'}
+                ? t('Pages.Register.registration_token')
+                : t('Pages.Register.registration_token_optional')}
             </Text>
             <Input
               variant="Background"
@@ -350,7 +347,9 @@ export function PasswordRegisterForm({
         {hasStageInFlows(uiaFlows, AuthType.Email) && (
           <Box direction="Column" gap="100">
             <Text as="label" size="L400" priority="300">
-              {requiredStageInFlows(uiaFlows, AuthType.Email) ? 'Email' : 'Email (Optional)'}
+              {requiredStageInFlows(uiaFlows, AuthType.Email)
+                ? t('Pages.Register.email_label')
+                : t('Pages.Register.email_label_optional')}
             </Text>
             <Input
               variant="Background"
@@ -368,30 +367,30 @@ export function PasswordRegisterForm({
           <Box alignItems="Center" gap="200">
             <Checkbox name="termsInput" size="300" variant="Primary" required />
             <Text size="T300">
-              I accept server{' '}
+              {t('Pages.Register.i_accept_server')}{' '}
               <a href={termUrl} target="_blank" rel="noreferrer">
-                Terms and Conditions
+                {t('Pages.Register.terms_and_conditions')}
               </a>
               .
             </Text>
           </Box>
         )}
         {registerError?.errcode === RegisterError.RateLimited && (
-          <FieldError message="Failed to register. Your register request has been rate-limited by server, Please try after some time." />
+          <FieldError message={t('Pages.Register.rate_limited')} />
         )}
         {registerError?.errcode === RegisterError.Forbidden && (
-          <FieldError message="Failed to register. The homeserver does not permit registration." />
+          <FieldError message={t('Pages.Register.forbidden')} />
         )}
         {registerError?.errcode === RegisterError.InvalidRequest && (
-          <FieldError message="Failed to register. Invalid request." />
+          <FieldError message={t('Pages.Register.invalid_request')} />
         )}
         {registerError?.errcode === RegisterError.Unknown && (
-          <FieldError message={registerError.data.error ?? 'Failed to register. Unknown Reason.'} />
+          <FieldError message={registerError.data.error ?? t('Pages.Register.unknown_failure')} />
         )}
         <span data-spacing-node />
         <Button variant="Primary" size="500" type="submit">
           <Text as="span" size="B500">
-            Register
+            {t('Pages.Register.register')}
           </Text>
         </Button>
       </Box>
