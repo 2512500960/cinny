@@ -3,6 +3,7 @@ import React, { ComponentProps, HTMLAttributes, Suspense, forwardRef, lazy } fro
 import classNames from 'classnames';
 import { Box, Chip, Header, Icon, IconButton, Icons, Scroll, Text, as } from 'folds';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useTranslation } from 'react-i18next';
 import * as css from './TextViewer.css';
 import { copyToClipboard } from '../../utils/dom';
 
@@ -43,7 +44,7 @@ export const TextViewer = as<'div', TextViewerProps>(
     const handleCopy = () => {
       copyToClipboard(text);
     };
-
+    const { t } = useTranslation();
     return (
       <Box
         className={classNames(css.TextViewer, className)}

@@ -220,7 +220,7 @@ export function HierarchyItemMenu({
 }: HierarchyItemMenuProps) {
   const mx = useMatrixClient();
   const [menuAnchor, setMenuAnchor] = useState<RectCords>();
-
+  const { t } = useTranslation();
   const canInvite = (): boolean => {
     if (!powerLevels) return false;
     const creators = getRoomCreatorsForRoomId(mx, item.roomId);

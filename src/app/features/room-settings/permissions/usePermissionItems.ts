@@ -211,7 +211,7 @@ export const usePermissionGroups = (): PermissionGroup[] => {
       roomSettingsGroup,
       otherSettingsGroup,
     ];
-  }, []);
+  }, [t]);
 
   return groups;
 };

@@ -11,7 +11,7 @@ type HexColorPickerPopOutProps = {
 };
 export function HexColorPickerPopOut({ picker, onRemove, children }: HexColorPickerPopOutProps) {
   const [cords, setCords] = useState<RectCords>();
-
+  const { t } = useTranslation();
   const handleOpen: MouseEventHandler<HTMLElement> = (evt) => {
     setCords(evt.currentTarget.getBoundingClientRect());
   };
@@ -46,7 +46,7 @@ export function HexColorPickerPopOut({ picker, onRemove, children }: HexColorPic
                   radii="400"
                   onClick={() => onRemove()}
                 >
-                  <Text size="B300">{useTranslation().t('Pages.HexColorPicker.remove')}</Text>
+                  <Text size="B300">{t('Pages.HexColorPicker.remove')}</Text>
                 </Button>
               )}
             </Box>

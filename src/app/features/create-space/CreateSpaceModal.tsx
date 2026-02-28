@@ -31,7 +31,7 @@ type CreateSpaceModalProps = {
 function CreateSpaceModal({ state }: CreateSpaceModalProps) {
   const { spaceId } = state;
   const closeDialog = useCloseCreateSpaceModal();
-
+  const { t } = useTranslation();
   const allJoinedRooms = useAllJoinedRoomsSet();
   const getRoom = useGetRoom(allJoinedRooms);
   const space = spaceId ? getRoom(spaceId) : undefined;

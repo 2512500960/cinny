@@ -85,6 +85,7 @@ type DeviceKeyDetailsProps = {
   crypto: CryptoApi;
 };
 export function DeviceKeyDetails({ crypto }: DeviceKeyDetailsProps) {
+  const { t } = useTranslation();
   const [keysState, loadKeys] = useAsyncCallback(
     useCallback(() => {
       const keys = crypto.getOwnDeviceKeys();
@@ -100,8 +101,12 @@ export function DeviceKeyDetails({ crypto }: DeviceKeyDetailsProps) {
 
   return (
     <Text className={BreakWord} size="T200" priority="300">
-      {t('Pages.Settings.Devices.device_key')}: {' '}
-      <i>{keysState.status === AsyncStatus.Success ? keysState.data.ed25519 : t('Pages.Settings.Devices.loading')}</i>
+      {t('Pages.Settings.Devices.device_key')}:{' '}
+      <i>
+        {keysState.status === AsyncStatus.Success
+          ? keysState.data.ed25519
+          : t('Pages.Settings.Devices.loading')}
+      </i>
     </Text>
   );
 }

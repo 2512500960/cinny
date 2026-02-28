@@ -292,7 +292,7 @@ type DeviceVerificationSetupProps = {
 export const DeviceVerificationSetup = forwardRef<HTMLDivElement, DeviceVerificationSetupProps>(
   ({ onCancel }, ref) => {
     const [recoveryKey, setRecoveryKey] = useState<string>();
-
+    const { t } = useTranslation();
     return (
       <Dialog ref={ref}>
         <Header
@@ -327,7 +327,7 @@ type DeviceVerificationResetProps = {
 export const DeviceVerificationReset = forwardRef<HTMLDivElement, DeviceVerificationResetProps>(
   ({ onCancel }, ref) => {
     const [reset, setReset] = useState(false);
-
+    const { t } = useTranslation();
     return (
       <Dialog ref={ref}>
         <Header

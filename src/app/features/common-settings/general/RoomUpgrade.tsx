@@ -72,7 +72,7 @@ function RoomUpgradeDialog({ requestClose }: { requestClose: () => void }) {
   );
 
   const upgrading = upgradeState.status === AsyncStatus.Loading;
-
+  const { t } = useTranslation();
   const handleUpgradeRoom = () => {
     const version = selectedRoomVersion;
 
@@ -111,11 +111,11 @@ function RoomUpgradeDialog({ requestClose }: { requestClose: () => void }) {
               </IconButton>
             </Header>
             <Box style={{ padding: config.space.S400 }} direction="Column" gap="400">
-                <Text priority="400" style={{ color: color.Critical.Main }}>
-                <b>{useTranslation().t('Pages.RoomSettings.Upgrade.irreversible')}</b>
+              <Text priority="400" style={{ color: color.Critical.Main }}>
+                <b>{t('Pages.RoomSettings.Upgrade.irreversible')}</b>
               </Text>
               <Box direction="Column" gap="100">
-                <Text size="L400">{useTranslation().t('Pages.RoomSettings.Upgrade.options')}</Text>
+                <Text size="L400">{t('Pages.RoomSettings.Upgrade.options')}</Text>
                 <RoomVersionSelector
                   versions={roomVersions?.available ? Object.keys(roomVersions.available) : ['1']}
                   value={selectedRoomVersion}
@@ -149,7 +149,11 @@ function RoomUpgradeDialog({ requestClose }: { requestClose: () => void }) {
                 disabled={upgrading}
                 before={upgrading && <Spinner size="200" variant="Secondary" fill="Solid" />}
               >
-                <Text size="B400">{room.isSpaceRoom() ? useTranslation().t('Pages.RoomSettings.Upgrade.upgrade_space') : useTranslation().t('Pages.RoomSettings.Upgrade.upgrade_room')}</Text>
+                <Text size="B400">
+                  {room.isSpaceRoom()
+                    ? t('Pages.RoomSettings.Upgrade.upgrade_space')
+                    : t('Pages.RoomSettings.Upgrade.upgrade_room')}
+                </Text>
               </Button>
             </Box>
           </Dialog>
@@ -205,7 +209,7 @@ export function RoomUpgrade({ permissions, requestClose }: RoomUpgradeProps) {
   };
 
   const [prompt, setPrompt] = useState(false);
-
+  const { t } = useTranslation();
   return (
     <SequenceCard
       className={SequenceCardStyle}
@@ -214,12 +218,20 @@ export function RoomUpgrade({ permissions, requestClose }: RoomUpgradeProps) {
       gap="400"
     >
       <SettingTile
-        title={room.isSpaceRoom() ? useTranslation().t('Pages.RoomSettings.Upgrade.title_space') : useTranslation().t('Pages.RoomSettings.Upgrade.title_room')}
+        title={
+          room.isSpaceRoom()
+            ? t('Pages.RoomSettings.Upgrade.title_space')
+            : t('Pages.RoomSettings.Upgrade.title_room')
+        }
         description={
           replacementRoom
             ? tombstoneContent.body ||
-              (room.isSpaceRoom() ? useTranslation().t('Pages.RoomSettings.Upgrade.replaced_space') : useTranslation().t('Pages.RoomSettings.Upgrade.replaced_room'))
-            : useTranslation().t('Pages.RoomSettings.Upgrade.current_version', { version: roomVersion })
+              (room.isSpaceRoom()
+                ? t('Pages.RoomSettings.Upgrade.replaced_space')
+                : t('Pages.RoomSettings.Upgrade.replaced_room'))
+            : t('Pages.RoomSettings.Upgrade.current_version', {
+                version: roomVersion,
+              })
         }
         after={
           <Box alignItems="Center" gap="200">
@@ -232,7 +244,11 @@ export function RoomUpgrade({ permissions, requestClose }: RoomUpgradeProps) {
                 radii="300"
                 onClick={handleOpenOldRoom}
               >
-                <Text size="B300">{room.isSpaceRoom() ? useTranslation().t('Pages.RoomSettings.Upgrade.old_space') : useTranslation().t('Pages.RoomSettings.Upgrade.old_room')}</Text>
+                <Text size="B300">
+                  {room.isSpaceRoom()
+                    ? t('Pages.RoomSettings.Upgrade.old_space')
+                    : t('Pages.RoomSettings.Upgrade.old_room')}
+                </Text>
               </Button>
             )}
             {replacementRoom ? (
@@ -243,7 +259,11 @@ export function RoomUpgrade({ permissions, requestClose }: RoomUpgradeProps) {
                 radii="300"
                 onClick={handleOpenRoom}
               >
-                <Text size="B300">{room.isSpaceRoom() ? useTranslation().t('Pages.RoomSettings.Upgrade.open_new_space') : useTranslation().t('Pages.RoomSettings.Upgrade.open_new_room')}</Text>
+                <Text size="B300">
+                  {room.isSpaceRoom()
+                    ? t('Pages.RoomSettings.Upgrade.open_new_space')
+                    : t('Pages.RoomSettings.Upgrade.open_new_room')}
+                </Text>
               </Button>
             ) : (
               <Button
@@ -254,7 +274,7 @@ export function RoomUpgrade({ permissions, requestClose }: RoomUpgradeProps) {
                 disabled={!canUpgrade}
                 onClick={() => setPrompt(true)}
               >
-                <Text size="B300">{useTranslation().t('Pages.RoomSettings.Upgrade.upgrade_button')}</Text>
+                <Text size="B300">{t('Pages.RoomSettings.Upgrade.upgrade_button')}</Text>
               </Button>
             )}
           </Box>

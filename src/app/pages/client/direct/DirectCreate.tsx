@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Box, Icon, IconButton, Icons, Scroll } from 'folds';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';
@@ -17,7 +18,6 @@ import {
 } from '../../../components/page';
 import { BackRouteHandler } from '../../../components/BackRouteHandler';
 import { CreateChat } from '../../../features/create-chat';
-import { useTranslation } from 'react-i18next';
 
 export function DirectCreate() {
   const mx = useMatrixClient();
