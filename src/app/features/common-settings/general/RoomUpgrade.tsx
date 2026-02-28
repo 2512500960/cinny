@@ -72,7 +72,6 @@ function RoomUpgradeDialog({ requestClose }: { requestClose: () => void }) {
   );
 
   const upgrading = upgradeState.status === AsyncStatus.Loading;
-
   const handleUpgradeRoom = () => {
     const version = selectedRoomVersion;
 

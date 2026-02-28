@@ -34,7 +34,9 @@ export function LanguagePicker() {
   const handleSelect: MouseEventHandler<HTMLButtonElement> = (evt) => {
     const lang = evt.currentTarget.getAttribute('data-lang');
     if (lang) {
-      void i18n.changeLanguage(lang);
+      i18n.changeLanguage(lang).catch(() => {
+        // ignore language change errors
+      });
       try {
         localStorage.setItem('i18nextLng', lang);
         // also store as a cookie so it can live alongside other client cookies

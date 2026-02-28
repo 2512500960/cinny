@@ -19,6 +19,7 @@ import {
   TooltipProvider,
   Tooltip,
 } from 'folds';
+import { useTranslation } from 'react-i18next';
 import { HexColorPicker } from 'react-colorful';
 import { useAtomValue } from 'jotai';
 import { Page, PageContent, PageHeader } from '../../../components/page';

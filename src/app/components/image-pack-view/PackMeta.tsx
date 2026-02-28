@@ -52,6 +52,7 @@ type ImagePackProfileProps = {
 };
 export function ImagePackProfile({ meta, canEdit, onEdit }: ImagePackProfileProps) {
   const mx = useMatrixClient();
+  const { t } = useTranslation();
   const useAuthentication = useMediaAuthentication();
   const avatarUrl = meta.avatar
     ? mxcUrlToHttp(mx, meta.avatar, useAuthentication) ?? undefined

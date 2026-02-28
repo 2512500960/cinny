@@ -227,11 +227,7 @@ export function BackupRestoreTile({ crypto }: BackupRestoreTileProps) {
                         title={t('Pages.BackupRestore.backup_details')}
                         description={
                           <>
-                            <span>
-                              {t('Pages.BackupRestore.version_prefix', {
-                                version: backupInfo?.version ?? 'NIL',
-                              })}
-                            </span>
+                            <span>Version: {backupInfo?.version ?? 'NIL'}</span>
                             <br />
                             <span>
                               {t('Pages.BackupRestore.keys_prefix', {

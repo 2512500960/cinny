@@ -31,7 +31,7 @@ type CreateRoomModalProps = {
 function CreateRoomModal({ state }: CreateRoomModalProps) {
   const { spaceId } = state;
   const closeDialog = useCloseCreateRoomModal();
-
+  const { t } = useTranslation();
   const allJoinedRooms = useAllJoinedRoomsSet();
   const getRoom = useGetRoom(allJoinedRooms);
   const space = spaceId ? getRoom(spaceId) : undefined;

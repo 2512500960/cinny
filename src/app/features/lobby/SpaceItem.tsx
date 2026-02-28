@@ -251,6 +251,7 @@ function AddRoomButton({ item }: { item: HierarchyItem }) {
   const openCreateRoomModal = useOpenCreateRoomModal();
   const [addExisting, setAddExisting] = useState(false);
 
+  const { t } = useTranslation();
   const handleAddRoom: MouseEventHandler<HTMLButtonElement> = (evt) => {
     setCords(evt.currentTarget.getBoundingClientRect());
   };
@@ -259,7 +260,6 @@ function AddRoomButton({ item }: { item: HierarchyItem }) {
     openCreateRoomModal(item.roomId);
     setCords(undefined);
   };
-  const { t } = useTranslation();
   const handleAddExisting = () => {
     setAddExisting(true);
     setCords(undefined);

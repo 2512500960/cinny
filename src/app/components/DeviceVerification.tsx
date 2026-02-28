@@ -185,7 +185,6 @@ type SasVerificationProps = {
 function SasVerification({ verifier, onCancel }: SasVerificationProps) {
   const [sasData, setSasData] = useState<ShowSasCallbacks>();
   const { t } = useTranslation();
-
   useVerifierShowSas(verifier, setSasData);
   useVerifierCancel(verifier, onCancel);
 

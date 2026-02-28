@@ -85,6 +85,7 @@ type DeviceKeyDetailsProps = {
   crypto: CryptoApi;
 };
 export function DeviceKeyDetails({ crypto }: DeviceKeyDetailsProps) {
+  const { t } = useTranslation();
   const [keysState, loadKeys] = useAsyncCallback(
     useCallback(() => {
       const keys = crypto.getOwnDeviceKeys();
