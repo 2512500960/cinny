@@ -56,13 +56,13 @@ export function ImagePackProfile({ meta, canEdit, onEdit }: ImagePackProfileProp
   const avatarUrl = meta.avatar
     ? mxcUrlToHttp(mx, meta.avatar, useAuthentication) ?? undefined
     : undefined;
-
+  const { t } = useTranslation();
   return (
     <Box gap="400">
       <Box grow="Yes" direction="Column" gap="300">
         <Box direction="Column" gap="100">
           <Text className={BreakWord} size="H5">
-            {meta.name ?? 'Unknown'}
+            {meta.name ?? t('Pages.ImagePack.unknown')}
           </Text>
           {meta.attribution && (
             <Text className={BreakWord} size="T200">

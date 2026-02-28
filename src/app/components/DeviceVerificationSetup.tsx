@@ -292,7 +292,7 @@ type DeviceVerificationSetupProps = {
 export const DeviceVerificationSetup = forwardRef<HTMLDivElement, DeviceVerificationSetupProps>(
   ({ onCancel }, ref) => {
     const [recoveryKey, setRecoveryKey] = useState<string>();
-
+    const { t } = useTranslation();
     return (
       <Dialog ref={ref}>
         <Header
@@ -327,7 +327,7 @@ type DeviceVerificationResetProps = {
 export const DeviceVerificationReset = forwardRef<HTMLDivElement, DeviceVerificationResetProps>(
   ({ onCancel }, ref) => {
     const [reset, setReset] = useState(false);
-
+    const { t } = useTranslation();
     return (
       <Dialog ref={ref}>
         <Header
@@ -339,7 +339,7 @@ export const DeviceVerificationReset = forwardRef<HTMLDivElement, DeviceVerifica
           size="500"
         >
           <Box grow="Yes">
-            <Text size="H4">Reset Device Verification</Text>
+            <Text size="H4">{t('Pages.DeviceVerificationSetup.reset_title')}</Text>
           </Box>
           <IconButton size="300" radii="300" onClick={onCancel}>
             <Icon src={Icons.Cross} />

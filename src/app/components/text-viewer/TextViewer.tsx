@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { ComponentProps, HTMLAttributes, Suspense, forwardRef, lazy } from 'react';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 import { Box, Chip, Header, Icon, IconButton, Icons, Scroll, Text, as } from 'folds';
 import { ErrorBoundary } from 'react-error-boundary';
 import * as css from './TextViewer.css';
@@ -43,7 +44,7 @@ export const TextViewer = as<'div', TextViewerProps>(
     const handleCopy = () => {
       copyToClipboard(text);
     };
-
+    const { t } = useTranslation();
     return (
       <Box
         className={classNames(css.TextViewer, className)}

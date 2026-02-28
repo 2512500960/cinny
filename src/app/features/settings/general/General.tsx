@@ -363,7 +363,7 @@ type DateHintProps = {
 function DateHint({ hasChanges, handleReset }: DateHintProps) {
   const [anchor, setAnchor] = useState<RectCords>();
   const categoryPadding = { padding: config.space.S200, paddingTop: 0 };
-
+  const { t } = useTranslation();
   const handleOpenMenu: MouseEventHandler<HTMLElement> = (evt) => {
     setAnchor(evt.currentTarget.getBoundingClientRect());
   };

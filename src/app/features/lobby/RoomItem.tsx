@@ -129,6 +129,7 @@ type RoomProfileErrorProps = {
   via?: string[];
 };
 function RoomProfileError({ roomId, suggested, inaccessibleRoom, via }: RoomProfileErrorProps) {
+  const { t } = useTranslation();
   return (
     <Box grow="Yes" gap="300">
       <Avatar>
@@ -195,6 +196,7 @@ function RoomProfile({
   joinRule,
   options,
 }: RoomProfileProps) {
+  const { t } = useTranslation();
   return (
     <Box grow="Yes" gap="300">
       <Avatar>
@@ -322,7 +324,7 @@ export const RoomItemCard = as<'div', RoomItemCardProps>(
     const targetRef = useRef<HTMLDivElement>(null);
     const targetHandleRef = useRef<HTMLDivElement>(null);
     useDraggableItem(item, targetRef, onDragging, targetHandleRef);
-
+    const { t } = useTranslation();
     const joined = room?.getMyMembership() === Membership.Join;
 
     return (

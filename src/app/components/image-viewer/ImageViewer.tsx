@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import FileSaver from 'file-saver';
 import classNames from 'classnames';
 import { Box, Chip, Header, Icon, IconButton, Icons, Text, as } from 'folds';
@@ -18,7 +19,7 @@ export const ImageViewer = as<'div', ImageViewerProps>(
   ({ className, alt, src, requestClose, ...props }, ref) => {
     const { zoom, zoomIn, zoomOut, setZoom } = useZoom(0.2);
     const { pan, cursor, onMouseDown } = usePan(zoom !== 1);
-
+    const { t } = useTranslation();
     const handleDownload = async () => {
       const fileContent = await downloadMedia(src);
       FileSaver.saveAs(fileContent, alt);

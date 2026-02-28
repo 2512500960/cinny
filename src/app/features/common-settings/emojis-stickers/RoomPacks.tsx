@@ -16,6 +16,7 @@ import {
   IconButton,
   Menu,
 } from 'folds';
+import { useTranslation } from 'react-i18next';
 import { MatrixError } from 'matrix-js-sdk';
 import { SequenceCard } from '../../../components/sequence-card';
 import {

@@ -229,7 +229,7 @@ export const MessageEditor = as<'div', MessageEditorProps>(
         onCancel();
       }
     }, [saveState, onCancel]);
-
+    const { t } = useTranslation();
     return (
       <div {...props} ref={ref}>
         {autocompleteQuery?.prefix === AutocompletePrefix.RoomMention && (

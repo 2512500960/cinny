@@ -154,7 +154,7 @@ export function LobbyHeader({ showProfile, powerLevels }: LobbyHeaderProps) {
   const avatarUrl = avatarMxc
     ? mxcUrlToHttp(mx, avatarMxc, useAuthentication, 96, 96, 'crop') ?? undefined
     : undefined;
-
+  const { t } = useTranslation();
   const handleOpenMenu: MouseEventHandler<HTMLButtonElement> = (evt) => {
     setMenuAnchor(evt.currentTarget.getBoundingClientRect());
   };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dialog, Text, Box, Button, config } from 'folds';
+import { useTranslation } from 'react-i18next';
 import { AuthType } from 'matrix-js-sdk';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { StageComponentProps } from './types';
@@ -32,7 +33,7 @@ function ReCaptchaErrorDialog({
 
 export function ReCaptchaStageDialog({ stageData, submitAuthDict, onCancel }: StageComponentProps) {
   const { info, session } = stageData;
-
+  const { t } = useTranslation();
   const publicKey = info?.public_key;
 
   const handleChange = (token: string | null) => {

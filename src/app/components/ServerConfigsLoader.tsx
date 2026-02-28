@@ -3,7 +3,6 @@ import { Capabilities, validateAuthMetadata, ValidatedAuthMetadata } from 'matri
 import { AsyncStatus, useAsyncCallbackValue } from '../hooks/useAsyncCallback';
 import { useMatrixClient } from '../hooks/useMatrixClient';
 import { MediaConfig } from '../hooks/useMediaConfig';
-import { promiseFulfilledResult } from '../utils/common';
 
 export type ServerConfigs = {
   capabilities?: Capabilities;
@@ -20,21 +19,20 @@ export function ServerConfigsLoader({ children }: ServerConfigsLoaderProps) {
 
   const [configsState] = useAsyncCallbackValue<ServerConfigs, unknown>(
     useCallback(async () => {
-      const result = await Promise.allSettled([
-        mx.getCapabilities(),
-        mx.getMediaConfig(),
-        mx.getAuthMetadata(),
-      ]);
+      const capabilities: Capabilities | undefined = await mx
+        .getCapabilities()
+        .catch(() => undefined);
+      const mediaConfig: MediaConfig | undefined = await mx.getMediaConfig().catch(() => undefined);
+      const authMetadata = await mx.getAuthMetadata().catch(() => undefined);
 
-      const capabilities = promiseFulfilledResult(result[0]);
-      const mediaConfig = promiseFulfilledResult(result[1]);
-      const authMetadata = promiseFulfilledResult(result[2]);
       let validatedAuthMetadata: ValidatedAuthMetadata | undefined;
 
       try {
-        validatedAuthMetadata = validateAuthMetadata(authMetadata);
-      } catch (e) {
-        console.error(e);
+        if (authMetadata) {
+          validatedAuthMetadata = validateAuthMetadata(authMetadata);
+        }
+      } catch {
+        validatedAuthMetadata = undefined;
       }
 
       return {

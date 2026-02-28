@@ -35,7 +35,7 @@ function CreateRoomModal({ state }: CreateRoomModalProps) {
   const allJoinedRooms = useAllJoinedRoomsSet();
   const getRoom = useGetRoom(allJoinedRooms);
   const space = spaceId ? getRoom(spaceId) : undefined;
-
+  const { t } = useTranslation();
   return (
     <SpaceProvider value={space ?? null}>
       <Overlay open backdrop={<OverlayBackdrop />}>

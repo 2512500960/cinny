@@ -13,6 +13,7 @@ import {
   Spinner,
   Button,
 } from 'folds';
+import { useTranslation } from 'react-i18next';
 import { MatrixError } from 'matrix-js-sdk';
 import { Page, PageHeader } from '../../../components/page';
 import { SequenceCard } from '../../../components/sequence-card';

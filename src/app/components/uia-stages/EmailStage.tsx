@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, FormEventHandler } from 'react';
 import { Dialog, Text, Box, Button, config, Input, color, Spinner } from 'folds';
+import { useTranslation } from 'react-i18next';
 import { AuthType, MatrixError } from 'matrix-js-sdk';
 import { StageComponentProps } from './types';
 import { AsyncState, AsyncStatus } from '../../hooks/useAsyncCallback';
@@ -81,7 +82,7 @@ export function EmailStageDialog({
   requestEmailToken: RequestEmailTokenCallback;
 }) {
   const { errorCode, error, session } = stageData;
-
+  const { t } = useTranslation();
   const handleSubmit = useCallback(
     (sessionId: string) => {
       const threepIDCreds = {
@@ -115,7 +116,9 @@ export function EmailStageDialog({
     return (
       <Box direction="Column" alignItems="Center" gap="400">
         <Spinner variant="Secondary" size="600" />
-        <Text style={{ color: color.Secondary.Main }}>{t('Pages.UIA.Email.sending_verification_email')}</Text>
+        <Text style={{ color: color.Secondary.Main }}>
+          {t('Pages.UIA.Email.sending_verification_email')}
+        </Text>
       </Box>
     );
   }

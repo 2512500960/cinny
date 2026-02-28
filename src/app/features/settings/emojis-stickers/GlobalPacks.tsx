@@ -164,7 +164,11 @@ function GlobalPackSelector({
                           addSelected(roomPackAddresses);
                         }}
                       >
-                        <Text size="B300">{allSelected ? t('Pages.Settings.Emojis.unselect_all') : t('Pages.Settings.Emojis.select_all')}</Text>
+                        <Text size="B300">
+                          {allSelected
+                            ? t('Pages.Settings.Emojis.unselect_all')
+                            : t('Pages.Settings.Emojis.select_all')}
+                        </Text>
                       </Chip>
                     </Box>
                   </Box>
@@ -186,7 +190,7 @@ function GlobalPackSelector({
                         gap="400"
                       >
                         <SettingTile
-                            title={pack.meta.name ?? useTranslation().t('Pages.RoomItem.unknown')}
+                          title={pack.meta.name ?? t('Pages.RoomItem.unknown')}
                           description={<span className={LineClamp2}>{pack.meta.attribution}</span>}
                           before={
                             <Box alignItems="Center" gap="300">
@@ -233,12 +237,12 @@ function GlobalPackSelector({
                     margin: 'auto',
                   }}
                 >
-                    <Text size="H5" align="Center">
-                      {useTranslation().t('Pages.Settings.Emojis.no_packs_title')}
-                    </Text>
-                    <Text size="T200" align="Center">
-                      {useTranslation().t('Pages.Settings.Emojis.no_packs_desc')}
-                    </Text>
+                  <Text size="H5" align="Center">
+                    {t('Pages.Settings.Emojis.no_packs_title')}
+                  </Text>
+                  <Text size="T200" align="Center">
+                    {t('Pages.Settings.Emojis.no_packs_desc')}
+                  </Text>
                 </Box>
               </SequenceCard>
             )}
@@ -253,6 +257,7 @@ type GlobalPacksProps = {
   onViewPack: (imagePack: ImagePack) => void;
 };
 export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   const useAuthentication = useMediaAuthentication();
   const globalPacks = useGlobalImagePacks();
@@ -410,7 +415,7 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
                 outlined
                 onClick={() => onViewPack(pack)}
               >
-                <Text size="B300">{useTranslation().t('Pages.Settings.Emojis.view')}</Text>
+                <Text size="B300">{t('Pages.Settings.Emojis.view')}</Text>
               </Button>
             )
           }
@@ -418,11 +423,10 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
       </SequenceCard>
     );
   };
-
   return (
     <>
       <Box direction="Column" gap="100">
-        <Text size="L400">{useTranslation().t('Pages.Settings.Emojis.favorite_packs')}</Text>
+        <Text size="L400">{t('Pages.Settings.Emojis.favorite_packs')}</Text>
         <SequenceCard
           className={SequenceCardStyle}
           variant="SurfaceVariant"
@@ -430,8 +434,8 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
           gap="400"
         >
           <SettingTile
-            title={useTranslation().t('Pages.Settings.Emojis.select_pack_title')}
-            description={useTranslation().t('Pages.Settings.Emojis.select_pack_desc')}
+            title={t('Pages.Settings.Emojis.select_pack_title')}
+            description={t('Pages.Settings.Emojis.select_pack_desc')}
             after={
               <>
                 <Button
@@ -442,7 +446,7 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
                   radii="300"
                   outlined
                 >
-                  <Text size="B300">{useTranslation().t('Pages.Settings.Emojis.select')}</Text>
+                  <Text size="B300">{t('Pages.Settings.Emojis.select')}</Text>
                 </Button>
                 <PopOut
                   anchor={menuCords}
@@ -504,11 +508,11 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
             <Box grow="Yes" direction="Column">
               {applyState.status === AsyncStatus.Error ? (
                 <Text size="T200">
-                  <b>{useTranslation().t('Pages.Settings.Emojis.apply_failed')}</b>
+                  <b>{t('Pages.Settings.Emojis.apply_failed')}</b>
                 </Text>
               ) : (
                 <Text size="T200">
-                  <b>{useTranslation().t('Pages.Settings.Emojis.changes_saved')}</b>
+                  <b>{t('Pages.Settings.Emojis.changes_saved')}</b>
                 </Text>
               )}
             </Box>
@@ -521,7 +525,7 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
                 disabled={applyingChanges}
                 onClick={resetChanges}
               >
-                <Text size="B300">{useTranslation().t('Pages.Settings.Emojis.reset')}</Text>
+                <Text size="B300">{t('Pages.Settings.Emojis.reset')}</Text>
               </Button>
               <Button
                 size="300"
@@ -531,7 +535,7 @@ export function GlobalPacks({ onViewPack }: GlobalPacksProps) {
                 before={applyingChanges && <Spinner variant="Success" fill="Solid" size="100" />}
                 onClick={applyChanges}
               >
-                <Text size="B300">{useTranslation().t('Pages.Settings.Emojis.apply_changes')}</Text>
+                <Text size="B300">{t('Pages.Settings.Emojis.apply_changes')}</Text>
               </Button>
             </Box>
           </Box>

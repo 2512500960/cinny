@@ -628,12 +628,12 @@ export const RoomInput = forwardRef<HTMLDivElement, RoomInputProps>(
                         onCustomEmojiSelect={handleEmoticonSelect}
                         onStickerSelect={handleStickerSelect}
                         requestClose={() => {
-                          setEmojiBoardTab((t) => {
-                            if (t) {
+                          setEmojiBoardTab((Tab) => {
+                            if (Tab) {
                               if (!mobileOrTablet()) ReactEditor.focus(editor);
                               return undefined;
                             }
-                            return t;
+                            return Tab;
                           });
                         }}
                       />

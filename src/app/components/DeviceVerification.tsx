@@ -63,6 +63,7 @@ function VerificationUnexpected({ message, onClose }: VerificationUnexpectedProp
 }
 
 function VerificationWaitAccept() {
+  const { t } = useTranslation();
   return (
     <Box direction="Column" gap="400">
       <Text>{t('Pages.DeviceVerification.accept_request_instruction')}</Text>
@@ -96,6 +97,7 @@ function VerificationAccept({ onAccept }: VerificationAcceptProps) {
 }
 
 function VerificationWaitStart() {
+  const { t } = useTranslation();
   return (
     <Box direction="Column" gap="400">
       <Text>{t('Pages.DeviceVerification.request_accepted')}</Text>
@@ -182,6 +184,7 @@ type SasVerificationProps = {
 };
 function SasVerification({ verifier, onCancel }: SasVerificationProps) {
   const [sasData, setSasData] = useState<ShowSasCallbacks>();
+  const { t } = useTranslation();
 
   useVerifierShowSas(verifier, setSasData);
   useVerifierCancel(verifier, onCancel);

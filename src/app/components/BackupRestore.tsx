@@ -235,7 +235,7 @@ export function BackupRestoreTile({ crypto }: BackupRestoreTileProps) {
                             <br />
                             <span>
                               {t('Pages.BackupRestore.keys_prefix', {
-                                count: backupInfo?.count ?? 'NIL',
+                                count: backupInfo?.count ?? 0,
                               })}
                             </span>
                           </>

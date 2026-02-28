@@ -30,7 +30,6 @@ type UserHeroProps = {
 };
 export function UserHero({ userId, avatarUrl, presence }: UserHeroProps) {
   const [viewAvatar, setViewAvatar] = useState<string>();
-  const { t } = useTranslation();
 
   return (
     <Box direction="Column" className={css.UserHero}>

@@ -49,7 +49,7 @@ export function SecretStorageRecoveryPassphrase({
 
         return decodedRecoveryKey;
       },
-      [mx, keyContent]
+      [mx, keyContent, t]
     )
   );
 
@@ -142,7 +142,7 @@ export function SecretStorageRecoveryKey({
 
         return decodedRecoveryKey;
       },
-      [mx, keyContent]
+      [mx, keyContent, t]
     )
   );
 

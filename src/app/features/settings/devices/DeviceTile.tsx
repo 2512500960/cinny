@@ -91,7 +91,7 @@ export function DeviceKeyDetails({ crypto }: DeviceKeyDetailsProps) {
       return keys;
     }, [crypto])
   );
-
+  const { t } = useTranslation();
   useEffect(() => {
     loadKeys();
   }, [loadKeys]);
@@ -100,8 +100,12 @@ export function DeviceKeyDetails({ crypto }: DeviceKeyDetailsProps) {
 
   return (
     <Text className={BreakWord} size="T200" priority="300">
-      {t('Pages.Settings.Devices.device_key')}: {' '}
-      <i>{keysState.status === AsyncStatus.Success ? keysState.data.ed25519 : t('Pages.Settings.Devices.loading')}</i>
+      {t('Pages.Settings.Devices.device_key')}:{' '}
+      <i>
+        {keysState.status === AsyncStatus.Success
+          ? keysState.data.ed25519
+          : t('Pages.Settings.Devices.loading')}
+      </i>
     </Text>
   );
 }

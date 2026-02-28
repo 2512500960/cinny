@@ -84,7 +84,7 @@ export const SpaceHierarchy = forwardRef<HTMLDivElement, SpaceHierarchyProps>(
     const spaceCreators = getRoomCreatorsForRoomId(mx, spaceItem.roomId);
     const spacePermissions =
       spacePowerLevels && getRoomPermissionsAPI(spaceCreators, spacePowerLevels);
-
+    const { t } = useTranslation();
     const draggingSpace =
       draggingItem?.roomId === spaceItem.roomId && draggingItem.parentId === spaceItem.parentId;
 

@@ -51,7 +51,6 @@ export function RoomPublishedAddresses({ permissions }: RoomPublishedAddressesPr
 
   const [canonicalAlias, publishedAliases] = usePublishedAliases(room);
   const setMainAlias = useSetMainAlias(room);
-
   const [mainState, setMain] = useAsyncCallback(setMainAlias);
   const loading = mainState.status === AsyncStatus.Loading;
 
@@ -131,7 +130,7 @@ function LocalAddressInput({ addLocalAlias }: { addLocalAlias: (alias: string) =
   const userId = mx.getSafeUserId();
   const server = getMxIdServer(userId);
   const alive = useAlive();
-
+  const { t } = useTranslation();
   const [addState, addAlias] = useAsyncCallback(addLocalAlias);
   const adding = addState.status === AsyncStatus.Loading;
 
@@ -205,7 +204,7 @@ function LocalAddressesList({
 }) {
   const room = useRoom();
   const alive = useAlive();
-
+  const { t } = useTranslation();
   const [, publishedAliases] = usePublishedAliases(room);
   const { publishAliases, unpublishAliases } = usePublishUnpublishAliases(room);
 
@@ -267,7 +266,9 @@ function LocalAddressesList({
       {selectedAliases.length > 0 && (
         <Box gap="200">
           <Box grow="Yes">
-            <Text size="L400">{t('Pages.RoomAddress.selected_count', { count: selectedAliases.length })}</Text>
+            <Text size="L400">
+              {t('Pages.RoomAddress.selected_count', { count: selectedAliases.length })}
+            </Text>
           </Box>
           <Box shrink="No" gap="Inherit">
             {canEditCanonical &&
@@ -358,7 +359,7 @@ function LocalAddressesList({
 export function RoomLocalAddresses({ permissions }: { permissions: RoomPermissionsAPI }) {
   const mx = useMatrixClient();
   const room = useRoom();
-
+  const { t } = useTranslation();
   const canEditCanonical = permissions.stateEvent(
     StateEvent.RoomCanonicalAlias,
     mx.getSafeUserId()
@@ -405,7 +406,7 @@ export function RoomLocalAddresses({ permissions }: { permissions: RoomPermissio
               <Text size="T200">{t('Pages.RoomAddress.loading')}</Text>
             </Box>
           )}
-            {localAliasesState.status === AsyncStatus.Success &&
+          {localAliasesState.status === AsyncStatus.Success &&
             (localAliasesState.data.length === 0 ? (
               <Box direction="Column" gap="100">
                 <Text size="L400">{t('Pages.RoomAddress.no_addresses')}</Text>

@@ -180,7 +180,7 @@ export function Direct() {
   const notificationPreferences = useRoomsNotificationPreferencesContext();
   const roomToUnread = useAtomValue(roomToUnreadAtom);
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const createDirectSelected = useDirectCreateSelected();
 
   const selectedRoomId = useSelectedRoom();

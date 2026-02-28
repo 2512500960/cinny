@@ -148,7 +148,7 @@ export function ManualVerificationTile({
 
       await crypto.loadSessionBackupPrivateKeyFromSecretStorage();
     },
-    [mx, secretStorageKeyId]
+    [mx, secretStorageKeyId, t]
   );
 
   const [verifyState, handleDecodedRecoveryKey] = useAsyncCallback<void, Error, [Uint8Array]>(
