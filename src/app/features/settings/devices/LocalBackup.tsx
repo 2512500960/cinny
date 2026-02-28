@@ -82,7 +82,9 @@ function ExportKeys() {
                   />
                 </Box>
                 <Box grow="Yes" direction="Column" gap="100">
-                  <Text size="L400">{t('Pages.Settings.Devices.LocalBackup.confirm_password')}</Text>
+                  <Text size="L400">
+                    {t('Pages.Settings.Devices.LocalBackup.confirm_password')}
+                  </Text>
                   <PasswordInput
                     ref={confPassRef}
                     style={{ color: match ? undefined : color.Critical.Main }}
@@ -114,7 +116,7 @@ function ExportKeys() {
           </Button>
         </Box>
         {exportState.status === AsyncStatus.Error && (
-            <Text size="T200" style={{ color: color.Critical.Main }}>
+          <Text size="T200" style={{ color: color.Critical.Main }}>
             <b>{exportState.error.message}</b>
           </Text>
         )}
@@ -125,7 +127,7 @@ function ExportKeys() {
 
 function ExportKeysTile() {
   const [expand, setExpand] = useState(false);
-
+  const { t } = useTranslation();
   return (
     <>
       <SettingTile
@@ -146,7 +148,9 @@ function ExportKeysTile() {
               }
             >
               <Text as="span" size="B300" truncate>
-                {expand ? t('Pages.Settings.Devices.LocalBackup.collapse') : t('Pages.Settings.Devices.LocalBackup.expand')}
+                {expand
+                  ? t('Pages.Settings.Devices.LocalBackup.collapse')
+                  : t('Pages.Settings.Devices.LocalBackup.expand')}
               </Text>
             </Button>
           </Box>
@@ -164,7 +168,7 @@ type ImportKeysProps = {
 function ImportKeys({ file, onDone }: ImportKeysProps) {
   const mx = useMatrixClient();
   const alive = useAlive();
-
+  const { t } = useTranslation();
   const [decryptState, decryptFile] = useAsyncCallback<void, Error, [string]>(
     useCallback(
       async (password) => {
@@ -254,6 +258,8 @@ function ImportKeysTile() {
   const handleDone = useCallback(() => {
     setFile(undefined);
   }, []);
+
+  const { t } = useTranslation();
 
   return (
     <>

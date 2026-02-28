@@ -362,7 +362,7 @@ export function PowersEditor({ powerLevels, requestClose }: PowersEditorProps) {
         <Box alignItems="Center" grow="Yes" gap="200">
           <Box alignItems="Inherit" grow="Yes" gap="200">
             <Chip size="500" radii="Pill" onClick={requestClose}>
-              <Text size="T300">{t('Pages.PowersEditor.title')}</Text>
+              <Text size="T300">{t('Pages.PowersEditor.Permissions')}</Text>
             </Chip>
           </Box>
           <Box shrink="No">
@@ -469,8 +469,12 @@ export function PowersEditor({ powerLevels, requestClose }: PowersEditorProps) {
                                         <Tooltip style={{ maxWidth: toRem(200) }}>
                                           {usedPowers.has(power) ? (
                                             <Box direction="Column">
-                                              <Text size="L400">{t('Pages.PowersEditor.used_power_title')}</Text>
-                                              <Text size="T200">{t('Pages.PowersEditor.used_power_desc')}</Text>
+                                              <Text size="L400">
+                                                {t('Pages.PowersEditor.used_power_title')}
+                                              </Text>
+                                              <Text size="T200">
+                                                {t('Pages.PowersEditor.used_power_desc_hint')}
+                                              </Text>
                                             </Box>
                                           ) : (
                                             <Text>{t('Pages.PowersEditor.delete')}</Text>
@@ -496,14 +500,14 @@ export function PowersEditor({ powerLevels, requestClose }: PowersEditorProps) {
                                         </Chip>
                                       )}
                                     </TooltipProvider>
-                                      <Chip
-                                        variant="Secondary"
-                                        radii="Pill"
-                                        disabled={applyingChanges}
-                                        onClick={() => setEdit(true)}
-                                      >
-                                        <Text size="B300">{t('Common.edit')}</Text>
-                                      </Chip>
+                                    <Chip
+                                      variant="Secondary"
+                                      radii="Pill"
+                                      disabled={applyingChanges}
+                                      onClick={() => setEdit(true)}
+                                    >
+                                      <Text size="B300">{t('Common.edit')}</Text>
+                                    </Chip>
                                   </Box>
                                 )
                               }

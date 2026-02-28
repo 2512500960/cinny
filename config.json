@@ -1,8 +1,14 @@
 {
   "defaultHomeserver": 1,
-  "homeserverList": ["converser.eu", "matrix.org", "mozilla.org", "unredacted.org", "xmr.se"],
+  "homeserverList": [
+    "converser.eu",
+    "http://[200:e491:ba8f:fa70:660c:f072:831b:cbf9]:8008/",
+    "matrix.org",
+    "mozilla.org",
+    "unredacted.org",
+    "xmr.se"
+  ],
   "allowCustomHomeservers": true,
-
   "featuredCommunities": {
     "openAsDefault": false,
     "spaces": [
@@ -21,9 +27,12 @@
       "#PrivSec.dev:arcticfoxes.net",
       "#disroot:aria-net.org"
     ],
-    "servers": ["matrix.org", "mozilla.org", "unredacted.org"]
+    "servers": [
+      "matrix.org",
+      "mozilla.org",
+      "unredacted.org"
+    ]
   },
-
   "hashRouter": {
     "enabled": false,
     "basename": "/"

@@ -53,7 +53,7 @@ const DirectMenu = forwardRef<HTMLDivElement, DirectMenuProps>(({ requestClose }
           radii="300"
           aria-disabled={!unread}
         >
-            <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
+          <Text style={{ flexGrow: 1 }} as="span" size="T300" truncate>
             {t('Pages.DirectTab.mark_as_read')}
           </Text>
         </MenuItem>
@@ -67,7 +67,7 @@ export function DirectTab() {
   const mx = useMatrixClient();
   const screenSize = useScreenSizeContext();
   const navToActivePath = useAtomValue(useNavToActivePathAtom());
-
+  const { t } = useTranslation();
   const mDirects = useAtomValue(mDirectAtom);
   const directs = useDirects(mx, allRoomsAtom, mDirects);
   const directUnread = useRoomsUnread(directs, roomToUnreadAtom);

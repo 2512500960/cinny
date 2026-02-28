@@ -9,12 +9,14 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "vite build",
+    "build": "npm run check-locales && vite build",
+    "check-locales": "node --unhandled-rejections=strict scripts/check_locales.js",
     "lint": "yarn check:eslint && yarn check:prettier",
     "check:eslint": "eslint src/*",
     "check:prettier": "prettier --check .",
     "fix:prettier": "prettier --write .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "i18n:scan": "i18next-scanner --config i18next-scanner.config.cjs"
   },
   "keywords": [],
   "author": "Ajay Bura",
@@ -100,6 +102,7 @@
     "eslint-plugin-jsx-a11y": "6.6.1",
     "eslint-plugin-react": "7.31.11",
     "eslint-plugin-react-hooks": "4.6.0",
+    "i18next-scanner": "4.6.0",
     "prettier": "2.8.1",
     "typescript": "4.9.4",
     "vite": "5.4.19",

@@ -51,7 +51,7 @@ function ClientRootLoading() {
 
 function ClientRootOptions({ mx }: { mx?: MatrixClient }) {
   const [menuAnchor, setMenuAnchor] = useState<RectCords>();
-
+  const { t } = useTranslation();
   const handleToggle: MouseEventHandler<HTMLButtonElement> = (evt) => {
     const cords = evt.currentTarget.getBoundingClientRect();
     setMenuAnchor((currentState) => {
@@ -146,7 +146,7 @@ type ClientRootProps = {
 export function ClientRoot({ children }: ClientRootProps) {
   const [loading, setLoading] = useState(true);
   const { baseUrl } = getFallbackSession() ?? {};
-
+  const { t } = useTranslation();
   const [loadState, loadMatrix] = useAsyncCallback<MatrixClient, Error, []>(
     useCallback(() => {
       const session = getFallbackSession();
@@ -194,16 +194,22 @@ export function ClientRoot({ children }: ClientRootProps) {
             <Dialog>
               <Box direction="Column" gap="400" style={{ padding: config.space.S400 }}>
                 {loadState.status === AsyncStatus.Error && (
-                  <Text>{t('Pages.ClientRoot.failed_load_prefix', { message: loadState.error.message })}</Text>
+                  <Text>
+                    {t('Pages.ClientRoot.failed_load_prefix', { message: loadState.error.message })}
+                  </Text>
                 )}
                 {startState.status === AsyncStatus.Error && (
-                  <Text>{t('Pages.ClientRoot.failed_start_prefix', { message: startState.error.message })}</Text>
+                  <Text>
+                    {t('Pages.ClientRoot.failed_start_prefix', {
+                      message: startState.error.message,
+                    })}
+                  </Text>
                 )}
-                  <Button variant="Critical" onClick={mx ? () => startMatrix(mx) : loadMatrix}>
-                    <Text as="span" size="B400">
-                      {t('Common.retry')}
-                    </Text>
-                  </Button>
+                <Button variant="Critical" onClick={mx ? () => startMatrix(mx) : loadMatrix}>
+                  <Text as="span" size="B400">
+                    {t('Common.retry')}
+                  </Text>
+                </Button>
               </Box>
             </Dialog>
           </Box>

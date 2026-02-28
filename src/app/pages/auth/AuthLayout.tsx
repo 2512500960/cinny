@@ -23,6 +23,7 @@ import { AsyncStatus, useAsyncCallback } from '../../hooks/useAsyncCallback';
 import { LOGIN_PATH, REGISTER_PATH, RESET_PASSWORD_PATH } from '../paths';
 import CinnySVG from '../../../../public/res/svg/cinny.svg';
 import { ServerPicker } from './ServerPicker';
+import { LanguagePicker } from './LanguagePicker';
 import { AutoDiscoveryAction, autoDiscovery } from '../../cs-api';
 import { SpecVersionsLoader } from '../../components/SpecVersionsLoader';
 import { SpecVersionsProvider } from '../../hooks/useSpecVersions';
@@ -141,6 +142,9 @@ export function AuthLayout() {
               <img className={css.AuthLogo} src={CinnySVG} alt="Cinny Logo" />
               <Text size="H3">{t('Pages.AuthLayout.title')}</Text>
             </Box>
+            <Box direction="Row" alignItems="Center">
+              <LanguagePicker />
+            </Box>
           </Header>
           <Box className={css.AuthCardContent} direction="Column">
             <Box direction="Column" gap="100">
@@ -184,14 +188,14 @@ export function AuthLayout() {
                   >
                     {(specVersions) => (
                       <SpecVersionsProvider value={specVersions}>
-                          <AuthFlowsLoader
-                            fallback={() => (
-                              <AuthLayoutLoading message="Pages.AuthLayout.loading_auth_flow" />
-                            )}
-                            error={() => (
-                              <AuthLayoutError message="Pages.AuthLayout.failed_get_auth_flow" />
-                            )}
-                          >
+                        <AuthFlowsLoader
+                          fallback={() => (
+                            <AuthLayoutLoading message="Pages.AuthLayout.loading_auth_flow" />
+                          )}
+                          error={() => (
+                            <AuthLayoutError message="Pages.AuthLayout.failed_get_auth_flow" />
+                          )}
+                        >
                           {(authFlows) => (
                             <AuthFlowsProvider value={authFlows}>
                               <Outlet />

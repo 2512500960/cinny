@@ -133,6 +133,7 @@ type SelectRoomButtonProps = {
   onChange: (rooms?: string[]) => void;
 };
 function SelectRoomButton({ roomList, selectedRooms, onChange }: SelectRoomButtonProps) {
+  const { t } = useTranslation();
   const mx = useMatrixClient();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [menuAnchor, setMenuAnchor] = useState<RectCords>();
@@ -362,7 +363,7 @@ export function SearchFilters({
   onOrderChange,
 }: SearchFiltersProps) {
   const mx = useMatrixClient();
-
+  const { t } = useTranslation();
   return (
     <Box direction="Column" gap="100">
       <Text size="L400">{t('Pages.SearchFilters.filter')}</Text>

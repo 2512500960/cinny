@@ -63,7 +63,11 @@ export function VerificationStatusBadge({
   if (otherUnverifiedCount > 0) {
     return (
       <Badge variant="Warning" fill="Solid" size="500">
-        <Text size="L400">{t('Pages.Settings.Devices.Verification.unverified_count', { count: otherUnverifiedCount })}</Text>
+        <Text size="L400">
+          {t('Pages.Settings.Devices.Verification.unverified_count', {
+            count: otherUnverifiedCount,
+          })}
+        </Text>
       </Badge>
     );
   }
@@ -86,15 +90,11 @@ function LearnStartVerificationFromOtherDevice() {
           <li>
             {t('Pages.Settings.Devices.Verification.step_open_settings', { strong: 'Settings' })}
           </li>
-          <li>
-            {t('Pages.Settings.Devices.Verification.step_find_device')}
-          </li>
+          <li>{t('Pages.Settings.Devices.Verification.step_find_device')}</li>
           <li>{t('Pages.Settings.Devices.Verification.step_initiate_verification')}</li>
         </ul>
       </Text>
-      <Text size="T200">
-        {t('Pages.Settings.Devices.Verification.no_verified_device_prompt')}
-      </Text>
+      <Text size="T200">{t('Pages.Settings.Devices.Verification.no_verified_device_prompt')}</Text>
     </Box>
   );
 }
@@ -108,6 +108,7 @@ export function VerifyCurrentDeviceTile({
   secretStorageKeyContent,
 }: VerifyCurrentDeviceTileProps) {
   const [learnMore, setLearnMore] = useState(false);
+  const { t } = useTranslation();
 
   const [manualVerification, setManualVerification] = useState(false);
   const handleCancelVerification = () => setManualVerification(false);
@@ -121,7 +122,11 @@ export function VerifyCurrentDeviceTile({
           <>
             {t('Pages.Settings.Devices.Verification.start_or_verify')}{' '}
             <Text as="a" size="T200" onClick={() => setLearnMore(!learnMore)}>
-              <b>{learnMore ? t('Pages.Settings.Devices.Verification.view_less') : t('Pages.Settings.Devices.Verification.learn_more')}</b>
+              <b>
+                {learnMore
+                  ? t('Pages.Settings.Devices.Verification.view_less')
+                  : t('Pages.Settings.Devices.Verification.learn_more')}
+              </b>
             </Text>
           </>
         }
@@ -188,7 +193,7 @@ export function VerifyOtherDeviceTile({ crypto, deviceId }: VerifyOtherDeviceTil
       status: AsyncStatus.Idle,
     });
   }, []);
-
+  const { t } = useTranslation();
   const requesting = requestState.status === AsyncStatus.Loading;
   return (
     <InfoCard
@@ -225,6 +230,7 @@ type EnableVerificationProps = {
 };
 export function EnableVerification({ visible }: EnableVerificationProps) {
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   const handleCancel = useCallback(() => setOpen(false), []);
 
@@ -232,7 +238,9 @@ export function EnableVerification({ visible }: EnableVerificationProps) {
     <>
       {visible && (
         <Button size="300" radii="300" onClick={() => setOpen(true)}>
-          <Text as="span" size="B300">{t('Pages.Settings.Devices.enable')}</Text>
+          <Text as="span" size="B300">
+            {t('Pages.Settings.Devices.enable')}
+          </Text>
         </Button>
       )}
       {open && (
@@ -258,6 +266,7 @@ export function DeviceVerificationOptions() {
   const [menuCords, setMenuCords] = useState<RectCords>();
   const authMetadata = useAuthMetadata();
   const accountManagementActions = useAccountManagementActions();
+  const { t } = useTranslation();
 
   const [reset, setReset] = useState(false);
 

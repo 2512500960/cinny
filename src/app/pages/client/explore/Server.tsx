@@ -348,6 +348,7 @@ function LimitButton({ limit, onLimitChange }: LimitButtonProps) {
 }
 
 export function PublicRooms() {
+  const { t } = useTranslation();
   const { server } = useParams();
   const mx = useMatrixClient();
   const userId = mx.getUserId();
