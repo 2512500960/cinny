@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Text, IconButton, Icon, Icons, Scroll, Button, config, toRem } from 'folds';
 import { Page, PageContent, PageHeader } from '../../../components/page';
 import { SequenceCard } from '../../../components/sequence-card';
@@ -13,6 +14,7 @@ type AboutProps = {
 };
 export function About({ requestClose }: AboutProps) {
   const mx = useMatrixClient();
+  const { t } = useTranslation();
 
   return (
     <Page>
@@ -90,8 +92,8 @@ export function About({ requestClose }: AboutProps) {
                   gap="400"
                 >
                   <SettingTile
-                    title="Clear Cache & Reload"
-                    description="Clear all your locally stored data and reload from server."
+                    title={t('settings.about.clear_cache_title')}
+                    description={t('settings.about.clear_cache_desc')}
                     after={
                       <Button
                         onClick={() => clearCacheAndReload(mx)}
@@ -101,7 +103,7 @@ export function About({ requestClose }: AboutProps) {
                         radii="300"
                         outlined
                       >
-                        <Text size="B300">Clear Cache</Text>
+                        <Text size="B300">{t('settings.about.clear_cache')}</Text>
                       </Button>
                     }
                   />
