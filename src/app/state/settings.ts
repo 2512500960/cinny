@@ -10,6 +10,7 @@ export enum MessageLayout {
 }
 
 export interface Settings {
+  language?: string;
   themeId?: string;
   useSystemTheme: boolean;
   lightThemeId?: string;
@@ -44,6 +45,7 @@ export interface Settings {
 }
 
 const defaultSettings: Settings = {
+  language: undefined,
   themeId: undefined,
   useSystemTheme: true,
   lightThemeId: undefined,

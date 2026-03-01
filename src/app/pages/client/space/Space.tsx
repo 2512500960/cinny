@@ -6,6 +6,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAtom, useAtomValue } from 'jotai';
 import {
   Avatar,
@@ -30,7 +31,6 @@ import { JoinRule, Room } from 'matrix-js-sdk';
 import { RoomJoinRulesEventContent } from 'matrix-js-sdk/lib/types';
 import FocusTrap from 'focus-trap-react';
 import { useMatrixClient } from '../../../hooks/useMatrixClient';
-import { useTranslation } from 'react-i18next';
 import { mDirectAtom } from '../../../state/mDirectList';
 import {
   NavCategory,

@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Box, Chip, Header, Icon, IconButton, Icons, Scroll, Text, as } from 'folds';
 import { ErrorBoundary } from 'react-error-boundary';
-import { useTranslation } from 'react-i18next';
 import * as css from './TextViewer.css';
 import { copyToClipboard } from '../../utils/dom';
 

@@ -52,6 +52,37 @@ import { useMessageSpacingItems } from '../../../hooks/useMessageSpacing';
 import { useDateFormatItems } from '../../../hooks/useDateFormat';
 import { SequenceCardStyle } from '../styles.css';
 
+const languages: { code: string; label: string }[] = [
+  { code: 'en', label: 'English' },
+  { code: 'zh', label: '中文' },
+  { code: 'de', label: 'Deutsch' },
+];
+
+function setI18nPersistence(lang?: string) {
+  try {
+    if (lang) {
+      localStorage.setItem('i18nextLng', lang);
+      try {
+        const maxAge = 60 * 60 * 24 * 365; // 1 year
+        document.cookie = `i18next=${encodeURIComponent(
+          lang
+        )};path=/;max-age=${maxAge};SameSite=Lax`;
+      } catch (e) {
+        // ignore cookie errors
+      }
+    } else {
+      localStorage.removeItem('i18nextLng');
+      try {
+        document.cookie = 'i18next=;path=/;max-age=0;SameSite=Lax';
+      } catch (e) {
+        // ignore cookie errors
+      }
+    }
+  } catch (e) {
+    // ignore storage errors
+  }
+}
+
 type ThemeSelectorProps = {
   themeNames: Record<string, string>;
   themes: Theme[];
@@ -301,6 +332,126 @@ function PageZoomInput() {
       after={<Text size="T300">%</Text>}
       outlined
     />
+  );
+}
+
+function Language() {
+  const { t, i18n } = useTranslation();
+  const [anchor, setAnchor] = useState<RectCords>();
+  const [language, setLanguage] = useSetting(settingsAtom, 'language');
+
+  const current = (i18n.language || 'en').split('-')[0];
+  const currentLabel = languages.find((l) => l.code === current)?.label ?? current;
+  const selectedLabel = language
+    ? languages.find((l) => l.code === language)?.label ?? language
+    : t('Pages.Settings.General.language_system');
+
+  const handleOpen: MouseEventHandler<HTMLButtonElement> = (evt) => {
+    setAnchor(evt.currentTarget.getBoundingClientRect());
+  };
+
+  const handleSelect = (lang?: string) => {
+    setLanguage(lang);
+    setI18nPersistence(lang);
+
+    if (lang) {
+      i18n.changeLanguage(lang).catch(() => {
+        // ignore language change errors
+      });
+    } else {
+      const detected = i18n.services?.languageDetector?.detect?.();
+      const detectedLang = Array.isArray(detected) ? detected[0] : detected;
+      if (typeof detectedLang === 'string' && detectedLang.length > 0) {
+        i18n.changeLanguage(detectedLang).catch(() => {
+          // ignore language change errors
+        });
+      }
+    }
+
+    setAnchor(undefined);
+  };
+
+  return (
+    <Box direction="Column" gap="100">
+      <Text size="L400">{t('Pages.LanguagePicker.title')}</Text>
+      <SequenceCard className={SequenceCardStyle} variant="SurfaceVariant" direction="Column">
+        <SettingTile
+          title={t('Pages.Settings.General.language')}
+          description={t('Pages.Settings.General.language_desc')}
+          after={
+            <>
+              <Button
+                size="300"
+                variant="Secondary"
+                outlined
+                fill="Soft"
+                radii="300"
+                after={<Icon size="300" src={Icons.ChevronBottom} />}
+                onClick={handleOpen}
+              >
+                <Text size="T300">{selectedLabel}</Text>
+              </Button>
+              <PopOut
+                anchor={anchor}
+                offset={5}
+                position="Bottom"
+                align="End"
+                content={
+                  <FocusTrap
+                    focusTrapOptions={{
+                      initialFocus: false,
+                      onDeactivate: () => setAnchor(undefined),
+                      clickOutsideDeactivates: true,
+                      isKeyForward: (evt: KeyboardEvent) =>
+                        evt.key === 'ArrowDown' || evt.key === 'ArrowRight',
+                      isKeyBackward: (evt: KeyboardEvent) =>
+                        evt.key === 'ArrowUp' || evt.key === 'ArrowLeft',
+                      escapeDeactivates: stopPropagation,
+                    }}
+                  >
+                    <Menu>
+                      <Header size="300" style={{ padding: `0 ${config.space.S200}` }}>
+                        <Text size="L400">{t('Pages.LanguagePicker.title')}</Text>
+                      </Header>
+                      <Box
+                        direction="Column"
+                        gap="100"
+                        style={{ padding: config.space.S100, paddingTop: 0 }}
+                      >
+                        <MenuItem
+                          size="300"
+                          variant={!language ? 'Primary' : 'Surface'}
+                          radii="300"
+                          onClick={() => handleSelect(undefined)}
+                        >
+                          <Text size="T300">
+                            {t('Pages.Settings.General.language_system')}{' '}
+                            <Text as="span" size="Inherit" priority="300">
+                              ({currentLabel})
+                            </Text>
+                          </Text>
+                        </MenuItem>
+                        {languages.map((l) => (
+                          <MenuItem
+                            key={l.code}
+                            size="300"
+                            variant={l.code === language ? 'Primary' : 'Surface'}
+                            radii="300"
+                            onClick={() => handleSelect(l.code)}
+                          >
+                            <Text size="T300">{l.label}</Text>
+                          </MenuItem>
+                        ))}
+                      </Box>
+                    </Menu>
+                  </FocusTrap>
+                }
+              />
+            </>
+          }
+        />
+      </SequenceCard>
+    </Box>
   );
 }
 
@@ -1006,6 +1157,7 @@ export function General({ requestClose }: GeneralProps) {
           <PageContent>
             <Box direction="Column" gap="700">
               <Appearance />
+              <Language />
               <DateAndTime />
               <Editor />
               <Messages />
