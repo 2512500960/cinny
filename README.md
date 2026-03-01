@@ -109,3 +109,18 @@ docker run -p 8080:80 cinny:latest
 ```
 
 This will forward your `localhost` port 8080 to the container's port 80. You can visit the app in your browser by navigating to `http://localhost:8080`.
+
+### Multi Language
+
+STILL WIP on dev branch, some pages be untranslated or even unusable. 
+translation strngs will be in `public/locales/{lang}/translation.json`.
+To add a new language, add the translation file, then change Language options in source code file src/app/features/general/General.tsx and file src/app/pages/auth/LanguagePicker.tsx
+
+```
+const languages: { code: string; label: string }[] = [
+  { code: 'en', label: 'English' },
+  { code: 'zh', label: '中文' },
+  { code: 'de', label: 'Deutsch' },
+];
+```
+

@@ -2,7 +2,6 @@
   "defaultHomeserver": 1,
   "homeserverList": [
     "converser.eu",
-    "http://[200:e491:ba8f:fa70:660c:f072:831b:cbf9]:8008/",
     "matrix.org",
     "mozilla.org",
     "unredacted.org",
