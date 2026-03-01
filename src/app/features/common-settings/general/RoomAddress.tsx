@@ -366,7 +366,6 @@ export function RoomLocalAddresses({ permissions }: { permissions: RoomPermissio
   );
 
   const [expand, setExpand] = useState(false);
-  const { t } = useTranslation();
   const { localAliasesState, addLocalAlias, removeLocalAlias } = useLocalAliases(room.roomId);
 
   return (

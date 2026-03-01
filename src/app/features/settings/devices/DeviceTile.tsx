@@ -92,7 +92,6 @@ export function DeviceKeyDetails({ crypto }: DeviceKeyDetailsProps) {
       return keys;
     }, [crypto])
   );
-  const { t } = useTranslation();
   useEffect(() => {
     loadKeys();
   }, [loadKeys]);

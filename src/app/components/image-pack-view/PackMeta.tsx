@@ -57,7 +57,6 @@ export function ImagePackProfile({ meta, canEdit, onEdit }: ImagePackProfileProp
   const avatarUrl = meta.avatar
     ? mxcUrlToHttp(mx, meta.avatar, useAuthentication) ?? undefined
     : undefined;
-  const { t } = useTranslation();
   return (
     <Box gap="400">
       <Box grow="Yes" direction="Column" gap="300">
